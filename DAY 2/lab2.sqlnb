@@ -119,6 +119,205 @@ cells:
       desc client_master_39;"
     languageId: oracle-sql
   - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO CLIENT_MASTER_39 VALUES ('C00001','Ivan
+      Bayross',\t'Mumbai',\t400054,\t'Maharashtra',\t15000)\r
+
+      \    INTO CLIENT_MASTER_39 VALUES ('C00002','Mamta
+      Mazumdar',\t'Madras',\t780001,\t'Tamil Nadu',\t0)\r
+
+      \    INTO CLIENT_MASTER_39 VALUES ('C00003','Chhaya
+      Bankar',\t'Mumbai',\t400057,\t'Maharashtra',\t5000)\r
+
+      \    INTO CLIENT_MASTER_39 VALUES ('C00004','Ashwini
+      Joshi',\t'Bangalore',\t560001,\t'Karnataka',\t0)\r
+
+      \    INTO CLIENT_MASTER_39 VALUES ('C00005','Hansel
+      Colaco',\t'Mumbai',\t400060,\t'Maharashtra',\t2000)\r
+
+      \    INTO CLIENT_MASTER_39 VALUES ('C00006','Deepak
+      Sharma',\t'Mangalore',\t560050,\t'Karnataka',\t0)\r
+
+      \    SELECT 1 FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM CLIENT_MASTER_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES
+      ('P00001','T-Shirts',5,'Piece',200,50,350,250)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES
+      ('P03453','Shirts',6,'Piece',150,50,500,350)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES ('P06734','Cotton
+      Jeans',5,'Piece',100,20,600,450)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES
+      ('P07865','Jeans',5,'Piece',100,20,750,500)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES
+      ('P07868','Trousers',2,'Piece',150,50,850,550)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES
+      ('P07885','PuM-Overs',2.5,'Piece',80,30,700,450)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES ('P07965','Denim
+      Shirts',4,'Piece',100,40,350,250)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES ('P07975','Lyers
+      Tops',5,'Piece',70,30,300,175)\r
+
+      \    INTO PRODUCT_MASTER_39 VALUES
+      ('P08865','Skirts',5,'Piece',75,30,450,300)\r
+
+      \    SELECT 1 FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM PRODUCT_MASTER_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO SALESMAN_MASTER_39 VALUES ('S00001','Aman','A/14', 'Worli',
+      'Mumbai',400002,'Maharashtra',3000 ,100,50,'Good')\r
+
+      \    INTO SALESMAN_MASTER_39 VALUES ('S00002','Omkar','65', 'Nariman',
+      'Mumbai',400001,'Maharashtra',3000 ,200,100,'Good')\r
+
+      \    INTO SALESMAN_MASTER_39 VALUES ('S00003','Raj','P-7', 'Bandra',
+      'Mumbai',400032,'Maharashtra',3000 ,200,100,'Good')\r
+
+      \    INTO SALESMAN_MASTER_39 VALUES ('S00004','Ashish','A/5', 'Juhu',
+      'Mumbai',400044,'Maharashtra',3500 ,200,150,'Good')\r
+
+      SELECT 1 FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SALESMAN_MASTER_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \  INTO sales_order_39\r
+
+      \    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn,
+      Dely_date, Order_status)\r
+
+      \    VALUES
+      ('O19001','C00001',TO_DATE('20-JUL-02','DD-MON-RR'),'S00001','F','N',TO_D\
+      ATE('12-JUN-04','DD-MON-RR'),'In Process')\r
+
+      \r
+
+      \  INTO sales_order_39\r
+
+      \    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn,
+      Dely_date, Order_status)\r
+
+      \    VALUES
+      ('O19002','C00002',TO_DATE('27-JUN-02','DD-MON-RR'),'S00002','P','N',TO_D\
+      ATE('25-JUN-04','DD-MON-RR'),'Cancelled')\r
+
+      \r
+
+      \  INTO sales_order_39\r
+
+      \    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn,
+      Dely_date, Order_status)\r
+
+      \    VALUES
+      ('O46865','C00003',TO_DATE('20-FEB-02','DD-MON-RR'),'S00003','F','Y',TO_D\
+      ATE('18-FEB-04','DD-MON-RR'),'Fulfilled')\r
+
+      \r
+
+      \  INTO sales_order_39\r
+
+      \    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn,
+      Dely_date, Order_status)\r
+
+      \    VALUES
+      ('O19003','C00001',TO_DATE('07-APR-02','DD-MON-RR'),'S00001','F','Y',TO_D\
+      ATE('03-APR-04','DD-MON-RR'),'Fulfilled')\r
+
+      \r
+
+      \  INTO sales_order_39\r
+
+      \    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn,
+      Dely_date, Order_status)\r
+
+      \    VALUES
+      ('O46866','C00004',TO_DATE('22-MAY-02','DD-MON-RR'),'S00002','P','N',TO_D\
+      ATE('20-MAY-04','DD-MON-RR'),'Cancelled')\r
+
+      \r
+
+      \  INTO sales_order_39\r
+
+      \    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn,
+      Dely_date, Order_status)\r
+
+      \    VALUES
+      ('O19008','C00005',TO_DATE('26-JUL-02','DD-MON-RR'),'S00004','F','N',TO_D\
+      ATE('24-MAY-04','DD-MON-RR'),'In Process')\r
+
+      SELECT 1 FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SALES_ORDER_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \  INTO sales_order_details_39 VALUES ('O19001','P00001',4,4,350)\r
+
+      \  INTO sales_order_details_39 VALUES ('O19001','P07965',2,1,350)\r
+
+      \  INTO sales_order_details_39 VALUES ('O19001','P07885',2,1,700)\r
+
+      \r
+
+      \  INTO sales_order_details_39 VALUES ('O19002','P00001',10,0,350)\r
+
+      \r
+
+      \  INTO sales_order_details_39 VALUES ('O46865','P07868',3,3,850)\r
+
+      \  INTO sales_order_details_39 VALUES ('O46865','P07885',3,1,700)\r
+
+      \  INTO sales_order_details_39 VALUES ('O46865','P00001',10,10,350)\r
+
+      \  INTO sales_order_details_39 VALUES ('O46865','P03453',4,4,500)\r
+
+      \r
+
+      \  INTO sales_order_details_39 VALUES ('O19003','P03453',2,2,500)\r
+
+      \  INTO sales_order_details_39 VALUES ('O19003','P06734',1,1,600)\r
+
+      \r
+
+      \  INTO sales_order_details_39 VALUES ('O46866','P07965',1,0,350)\r
+
+      \  INTO sales_order_details_39 VALUES ('O46866','P07975',1,0,300)\r
+
+      \r
+
+      \  INTO sales_order_details_39 VALUES ('O19008','P00001',10,5,350)\r
+
+      \  INTO sales_order_details_39 VALUES ('O19008','P07975',5,3,300)\r
+
+      SELECT 1 FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SALES_ORDER_DETAILS_39;
+    languageId: oracle-sql
+  - kind: 2
     value: DROP TABLE sales_order_details_39;
     languageId: oracle-sql
   - kind: 2
