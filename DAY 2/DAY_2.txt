@@ -201,6 +201,37 @@ SELECT Product_no,
 FROM product_master_39
 WHERE Sell_price > 150;
 
+I)
+SELECT NAME, CITY, STATE FROM CLIENT_MASTER_39 
+WHERE STATE NOT LIKE 'Maharashtra';
+
+J)
+SELECT COUNT(*) FROM sales_order_39;
+
+K)
+SELECT AVG(Cost_price) AS AVG_COST_PRICE, AVG(Sell_price) AS AVG_SELL_PRICE
+FROM product_master_39;
+L)
+SELECT MIN(Cost_price) AS max_price, MAX(Cost_price) AS min_price
+FROM product_master_39;
+
+M)
+SELECT COUNT(*) 
+FROM product_master_39
+WHERE Cost_price >= 1500;
+
+
+SELECT COUNT(*) 
+FROM product_master_39
+WHERE Cost_price >= 150;
+N)
+SELECT *
+FROM product_master_39
+WHERE Qty_on_hand < Reorder_lvl;
+O)
+SELECT Order_no,
+       TO_CHAR(Order_date, 'DAY') AS Order_Day
+FROM sales_order_39;
 
 DROP TABLE sales_order_details_39;
 
