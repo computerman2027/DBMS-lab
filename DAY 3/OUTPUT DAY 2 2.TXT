@@ -1,0 +1,424 @@
+
+SQL*Plus: Release 11.1.0.6.0 - Production on Wed Jan 21 12:27:48 2026
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+Enter user-name: cse1/cse1@172.16.15.210:1521/oracle
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 100
+SQL> CREATE TABLE client_master_39 (
+  2  Client_no VARCHAR2(6) PRIMARY KEY CHECK (Client_no LIKE 'C%'),
+  3  Name VARCHAR2(20) NOT NULL,
+  4  City VARCHAR2(15),
+  5  Pincode NUMBER(8),
+  6  State VARCHAR2(15),
+  7  Bal_due NUMBER(10,2)
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE product_master_39 (
+  2  Product_no VARCHAR2(6) PRIMARY KEY CHECK (Product_no LIKE 'P%'),
+  3  Description VARCHAR2(15) NOT NULL,
+  4  Profit_percent NUMBER(4,2) NOT NULL,
+  5  Unit_measure VARCHAR2(10) NOT NULL,
+  6  Qty_on_hand NUMBER(8) NOT NULL,
+  7  Reorder_lvl NUMBER(8) NOT NULL,
+  8  Sell_price NUMBER(8,2) NOT NULL CHECK (Sell_price > 0),
+  9  Cost_price NUMBER(8,2) NOT NULL CHECK (Cost_price > 0)
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE salesman_master_39 (
+  2      Salesman_no VARCHAR2(6) PRIMARY KEY CHECK (Salesman_no LIKE 'S%'),
+  3      Salesman_name VARCHAR2(20) NOT NULL,
+  4      Address1 VARCHAR2(10) NOT NULL,
+  5      Address2 VARCHAR2(10),
+  6      City VARCHAR2(20),
+  7      Pincode NUMBER(7),
+  8      State VARCHAR2(20),
+  9      Sal_amt NUMBER(8,2) NOT NULL CHECK (Sal_amt>0),
+ 10      Tgt_to_get NUMBER(6,2) NOT NULL CHECK (Tgt_to_get>0),
+ 11      Ytd_sales NUMBER(6,2) NOT NULL,
+ 12      Remarks VARCHAR2(20)
+ 13  );
+
+Table created.
+
+SQL> CREATE TABLE sales_order_39 (
+  2      Order_no VARCHAR2(6) PRIMARY KEY,
+  3      Order_date DATE,
+  4      Client_no VARCHAR2(6) References client_master_39(Client_no),
+  5      Dely_address VARCHAR2(25),
+  6      Salesman_no VARCHAR2(6) References salesman_master_39(Salesman_no),
+  7      Dely_type Char(1) DEFAULT 'F' CHECK ( Dely_type in ('P', 'F') ) ,
+  8      Billed_yn Char(1) ,
+  9      Dely_date Date ,
+ 10      Order_status VARCHAR2(10) CHECK (Order_status in ('In Process', 'Fulfilled','Backorder','Cancelled')),
+ 11      CHECK(Dely_date >= Order_date)
+ 12  );
+
+Table created.
+
+SQL> CREATE TABLE sales_order_details_39 (
+  2      Order_no VARCHAR2(6) References sales_order_39(Order_no),
+  3      Product_no VARCHAR2(6) References product_master_39(Product_no),
+  4      Qty_ordered NUMBER(8),
+  5      Qty_Disp NUMBER(8),
+  6      Product_rate NUMBER(10,2),
+  7      PRIMARY KEY (Order_no, Product_no)
+  8  );
+
+Table created.
+
+SQL> desc sales_order_details_39;
+ Name                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ORDER_NO                                                                              NOT NULL VARCHAR2(6)
+ PRODUCT_NO                                                                            NOT NULL VARCHAR2(6)
+ QTY_ORDERED                                                                            NUMBER(8)
+ QTY_DISP                                                                               NUMBER(8)
+ PRODUCT_RATE                                                                           NUMBER(10,2)
+
+SQL> desc sales_order_39;
+ Name                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ORDER_NO                                                                              NOT NULL VARCHAR2(6)
+ ORDER_DATE                                                                             DATE
+ CLIENT_NO                                                                              VARCHAR2(6)
+ DELY_ADDRESS                                                                           VARCHAR2(25)
+ SALESMAN_NO                                                                            VARCHAR2(6)
+ DELY_TYPE                                                                              CHAR(1)
+ BILLED_YN                                                                              CHAR(1)
+ DELY_DATE                                                                              DATE
+ ORDER_STATUS                                                                           VARCHAR2(10)
+
+SQL> desc salesman_master_39;
+ Name                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ SALESMAN_NO                                                                           NOT NULL VARCHAR2(6)
+ SALESMAN_NAME                                                                         NOT NULL VARCHAR2(20)
+ ADDRESS1                                                                              NOT NULL VARCHAR2(10)
+ ADDRESS2                                                                               VARCHAR2(10)
+ CITY                                                                                   VARCHAR2(20)
+ PINCODE                                                                                NUMBER(7)
+ STATE                                                                                  VARCHAR2(20)
+ SAL_AMT                                                                               NOT NULL NUMBER(8,2)
+ TGT_TO_GET                                                                            NOT NULL NUMBER(6,2)
+ YTD_SALES                                                                             NOT NULL NUMBER(6,2)
+ REMARKS                                                                                VARCHAR2(20)
+
+SQL> desc product_master_39;
+ Name                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PRODUCT_NO                                                                            NOT NULL VARCHAR2(6)
+ DESCRIPTION                                                                           NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                                                                        NOT NULL NUMBER(4,2)
+ UNIT_MEASURE                                                                          NOT NULL VARCHAR2(10)
+ QTY_ON_HAND                                                                           NOT NULL NUMBER(8)
+ REORDER_LVL                                                                           NOT NULL NUMBER(8)
+ SELL_PRICE                                                                            NOT NULL NUMBER(8,2)
+ COST_PRICE                                                                            NOT NULL NUMBER(8,2)
+
+SQL> desc client_master_39;
+ Name                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ CLIENT_NO                                                                             NOT NULL VARCHAR2(6)
+ NAME                                                                                  NOT NULL VARCHAR2(20)
+ CITY                                                                                   VARCHAR2(15)
+ PINCODE                                                                                NUMBER(8)
+ STATE                                                                                  VARCHAR2(15)
+ BAL_DUE                                                                                NUMBER(10,2)
+
+SQL> INSERT ALL
+  2      INTO CLIENT_MASTER_39 VALUES ('C00001','Ivan Bayross', 'Mumbai',       400054,      'Maharashtra',  15000)
+  3      INTO CLIENT_MASTER_39 VALUES ('C00002','Mamta Mazumdar',       'Madras',            780001, 'Tamil Nadu',   0)
+  4      INTO CLIENT_MASTER_39 VALUES ('C00003','Chhaya Bankar',        'Mumbai',            400057, 'Maharashtra',  5000)
+  5      INTO CLIENT_MASTER_39 VALUES ('C00004','Ashwini Joshi',        'Bangalore',         560001, 'Karnataka',    0)
+  6      INTO CLIENT_MASTER_39 VALUES ('C00005','Hansel Colaco',        'Mumbai',            400060, 'Maharashtra',  2000)
+  7      INTO CLIENT_MASTER_39 VALUES ('C00006','Deepak Sharma',        'Mangalore',         560050, 'Karnataka',    0)
+  8      SELECT 1 FROM DUAL;
+
+6 rows created.
+
+SQL> SELECT * FROM CLIENT_MASTER_39;
+
+CLIENT NAME                 CITY               PINCODE STATE              BAL_DUE
+------ -------------------- --------------- ---------- --------------- ----------
+C00001 Ivan Bayross         Mumbai              400054 Maharashtra          15000
+C00002 Mamta Mazumdar       Madras              780001 Tamil Nadu               0
+C00003 Chhaya Bankar        Mumbai              400057 Maharashtra           5000
+C00004 Ashwini Joshi        Bangalore           560001 Karnataka                0
+C00005 Hansel Colaco        Mumbai              400060 Maharashtra           2000
+C00006 Deepak Sharma        Mangalore           560050 Karnataka                0
+
+6 rows selected.
+
+SQL> INSERT ALL
+  2      INTO PRODUCT_MASTER_39 VALUES ('P00001','T-Shirts',5,'Piece',200,50,350,250)
+  3      INTO PRODUCT_MASTER_39 VALUES ('P03453','Shirts',6,'Piece',150,50,500,350)
+  4      INTO PRODUCT_MASTER_39 VALUES ('P06734','Cotton Jeans',5,'Piece',100,20,600,450)
+  5      INTO PRODUCT_MASTER_39 VALUES ('P07865','Jeans',5,'Piece',100,20,750,500)
+  6      INTO PRODUCT_MASTER_39 VALUES ('P07868','Trousers',2,'Piece',150,50,850,550)
+  7      INTO PRODUCT_MASTER_39 VALUES ('P07885','PuM-Overs',2.5,'Piece',80,30,700,450)
+  8      INTO PRODUCT_MASTER_39 VALUES ('P07965','Denim Shirts',4,'Piece',100,40,350,250)
+  9      INTO PRODUCT_MASTER_39 VALUES ('P07975','Lyers Tops',5,'Piece',70,30,300,175)
+ 10      INTO PRODUCT_MASTER_39 VALUES ('P08865','Skirts',5,'Piece',75,30,450,300)
+ 11      SELECT 1 FROM DUAL;
+
+9 rows created.
+
+SQL> SELECT * FROM PRODUCT_MASTER_39;
+
+PRODUC DESCRIPTION     PROFIT_PERCENT UNIT_MEASU QTY_ON_HAND REORDER_LVL SELL_PRICE COST_PRICE
+------ --------------- -------------- ---------- ----------- ----------- ---------- ----------
+P00001 T-Shirts                     5 Piece              200          50        350    250
+P03453 Shirts                       6 Piece              150          50        500    350
+P06734 Cotton Jeans                 5 Piece              100          20        600    450
+P07865 Jeans                        5 Piece              100          20        750    500
+P07868 Trousers                     2 Piece              150          50        850    550
+P07885 PuM-Overs                  2.5 Piece               80          30        700    450
+P07965 Denim Shirts                 4 Piece              100          40        350    250
+P07975 Lyers Tops                   5 Piece               70          30        300    175
+P08865 Skirts                       5 Piece               75          30        450    300
+
+9 rows selected.
+
+SQL> INSERT ALL
+  2      INTO SALESMAN_MASTER_39 VALUES ('S00001','Aman','A/14', 'Worli', 'Mumbai',400002,'Maharashtra',3000 ,100,50,'Good')
+  3      INTO SALESMAN_MASTER_39 VALUES ('S00002','Omkar','65', 'Nariman', 'Mumbai',400001,'Maharashtra',3000 ,200,100,'Good')
+  4      INTO SALESMAN_MASTER_39 VALUES ('S00003','Raj','P-7', 'Bandra', 'Mumbai',400032,'Maharashtra',3000 ,200,100,'Good')
+  5      INTO SALESMAN_MASTER_39 VALUES ('S00004','Ashish','A/5', 'Juhu', 'Mumbai',400044,'Maharashtra',3500 ,200,150,'Good')
+  6  SELECT 1 FROM DUAL;
+
+4 rows created.
+
+SQL> SELECT * FROM SALESMAN_MASTER_39;
+
+SALESM SALESMAN_NAME        ADDRESS1   ADDRESS2   CITY                    PINCODE STATE                SAL_AMT TGT_TO_GET  YTD_SALES REMARKS
+------ -------------------- ---------- ---------- -------------------- ---------- -------------------- ---------- ---------- ---------- --------------------
+S00001 Aman                 A/14       Worli      Mumbai                   400002 Maharashtra                     3000        100         50 Good
+S00002 Omkar                65         Nariman    Mumbai                   400001 Maharashtra                     3000        200        100 Good
+S00003 Raj                  P-7        Bandra     Mumbai                   400032 Maharashtra                     3000        200        100 Good
+S00004 Ashish               A/5        Juhu       Mumbai                   400044 Maharashtra                     3500        200        150 Good
+
+SQL> INSERT ALL
+  2    INTO sales_order_39
+  3      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  4      VALUES ('O19001','C00001',TO_DATE('20-JUL-02','DD-MON-RR'),'S00001','F','N',TO_DATE('12-JUN-04','DD-MON-RR'),'In Process')
+  5
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O19002','C00002',TO_DATE('27-JUN-02','DD-MON-RR'),'S00002','P','N',TO_DATE('25-JUN-04','DD-MON-RR'),'Cancelled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O46865','C00003',TO_DATE('20-FEB-02','DD-MON-RR'),'S00003','F','Y',TO_DATE('18-FEB-04','DD-MON-RR'),'Fulfilled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O19003','C00001',TO_DATE('07-APR-02','DD-MON-RR'),'S00001','F','Y',TO_DATE('03-APR-04','DD-MON-RR'),'Fulfilled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O46866','C00004',TO_DATE('22-MAY-02','DD-MON-RR'),'S00002','P','N',TO_DATE('20-MAY-04','DD-MON-RR'),'Cancelled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O19008','C00005',TO_DATE('26-JUL-02','DD-MON-RR'),'S00004','F','N',TO_DATE('24-MAY-04','DD-MON-RR'),'In Process')
+  3  SELECT 1 FROM dual;
+    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> SELECT * FROM SALES_ORDER_39;
+
+no rows selected
+
+SQL> INSERT ALL
+  2    INTO sales_order_details_39 VALUES ('O19001','P00001',4,4,350)
+  3    INTO sales_order_details_39 VALUES ('O19001','P07965',2,1,350)
+  4    INTO sales_order_details_39 VALUES ('O19001','P07885',2,1,700)
+  5
+SQL>   INTO sales_order_details_39 VALUES ('O19002','P00001',10,0,350)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>
+SQL>   INTO sales_order_details_39 VALUES ('O46865','P07868',3,3,850)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>   INTO sales_order_details_39 VALUES ('O46865','P07885',3,1,700)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>   INTO sales_order_details_39 VALUES ('O46865','P00001',10,10,350)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   INTO sales_order_details_39 VALUES ('O46865','P03453',4,4,500)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>
+SQL>   INTO sales_order_details_39 VALUES ('O19003','P03453',2,2,500)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>   INTO sales_order_details_39 VALUES ('O19003','P06734',1,1,600)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>
+SQL>   INTO sales_order_details_39 VALUES ('O46866','P07965',1,0,350)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL>   INTO sales_order_details_39 VALUES ('O46866','P07975',1,0,300)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>
+SQL>   INTO sales_order_details_39 VALUES ('O19008','P00001',10,5,350)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>   INTO sales_order_details_39 VALUES ('O19008','P07975',5,3,300)
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL> SELECT 1 FROM dual;
+
+         1
+----------
+         1
+
+SQL> INSERT ALL
+  2    INTO sales_order_39
+  3      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  4      VALUES ('O19001','C00001',TO_DATE('20-JUL-02','DD-MON-RR'),'S00001','F','N',TO_DATE('12-JUN-04','DD-MON-RR'),'In Process')
+  5
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O19002','C00002',TO_DATE('27-JUN-02','DD-MON-RR'),'S00002','P','N',TO_DATE('25-JUN-04','DD-MON-RR'),'Cancelled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O46865','C00003',TO_DATE('20-FEB-02','DD-MON-RR'),'S00003','F','Y',TO_DATE('18-FEB-04','DD-MON-RR'),'Fulfilled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O19003','C00001',TO_DATE('07-APR-02','DD-MON-RR'),'S00001','F','Y',TO_DATE('03-APR-04','DD-MON-RR'),'Fulfilled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O46866','C00004',TO_DATE('22-MAY-02','DD-MON-RR'),'S00002','P','N',TO_DATE('20-MAY-04','DD-MON-RR'),'Cancelled')
+  3
+SQL>   INTO sales_order_39
+SP2-0734: unknown command beginning "INTO sales..." - rest of line ignored.
+SQL>     (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  2      VALUES ('O19008','C00005',TO_DATE('26-JUL-02','DD-MON-RR'),'S00004','F','N',TO_DATE('24-MAY-04','DD-MON-RR'),'In Process')
+  3  SELECT 1 FROM dual;
+    (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> INSERT ALL
+  2    INTO sales_order_39
+  3      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  4      VALUES ('O19001','C00001',TO_DATE('20-JUL-02','DD-MON-RR'),'S00001','F','N',TO_DATE('12-JUN-04','DD-MON-RR'),'In Process')
+  5    INTO sales_order_39
+  6      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+  7      VALUES ('O19002','C00002',TO_DATE('27-JUN-02','DD-MON-RR'),'S00002','P','N',TO_DATE('25-JUN-04','DD-MON-RR'),'Cancelled')
+  8    INTO sales_order_39
+  9      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+ 10      VALUES ('O46865','C00003',TO_DATE('20-FEB-02','DD-MON-RR'),'S00003','F','Y',TO_DATE('18-FEB-04','DD-MON-RR'),'Fulfilled')
+ 11    INTO sales_order_39
+ 12      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+ 13      VALUES ('O19003','C00001',TO_DATE('07-APR-02','DD-MON-RR'),'S00001','F','Y',TO_DATE('03-APR-04','DD-MON-RR'),'Fulfilled')
+ 14    INTO sales_order_39
+ 15      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+ 16      VALUES ('O46866','C00004',TO_DATE('22-MAY-02','DD-MON-RR'),'S00002','P','N',TO_DATE('20-MAY-04','DD-MON-RR'),'Cancelled')
+ 17    INTO sales_order_39
+ 18      (Order_no, Client_no, Order_date, Salesman_no, Dely_type, Billed_yn, Dely_date, Order_status)
+ 19      VALUES ('O19008','C00005',TO_DATE('26-JUL-02','DD-MON-RR'),'S00004','F','N',TO_DATE('24-MAY-04','DD-MON-RR'),'In Process')
+ 20  SELECT 1 FROM dual;
+
+6 rows created.
+
+SQL> SELECT * FROM SALES_ORDER_39;
+
+ORDER_ ORDER_DAT CLIENT DELY_ADDRESS              SALESM D B DELY_DATE ORDER_STAT
+------ --------- ------ ------------------------- ------ - - --------- ----------
+O19001 20-JUL-02 C00001                           S00001 F N 12-JUN-04 In Process
+O19002 27-JUN-02 C00002                           S00002 P N 25-JUN-04 Cancelled
+O46865 20-FEB-02 C00003                           S00003 F Y 18-FEB-04 Fulfilled
+O19003 07-APR-02 C00001                           S00001 F Y 03-APR-04 Fulfilled
+O46866 22-MAY-02 C00004                           S00002 P N 20-MAY-04 Cancelled
+O19008 26-JUL-02 C00005                           S00004 F N 24-MAY-04 In Process
+
+6 rows selected.
+
+SQL> INSERT ALL
+  2    INTO sales_order_details_39 VALUES ('O19001','P00001',4,4,350)
+  3    INTO sales_order_details_39 VALUES ('O19001','P07965',2,1,350)
+  4    INTO sales_order_details_39 VALUES ('O19001','P07885',2,1,700)
+  5    INTO sales_order_details_39 VALUES ('O19002','P00001',10,0,350)
+  6    INTO sales_order_details_39 VALUES ('O46865','P07868',3,3,850)
+  7    INTO sales_order_details_39 VALUES ('O46865','P07885',3,1,700)
+  8    INTO sales_order_details_39 VALUES ('O46865','P00001',10,10,350)
+  9    INTO sales_order_details_39 VALUES ('O46865','P03453',4,4,500)
+ 10    INTO sales_order_details_39 VALUES ('O19003','P03453',2,2,500)
+ 11    INTO sales_order_details_39 VALUES ('O19003','P06734',1,1,600)
+ 12    INTO sales_order_details_39 VALUES ('O46866','P07965',1,0,350)
+ 13    INTO sales_order_details_39 VALUES ('O46866','P07975',1,0,300)
+ 14    INTO sales_order_details_39 VALUES ('O19008','P00001',10,5,350)
+ 15    INTO sales_order_details_39 VALUES ('O19008','P07975',5,3,300)
+ 16  SELECT 1 FROM dual;
+
+14 rows created.
+
+SQL> SELECT * FROM SALES_ORDER_DETAILS_39;
+
+ORDER_ PRODUC QTY_ORDERED   QTY_DISP PRODUCT_RATE
+------ ------ ----------- ---------- ------------
+O19001 P00001           4          4          350
+O19001 P07965           2          1          350
+O19001 P07885           2          1          700
+O19002 P00001          10          0          350
+O46865 P07868           3          3          850
+O46865 P07885           3          1          700
+O46865 P00001          10         10          350
+O46865 P03453           4          4          500
+O19003 P03453           2          2          500
+O19003 P06734           1          1          600
+O46866 P07965           1          0          350
+O46866 P07975           1          0          300
+O19008 P00001          10          5          350
+O19008 P07975           5          3          300
+
+14 rows selected.
+
+SQL> DROP TABLE sales_order_details_39;
+
+Table dropped.
+
+SQL> DROP TABLE sales_order_39;
+
+Table dropped.
+
+SQL> DROP TABLE salesman_master_39;
+
+Table dropped.
+
+SQL> DROP TABLE product_master_39;
+
+Table dropped.
+
+SQL> DROP TABLE client_master_39;
+
+Table dropped.
+
+SQL>

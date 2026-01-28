@@ -1,0 +1,136 @@
+SQL*Plus: Release 11.1.0.6.0 - Production on Wed Jan 21 11:42:10 2026
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+Enter user-name: cse1/cse1@172.16.15.210:1521/oracle
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> CREATE TABLE client_master_39 (
+  2  Client_no VARCHAR2(6) PRIMARY KEY CHECK (Client_no LIKE 'C%'),
+  3  Name VARCHAR2(20) NOT NULL,
+  4  City VARCHAR2(15),
+  5  Pincode NUMBER(8),
+  6  State VARCHAR2(15),
+  7  Bal_due NUMBER(10,2)
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE product_master_39 (
+  2  Product_no VARCHAR2(6) PRIMARY KEY CHECK (Product_no LIKE 'P%'),
+  3  Description VARCHAR2(15) NOT NULL,
+  4  Profit_percent NUMBER(4,2) NOT NULL,
+  5  Unit_measure VARCHAR2(10) NOT NULL,
+  6  Qty_on_hand NUMBER(8) NOT NULL,
+  7  Reorder_lvl NUMBER(8) NOT NULL,
+  8  Sell_price NUMBER(8,2) NOT NULL CHECK (Sell_price > 0),
+  9  Cost_price NUMBER(8,2) NOT NULL CHECK (Cost_price > 0)
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE salesman_master_39 (
+  2      Salesman_no VARCHAR2(6) PRIMARY KEY CHECK (Salesman_no LIKE 'S%'),
+  3      Salesman_name VARCHAR2(20) NOT NULL,
+  4      Address1 VARCHAR2(10) NOT NULL,
+  5      Address2 VARCHAR2(10),
+  6      City VARCHAR2(20),
+  7      Pincode NUMBER(7),
+  8      State VARCHAR2(20),
+  9      Sal_amt NUMBER(8,2) NOT NULL CHECK (Sal_amt>0),
+ 10      Tgt_to_get NUMBER(6,2) NOT NULL CHECK (Tgt_to_get>0),
+ 11      Ytd_sales NUMBER(6,2) NOT NULL,
+ 12      Remarks VARCHAR2(20)
+ 13  );
+
+Table created.
+
+SQL> CREATE TABLE sales_order_39 (
+  2      Order_no VARCHAR2(6) PRIMARY KEY,
+  3      Order_date DATE,
+  4      Client_no VARCHAR2(6) References client_master_39(Client_no),
+  5      Dely_address VARCHAR2(25),
+  6      Salesman_no VARCHAR2(6) References salesman_master_39(Salesman_no),
+  7      Dely_type Char(1) DEFAULT 'F' CHECK ( Dely_type in ('P', 'F') ) ,
+  8      Billed_yn Char(1) ,
+  9      Dely_date Date ,
+ 10      Order_status VARCHAR2(10) CHECK (Order_status in ('In Process', 'Fulfilled','Backorder','Cancelled')),
+ 11      CHECK(Dely_date >= Order_date)
+ 12  );
+
+Table created.
+
+SQL> CREATE TABLE sales_order_details_39 (
+  2      Order_no VARCHAR2(6) References sales_order_39(Order_no),
+  3      Product_no VARCHAR2(6) References product_master_39(Product_no),
+  4      Qty_ordered NUMBER(8),
+  5      Qty_Disp NUMBER(8),
+  6      Product_rate NUMBER(10,2),
+  7      PRIMARY KEY (Order_no, Product_no)
+  8  );
+
+Table created.
+
+SQL> desc sales_order_details_39;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ QTY_ORDERED                                        NUMBER(8)
+ QTY_DISP                                           NUMBER(8)
+ PRODUCT_RATE                                       NUMBER(10,2)
+
+SQL> desc sales_order_39;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_NO                                  NOT NULL VARCHAR2(6)
+ ORDER_DATE                                         DATE
+ CLIENT_NO                                          VARCHAR2(6)
+ DELY_ADDRESS                                       VARCHAR2(25)
+ SALESMAN_NO                                        VARCHAR2(6)
+ DELY_TYPE                                          CHAR(1)
+ BILLED_YN                                          CHAR(1)
+ DELY_DATE                                          DATE
+ ORDER_STATUS                                       VARCHAR2(10)
+
+SQL> desc salesman_master_39;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_NO                               NOT NULL VARCHAR2(6)
+ SALESMAN_NAME                             NOT NULL VARCHAR2(20)
+ ADDRESS1                                  NOT NULL VARCHAR2(10)
+ ADDRESS2                                           VARCHAR2(10)
+ CITY                                               VARCHAR2(20)
+ PINCODE                                            NUMBER(7)
+ STATE                                              VARCHAR2(20)
+ SAL_AMT                                   NOT NULL NUMBER(8,2)
+ TGT_TO_GET                                NOT NULL NUMBER(6,2)
+ YTD_SALES                                 NOT NULL NUMBER(6,2)
+ REMARKS                                            VARCHAR2(20)
+
+SQL> desc product_master_39;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCT_NO                                NOT NULL VARCHAR2(6)
+ DESCRIPTION                               NOT NULL VARCHAR2(15)
+ PROFIT_PERCENT                            NOT NULL NUMBER(4,2)
+ UNIT_MEASURE                              NOT NULL VARCHAR2(10)
+ QTY_ON_HAND                               NOT NULL NUMBER(8)
+ REORDER_LVL                               NOT NULL NUMBER(8)
+ SELL_PRICE                                NOT NULL NUMBER(8,2)
+ COST_PRICE                                NOT NULL NUMBER(8,2)
+
+SQL> desc client_master_39;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CLIENT_NO                                 NOT NULL VARCHAR2(6)
+ NAME                                      NOT NULL VARCHAR2(20)
+ CITY                                               VARCHAR2(15)
+ PINCODE                                            NUMBER(8)
+ STATE                                              VARCHAR2(15)
+ BAL_DUE                                            NUMBER(10,2)
+
+SQL>
