@@ -6,7 +6,13 @@ cells:
 
       \    ENAME VARCHAR(10) ,\r
 
+      \    JOB VARCHAR(255),\r
+
       \    MGR NUMBER(4) REFERENCES EMP_39(EMPNO),\r
+
+      \    HIREDATE DATE,\r
+
+      \    SAL NUMBER(7,2) CHECK (SAL >0),\r
 
       \    COMM NUMBER(4) DEFAULT 0 CHECK (COMM < 1500) ,\r
 
@@ -15,60 +21,330 @@ cells:
       );"
     languageId: oracle-sql
   - kind: 2
+    value: "-- INSERT ALL\r
+
+      -- INTO EMP_39 VALUES (7001, 'KING',   NULL, 0,    'ADMIN')\r
+
+      -- INTO EMP_39 VALUES (7002, 'BLAKE',  7001, 0,    'SALESMAN')\r
+
+      -- INTO EMP_39 VALUES (7003, 'CLARK',  7001, 0,    'ACCOUNT')\r
+
+      -- INTO EMP_39 VALUES (7004, 'JONES',  7001, 0,    'RESEARCH')\r
+
+      \r
+
+      -- INTO EMP_39 VALUES (7005, 'ALLEN',  7002, 1200, 'SALESMAN')\r
+
+      -- INTO EMP_39 VALUES (7006, 'WARD',   7002, 900,  'SALESMAN')\r
+
+      -- INTO EMP_39 VALUES (7007, 'MARTIN', 7002, 1400, 'SALESMAN')\r
+
+      -- INTO EMP_39 VALUES (7008, 'TURNER', 7002, 800,  'SALESMAN')\r
+
+      \r
+
+      -- INTO EMP_39 VALUES (7009, 'ADAMS',  7004, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7010, 'JAMES',  7002, 0,    'SALESMAN')\r
+
+      -- INTO EMP_39 VALUES (7011, 'FORD',   7004, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7012, 'SMITH',  7004, 0,    'RESEARCH')\r
+
+      \r
+
+      -- INTO EMP_39 VALUES (7013, 'SCOTT',  7003, 0,    'ACCOUNT')\r
+
+      -- INTO EMP_39 VALUES (7014, 'MILLER', 7003, 0,    'ACCOUNT')\r
+
+      -- INTO EMP_39 VALUES (7015, 'BROWN',  7003, 0,    'ACCOUNT')\r
+
+      \r
+
+      -- INTO EMP_39 VALUES (7016, 'GREEN',  7001, 0,    'HR')\r
+
+      -- INTO EMP_39 VALUES (7017, 'WHITE',  7001, 0,    'HR')\r
+
+      -- INTO EMP_39 VALUES (7018, 'HARRIS', 7002, 1000, 'SALESMAN')\r
+
+      -- INTO EMP_39 VALUES (7019, 'COOPER', 7004, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7020, 'LEE',    7003, 0,    'ACCOUNT')\r
+
+      -- SELECT * FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
     value: "INSERT ALL\r
 
-      INTO EMP_39 VALUES (7001, 'KING',   NULL, 0,    'ADMIN')\r
-
-      INTO EMP_39 VALUES (7002, 'BLAKE',  7001, 0,    'SALES')\r
-
-      INTO EMP_39 VALUES (7003, 'CLARK',  7001, 0,    'ACCOUNT')\r
-
-      INTO EMP_39 VALUES (7004, 'JONES',  7001, 0,    'RESEARCH')\r
+      INTO EMP_39 VALUES (7000, 'KING',  'PRESIDENT', NULL,  DATE '2019-01-01',
+      50000, 0,    'ADMIN')\r
 
       \r
 
-      INTO EMP_39 VALUES (7005, 'ALLEN',  7002, 1200, 'SALES')\r
+      INTO EMP_39 VALUES (7001, 'CLARK', 'MANAGER',   7000,  DATE '2019-03-10',
+      30000, 1000, 'ACCOUNTING')\r
 
-      INTO EMP_39 VALUES (7006, 'WARD',   7002, 900,  'SALES')\r
+      INTO EMP_39 VALUES (7002, 'JONES', 'MANAGER',   7000,  DATE '2019-04-15',
+      32000, 1200, 'RESEARCH')\r
 
-      INTO EMP_39 VALUES (7007, 'MARTIN', 7002, 1400, 'SALES')\r
-
-      INTO EMP_39 VALUES (7008, 'TURNER', 7002, 800,  'SALES')\r
-
-      \r
-
-      INTO EMP_39 VALUES (7009, 'ADAMS',  7004, 0,    'RESEARCH')\r
-
-      INTO EMP_39 VALUES (7010, 'JAMES',  7002, 0,    'SALES')\r
-
-      INTO EMP_39 VALUES (7011, 'FORD',   7004, 0,    'RESEARCH')\r
-
-      INTO EMP_39 VALUES (7012, 'SMITH',  7004, 0,    'RESEARCH')\r
+      INTO EMP_39 VALUES (7003, 'BLAKE', 'MANAGER',   7000,  DATE '2019-05-20',
+      31000, 1100, 'SALES')\r
 
       \r
 
-      INTO EMP_39 VALUES (7013, 'SCOTT',  7003, 0,    'ACCOUNT')\r
+      INTO EMP_39 VALUES (7004, 'SCOTT', 'ANALYST',   7002,  DATE '2020-01-10',
+      25000, 0,    'RESEARCH')\r
 
-      INTO EMP_39 VALUES (7014, 'MILLER', 7003, 0,    'ACCOUNT')\r
-
-      INTO EMP_39 VALUES (7015, 'BROWN',  7003, 0,    'ACCOUNT')\r
+      INTO EMP_39 VALUES (7005, 'FORD',  'ANALYST',   7002,  DATE '2020-02-18',
+      26000, 0,    'RESEARCH')\r
 
       \r
 
-      INTO EMP_39 VALUES (7016, 'GREEN',  7001, 0,    'HR')\r
+      INTO EMP_39 VALUES (7006, 'SMITH', 'CLERK',     7002,  DATE '2020-03-01',
+      12000, 0,    'RESEARCH')\r
 
-      INTO EMP_39 VALUES (7017, 'WHITE',  7001, 0,    'HR')\r
+      INTO EMP_39 VALUES (7007, 'ADAMS', 'CLERK',     7004,  DATE '2020-04-12',
+      11000, 0,    'RESEARCH')\r
 
-      INTO EMP_39 VALUES (7018, 'HARRIS', 7002, 1000, 'SALES')\r
+      \r
 
-      INTO EMP_39 VALUES (7019, 'COOPER', 7004, 0,    'RESEARCH')\r
+      INTO EMP_39 VALUES (7008, 'ALLEN', 'SALESMAN',  7003,  DATE '2020-05-05',
+      18000, 1400, 'SALES')\r
 
-      INTO EMP_39 VALUES (7020, 'LEE',    7003, 0,    'ACCOUNT')\r
+      INTO EMP_39 VALUES (7009, 'WARD',  'SALESMAN',  7003,  DATE '2020-06-10',
+      17500, 1300, 'SALES')\r
 
-      SELECT * FROM dual;\r\n"
+      INTO EMP_39 VALUES (7010, 'MARTIN','SALESMAN',  7003,  DATE '2020-07-15',
+      16000, 1200, 'SALES')\r
+
+      INTO EMP_39 VALUES (7011, 'TURNER','SALESMAN',  7003,  DATE '2020-08-20',
+      17000, 1000, 'SALES')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7012, 'JAMES', 'CLERK',     7003,  DATE '2020-09-01',
+      10000, 0,    'SALES')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7013, 'MILLER','CLERK',     7001,  DATE '2020-10-10',
+      13000, 0,    'ACCOUNTING')\r
+
+      INTO EMP_39 VALUES (7014, 'BROWN', 'CLERK',     7001,  DATE '2020-11-12',
+      12500, 0,    'ACCOUNTING')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7015, 'GREEN', 'HR',        7001,  DATE '2021-01-05',
+      20000, 500,  'HR')\r
+
+      INTO EMP_39 VALUES (7016, 'WHITE', 'HR',        7015,  DATE '2021-02-08',
+      18000, 400,  'HR')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7017, 'BLACK', 'IT',        7002,  DATE '2021-03-15',
+      28000, 0,    'IT')\r
+
+      INTO EMP_39 VALUES (7018, 'YOUNG', 'IT',        7017,  DATE '2021-04-20',
+      26000, 0,    'IT')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7019, 'HALL',  'SUPPORT',   7000,  DATE '2021-05-25',
+      15000, 0,    'SUPPORT')\r
+
+      INTO EMP_39 VALUES (7020, 'RISOV', 'SALESMAN',  7003,  DATE '2020-05-05',
+      18000, 1400, 'SALES')\r
+
+      INTO EMP_39 VALUES (7021, 'ANKIR', 'SALESMAN',     7003,  DATE
+      '2020-09-01', 10000, 0,    'SALES')\r
+
+      SELECT 1 FROM DUAL;\r\n"
     languageId: oracle-sql
   - kind: 2
     value: SELECT * FROM EMP_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME FROM EMP_39\r
+
+      WHERE SUBSTR(LOWER(ENAME),2,1) ='i';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT DISTINCT MGR\r\nFROM EMP_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE EMPNO NOT IN (\r
+
+      \    SELECT DISTINCT MGR\r
+
+      \    FROM EMP_39\r
+
+      \    WHERE MGR IS NOT NULL\r
+
+      );\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE JOB NOT lIKE 'M%';\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT MAX(SAL) AS \"MAX SALARY\",\r
+
+      \    MIN(SAL) AS \"MIN SALARY\",\r
+
+      \    SUM(SAL) AS \"TOTAL SALARY\",\r
+
+      \    AVG(SAL) AS \"AVERAGE SALARY\"\r
+
+      \    FROM EMP_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT MAX(SAL) AS \"MAX SALARY\",\r
+
+      \    MIN(SAL) AS \"MIN SALARY\",\r
+
+      \    SUM(SAL) AS \"TOTAL SALARY\",\r
+
+      \    AVG(SAL) AS \"AVERAGE SALARY\",\r
+
+      \    JOB\r
+
+      \    FROM EMP_39\r
+
+      \    GROUP BY JOB;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT COUNT(*) AS \"Number of managers\"\r
+
+      FROM EMP_39\r
+
+      WHERE JOB lIKE 'M%';\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE HIREDATE > TO_DATE('01-JAN-1980', 'DD-MON-YYYY');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT MAX(SAL)\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'SALESMAN';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'SALESMAN'\r
+
+      AND SAL = (SELECT MAX(SAL)\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'SALESMAN');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'SALESMAN'\r
+
+      AND SAL = (SELECT MAX(SAL)\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'SALESMAN');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'CLERK'\r
+
+      AND SAL = (SELECT MIN(SAL)\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'CLERK');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'CLERK'\r
+
+      AND SAL = (SELECT MIN(SAL)\r
+
+      FROM EMP_39\r
+
+      WHERE JOB LIKE 'CLERK');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE ENAME='FORD';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT DEPT_NAME\r
+
+      FROM EMP_39\r
+
+      WHERE ENAME='FORD';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT MAX(SAL), DEPT_NAME\r
+
+      FROM EMP_39\r
+
+      GROUP BY DEPT_NAME;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT DEPT_NAME\r
+
+      FROM EMP_39\r
+
+      WHERE SAL = (SELECT MAX(SAL) FROM EMP_39);"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT SAL \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE ENAME = 'TURNER';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE SAL > (\r
+
+      \    SELECT SAL \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE ENAME = 'TURNER'\r
+
+      ) \r
+
+      ORDER BY SAL DESC;"
     languageId: oracle-sql
   - kind: 2
     value: DROP TABLE EMP_39;
