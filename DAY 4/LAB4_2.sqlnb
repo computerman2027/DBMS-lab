@@ -1,0 +1,75 @@
+cells:
+  - kind: 2
+    value: "CREATE TABLE EMP_39(\r
+
+      \    EMPNO NUMBER(4) PRIMARY KEY CHECK(EMPNO >=7000 AND EMPNO<=8000),\r
+
+      \    ENAME VARCHAR(10) ,\r
+
+      \    MGR NUMBER(4) REFERENCES EMP_39(EMPNO),\r
+
+      \    COMM NUMBER(4) DEFAULT 0 CHECK (COMM < 1500) ,\r
+
+      \    DEPT_NAME VARCHAR(255)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO EMP_39 VALUES (7001, 'KING',   NULL, 0,    'ADMIN')\r
+
+      INTO EMP_39 VALUES (7002, 'BLAKE',  7001, 0,    'SALES')\r
+
+      INTO EMP_39 VALUES (7003, 'CLARK',  7001, 0,    'ACCOUNT')\r
+
+      INTO EMP_39 VALUES (7004, 'JONES',  7001, 0,    'RESEARCH')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7005, 'ALLEN',  7002, 1200, 'SALES')\r
+
+      INTO EMP_39 VALUES (7006, 'WARD',   7002, 900,  'SALES')\r
+
+      INTO EMP_39 VALUES (7007, 'MARTIN', 7002, 1400, 'SALES')\r
+
+      INTO EMP_39 VALUES (7008, 'TURNER', 7002, 800,  'SALES')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7009, 'ADAMS',  7004, 0,    'RESEARCH')\r
+
+      INTO EMP_39 VALUES (7010, 'JAMES',  7002, 0,    'SALES')\r
+
+      INTO EMP_39 VALUES (7011, 'FORD',   7004, 0,    'RESEARCH')\r
+
+      INTO EMP_39 VALUES (7012, 'SMITH',  7004, 0,    'RESEARCH')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7013, 'SCOTT',  7003, 0,    'ACCOUNT')\r
+
+      INTO EMP_39 VALUES (7014, 'MILLER', 7003, 0,    'ACCOUNT')\r
+
+      INTO EMP_39 VALUES (7015, 'BROWN',  7003, 0,    'ACCOUNT')\r
+
+      \r
+
+      INTO EMP_39 VALUES (7016, 'GREEN',  7001, 0,    'HR')\r
+
+      INTO EMP_39 VALUES (7017, 'WHITE',  7001, 0,    'HR')\r
+
+      INTO EMP_39 VALUES (7018, 'HARRIS', 7002, 1000, 'SALES')\r
+
+      INTO EMP_39 VALUES (7019, 'COOPER', 7004, 0,    'RESEARCH')\r
+
+      INTO EMP_39 VALUES (7020, 'LEE',    7003, 0,    'ACCOUNT')\r
+
+      SELECT * FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM EMP_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE EMP_39;
+    languageId: oracle-sql

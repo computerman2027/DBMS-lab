@@ -1,0 +1,65 @@
+cells:
+  - kind: 1
+    value: a)	Display the current DATE and TIME.
+    languageId: markdown
+  - kind: 2
+    value: SELECT SYSTIMESTAMP FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: b)	Multiply 2 by 2 .
+    languageId: markdown
+  - kind: 2
+    value: SELECT 2*2 FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: c)	Find the absolute value of -15
+    languageId: markdown
+  - kind: 2
+    value: SELECT ABS(-15) FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: d)	Calculate the square root of 5.
+    languageId: markdown
+  - kind: 2
+    value: SELECT SQRT(5) FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: "e)\tRound off 15.19 to one decimal point:"
+    languageId: markdown
+  - kind: 2
+    value: SELECT ROUND(15.19,1) FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: f)	Display the name " IVAN BAYROSS" in LOWERCASE.
+    languageId: markdown
+  - kind: 2
+    value: SELECT LOWER('IVAN BAYROSS') FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: g)	Display the name " IVAN BAYROSS" in UPPERCASE.
+    languageId: markdown
+  - kind: 2
+    value: SELECT UPPER('IVAN BAYROSS') FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: h)	Add 5 months to the present date and print the output.
+    languageId: markdown
+  - kind: 2
+    value: SELECT ADD_MONTHS(CURRENT_DATE, 5) FROM DUAL;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT CURRENT_DATE + INTERVAL '5' MONTH FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: i)	Display the number of months between ‘02-JAN-01' and '02-JUL-01'
+    languageId: markdown
+  - kind: 2
+    value: SELECT MONTHS_BETWEEN(TO_DATE('02-JUL-01',
+      'DD-MON-RR'),TO_DATE('02-JAN-01', 'DD-MON-RR')) FROM DUAL;
+    languageId: oracle-sql
+  - kind: 1
+    value: j)	Print the system date in the particular format ‘DD/MM/YYYY'
+    languageId: markdown
+  - kind: 2
+    value: SELECT TO_CHAR(SYSDATE,'DD/MM/YYYY') FROM DUAL;
+    languageId: oracle-sql
