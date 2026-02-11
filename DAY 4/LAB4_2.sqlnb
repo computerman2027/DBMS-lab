@@ -79,8 +79,6 @@ cells:
       INTO EMP_39 VALUES (7000, 'KING',  'PRESIDENT', NULL,  DATE '2019-01-01',
       50000, 0,    'ADMIN')\r
 
-      \r
-
       INTO EMP_39 VALUES (7001, 'CLARK', 'MANAGER',   7000,  DATE '2019-03-10',
       30000, 1000, 'ACCOUNTING')\r
 
@@ -90,23 +88,17 @@ cells:
       INTO EMP_39 VALUES (7003, 'BLAKE', 'MANAGER',   7000,  DATE '2019-05-20',
       31000, 1100, 'SALES')\r
 
-      \r
-
       INTO EMP_39 VALUES (7004, 'SCOTT', 'ANALYST',   7002,  DATE '2020-01-10',
       25000, 0,    'RESEARCH')\r
 
       INTO EMP_39 VALUES (7005, 'FORD',  'ANALYST',   7002,  DATE '2020-02-18',
       26000, 0,    'RESEARCH')\r
 
-      \r
-
       INTO EMP_39 VALUES (7006, 'SMITH', 'CLERK',     7002,  DATE '2020-03-01',
       12000, 0,    'RESEARCH')\r
 
       INTO EMP_39 VALUES (7007, 'ADAMS', 'CLERK',     7004,  DATE '2020-04-12',
       11000, 0,    'RESEARCH')\r
-
-      \r
 
       INTO EMP_39 VALUES (7008, 'ALLEN', 'SALESMAN',  7003,  DATE '2020-05-05',
       18000, 1400, 'SALES')\r
@@ -120,12 +112,8 @@ cells:
       INTO EMP_39 VALUES (7011, 'TURNER','SALESMAN',  7003,  DATE '2020-08-20',
       17000, 1000, 'SALES')\r
 
-      \r
-
       INTO EMP_39 VALUES (7012, 'JAMES', 'CLERK',     7003,  DATE '2020-09-01',
       10000, 0,    'SALES')\r
-
-      \r
 
       INTO EMP_39 VALUES (7013, 'MILLER','CLERK',     7001,  DATE '2020-10-10',
       13000, 0,    'ACCOUNTING')\r
@@ -133,23 +121,17 @@ cells:
       INTO EMP_39 VALUES (7014, 'BROWN', 'CLERK',     7001,  DATE '2020-11-12',
       12500, 0,    'ACCOUNTING')\r
 
-      \r
-
       INTO EMP_39 VALUES (7015, 'GREEN', 'HR',        7001,  DATE '2021-01-05',
       20000, 500,  'HR')\r
 
       INTO EMP_39 VALUES (7016, 'WHITE', 'HR',        7015,  DATE '2021-02-08',
       18000, 400,  'HR')\r
 
-      \r
-
       INTO EMP_39 VALUES (7017, 'BLACK', 'IT',        7002,  DATE '2021-03-15',
       28000, 0,    'IT')\r
 
       INTO EMP_39 VALUES (7018, 'YOUNG', 'IT',        7017,  DATE '2021-04-20',
       26000, 0,    'IT')\r
-
-      \r
 
       INTO EMP_39 VALUES (7019, 'HALL',  'SUPPORT',   7000,  DATE '2021-05-25',
       15000, 0,    'SUPPORT')\r

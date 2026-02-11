@@ -1,0 +1,85 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\STUDENT> sqlplus cse1/cse1@172.16.15.210:1521/oracle
+
+SQL*Plus: Release 11.1.0.6.0 - Production on Wed Feb 11 12:04:32 2026
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 100
+SQL> SELECT SYSTIMESTAMP FROM DUAL;
+
+SYSTIMESTAMP
+---------------------------------------------------------------------------
+11-FEB-26 12.07.52.633000 PM +05:30
+
+SQL> SELECT 2*2 FROM DUAL;
+
+       2*2
+----------
+         4
+
+SQL> SELECT ABS(-15) FROM DUAL;
+
+  ABS(-15)
+----------
+        15
+
+SQL> SELECT SQRT(5) FROM DUAL;
+
+   SQRT(5)
+----------
+2.23606798
+
+SQL> SELECT ROUND(15.19,1) FROM DUAL;
+
+ROUND(15.19,1)
+--------------
+          15.2
+
+SQL> SELECT LOWER('IVAN BAYROSS') FROM DUAL;
+
+LOWER('IVANB
+------------
+ivan bayross
+
+SQL> SELECT UPPER('IVAN BAYROSS') FROM DUAL;
+
+UPPER('IVANB
+------------
+IVAN BAYROSS
+
+SQL> SELECT ADD_MONTHS(CURRENT_DATE, 5) FROM DUAL;
+
+ADD_MONTH
+---------
+11-JUL-26
+
+SQL> SELECT CURRENT_DATE + INTERVAL '5' MONTH FROM DUAL;
+
+CURRENT_D
+---------
+11-JUL-26
+
+SQL> SELECT MONTHS_BETWEEN(TO_DATE('02-JUL-01', 'DD-MON-RR'),TO_DATE('02-JAN-01', 'DD-MON-RR')) FROM DUAL;
+
+MONTHS_BETWEEN(TO_DATE('02-JUL-01','DD-MON-RR'),TO_DATE('02-JAN-01','DD-MON-RR'))
+---------------------------------------------------------------------------------
+                                                                                6
+
+SQL> SELECT TO_CHAR(SYSDATE,'DD/MM/YYYY') FROM DUAL;
+
+TO_CHAR(SY
+----------
+11/02/2026
+
+SQL>
