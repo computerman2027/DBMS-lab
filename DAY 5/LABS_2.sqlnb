@@ -228,6 +228,13 @@ cells:
 
       WHERE (CITY = 'Kolkata' and ROLLNO >= 20 AND ROLLNO <= 25);"
     languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM STUDENT_39\r
+
+      WHERE (CITY = 'Kolkata' and ROLLNO BETWEEN 20 AND 25);"
+    languageId: oracle-sql
   - kind: 1
     value: Q2D
     languageId: markdown
