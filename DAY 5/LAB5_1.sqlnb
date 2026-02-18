@@ -1,0 +1,204 @@
+cells:
+  - kind: 1
+    value: Assignment 4
+    languageId: markdown
+  - kind: 2
+    value: "CREATE TABLE SAILORS_39(\r
+
+      \    S_ID NUMBER(5) PRIMARY KEY,\r
+
+      \    S_NAME VARCHAR(255),\r
+
+      \    RATING NUMBER(2),\r
+
+      \    AGE NUMBER(3)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE BOATS_39(\r
+
+      \    B_ID NUMBER(5) PRIMARY KEY,\r
+
+      \    B_NAME VARCHAR(255),\r
+
+      \    COLOR VARCHAR(255)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE RESERVES_39(\r
+
+      \    S_ID NUMBER(5) REFERENCES SAILORS_39(S_ID),\r
+
+      \    B_ID NUMBER(5) REFERENCES BOATS_39(B_ID),\r
+
+      \    DAY VARCHAR(255) CHECK (UPPER(DAY) IN
+      ('MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')),\
+      \r
+
+      \    PRIMARY KEY(S_ID,B_ID)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO SAILORS_39 VALUES (1,'Tarun',5,25)\r
+
+      INTO SAILORS_39 VALUES (2,'Amit',4,30)\r
+
+      INTO SAILORS_39 VALUES (3,'Rahul',3,35)\r
+
+      INTO SAILORS_39 VALUES (4,'Neha',5,28)\r
+
+      INTO SAILORS_39 VALUES (5,'Pooja',4,42)\r
+
+      INTO SAILORS_39 VALUES (6,'Ravi',3,65)\r
+
+      INTO SAILORS_39 VALUES (7,'Kiran',2,70)\r
+
+      INTO SAILORS_39 VALUES (8,'Anita',5,22)\r
+
+      INTO SAILORS_39 VALUES (9,'Vikas',4,55)\r
+
+      INTO SAILORS_39 VALUES (10,'Suresh',3,61)\r
+
+      INTO SAILORS_39 VALUES (11,'Manoj',2,45)\r
+
+      INTO SAILORS_39 VALUES (12,'Deepak',4,33)\r
+
+      INTO SAILORS_39 VALUES (13,'Rohit',5,29)\r
+
+      INTO SAILORS_39 VALUES (14,'Sunita',3,40)\r
+
+      INTO SAILORS_39 VALUES (15,'Arjun',4,27)\r
+
+      INTO SAILORS_39 VALUES (16,'Kavya',5,24)\r
+
+      INTO SAILORS_39 VALUES (17,'Nikhil',2,67)\r
+
+      INTO SAILORS_39 VALUES (18,'Meena',3,58)\r
+
+      INTO SAILORS_39 VALUES (19,'Harsha',4,62)\r
+
+      INTO SAILORS_39 VALUES (20,'Isha',5,21)\r
+
+      SELECT * FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO BOATS_39 VALUES (101,'Sea Queen','RED')\r
+
+      INTO BOATS_39 VALUES (102,'Wave Rider','GREEN')\r
+
+      INTO BOATS_39 VALUES (103,'Ocean Star','BLUE')\r
+
+      INTO BOATS_39 VALUES (104,'River King','RED')\r
+
+      INTO BOATS_39 VALUES (105,'Wind Chaser','GREEN')\r
+
+      INTO BOATS_39 VALUES (106,'Blue Pearl','BLUE')\r
+
+      INTO BOATS_39 VALUES (107,'Storm','YELLOW')\r
+
+      INTO BOATS_39 VALUES (108,'Thunder','RED')\r
+
+      INTO BOATS_39 VALUES (109,'Voyager','GREEN')\r
+
+      INTO BOATS_39 VALUES (110,'Explorer','WHITE')\r
+
+      INTO BOATS_39 VALUES (111,'Neptune','BLUE')\r
+
+      INTO BOATS_39 VALUES (112,'Poseidon','RED')\r
+
+      INTO BOATS_39 VALUES (113,'Mariner','GREEN')\r
+
+      INTO BOATS_39 VALUES (114,'Sailor','BLACK')\r
+
+      INTO BOATS_39 VALUES (115,'Navigator','BLUE')\r
+
+      INTO BOATS_39 VALUES (116,'Falcon','RED')\r
+
+      INTO BOATS_39 VALUES (117,'Eagle','GREEN')\r
+
+      INTO BOATS_39 VALUES (118,'Dolphin','WHITE')\r
+
+      INTO BOATS_39 VALUES (119,'Shark','BLUE')\r
+
+      INTO BOATS_39 VALUES (120,'Whale','GREEN')\r
+
+      SELECT * FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO RESERVES_39 VALUES (1,101,'MONDAY')\r
+
+      INTO RESERVES_39 VALUES (1,102,'TUESDAY')\r
+
+      INTO RESERVES_39 VALUES (2,103,'MONDAY')\r
+
+      INTO RESERVES_39 VALUES (3,104,'WEDNESDAY')\r
+
+      INTO RESERVES_39 VALUES (4,105,'MONDAY')\r
+
+      INTO RESERVES_39 VALUES (5,106,'THURSDAY')\r
+
+      INTO RESERVES_39 VALUES (6,107,'FRIDAY')\r
+
+      INTO RESERVES_39 VALUES (7,108,'SATURDAY')\r
+
+      INTO RESERVES_39 VALUES (8,109,'SUNDAY')\r
+
+      INTO RESERVES_39 VALUES (9,110,'MONDAY')\r
+
+      INTO RESERVES_39 VALUES (10,111,'TUESDAY')\r
+
+      INTO RESERVES_39 VALUES (11,112,'WEDNESDAY')\r
+
+      INTO RESERVES_39 VALUES (12,113,'THURSDAY')\r
+
+      INTO RESERVES_39 VALUES (13,114,'FRIDAY')\r
+
+      INTO RESERVES_39 VALUES (14,115,'SATURDAY')\r
+
+      INTO RESERVES_39 VALUES (15,116,'SUNDAY')\r
+
+      INTO RESERVES_39 VALUES (16,117,'MONDAY')\r
+
+      INTO RESERVES_39 VALUES (17,118,'TUESDAY')\r
+
+      INTO RESERVES_39 VALUES (18,119,'WEDNESDAY')\r
+
+      INTO RESERVES_39 VALUES (19,120,'MONDAY')\r
+
+      SELECT * FROM dual;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SAILORS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM BOATS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM RESERVES_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT S_ID FROM SAILORS_39\r
+
+      WHERE S_NAME = 'Tarun';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT "
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE RESERVES_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE BOATS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE SAILORS_39
+    languageId: oracle-sql
