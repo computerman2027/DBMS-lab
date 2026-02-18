@@ -1,0 +1,750 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\STUDENT> SQLPLUS
+
+SQL*Plus: Release 11.1.0.6.0 - Production on Wed Feb 18 11:53:03 2026
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+Enter user-name: cse1/cse1@172.16.15.210:1521/oracle
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> CREATE TABLE SAILORS_39(
+  2      S_ID NUMBER(5) PRIMARY KEY,
+  3      S_NAME VARCHAR(255),
+  4      RATING NUMBER(2),
+  5      AGE NUMBER(3)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE BOATS_39(
+  2      B_ID NUMBER(5) PRIMARY KEY,
+  3      B_NAME VARCHAR(255),
+  4      COLOR VARCHAR(255)
+  5  );
+
+Table created.
+
+SQL> CREATE TABLE RESERVES_39(
+  2      S_ID NUMBER(5) REFERENCES SAILORS_39(S_ID),
+  3      B_ID NUMBER(5) REFERENCES BOATS_39(B_ID),
+  4      DAY VARCHAR(255) CHECK (UPPER(DAY) IN ('MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')),
+  5      PRIMARY KEY(S_ID,B_ID)
+  6  );
+
+Table created.
+
+SQL> INSERT ALL
+  2  INTO SAILORS_39 VALUES (1,'Tarun',5,25)
+  3  INTO SAILORS_39 VALUES (2,'Amit',4,30)
+  4  INTO SAILORS_39 VALUES (3,'Rahul',3,35)
+  5  INTO SAILORS_39 VALUES (4,'Neha',5,28)
+  6  INTO SAILORS_39 VALUES (5,'Pooja',4,42)
+  7  INTO SAILORS_39 VALUES (6,'Ravi',3,65)
+  8  INTO SAILORS_39 VALUES (7,'Kiran',2,70)
+  9  INTO SAILORS_39 VALUES (8,'Anita',5,22)
+ 10  INTO SAILORS_39 VALUES (9,'Vikas',4,55)
+ 11  INTO SAILORS_39 VALUES (10,'Suresh',3,61)
+ 12  INTO SAILORS_39 VALUES (11,'Manoj',2,45)
+ 13  INTO SAILORS_39 VALUES (12,'Deepak',4,33)
+ 14  INTO SAILORS_39 VALUES (13,'Rohit',5,29)
+ 15  INTO SAILORS_39 VALUES (14,'Sunita',3,40)
+ 16  INTO SAILORS_39 VALUES (15,'Arjun',4,27)
+ 17  INTO SAILORS_39 VALUES (16,'Kavya',5,24)
+ 18  INTO SAILORS_39 VALUES (17,'Nikhil',2,67)
+ 19  INTO SAILORS_39 VALUES (18,'Meena',3,58)
+ 20  INTO SAILORS_39 VALUES (19,'Harsha',4,62)
+ 21  INTO SAILORS_39 VALUES (20,'Isha',5,21)
+ 22  SELECT * FROM dual;
+
+20 rows created.
+
+SQL> INSERT ALL
+  2  INTO BOATS_39 VALUES (101,'Sea Queen','RED')
+  3  INTO BOATS_39 VALUES (102,'Wave Rider','GREEN')
+  4  INTO BOATS_39 VALUES (103,'Ocean Star','BLUE')
+  5  INTO BOATS_39 VALUES (104,'River King','RED')
+  6  INTO BOATS_39 VALUES (105,'Wind Chaser','GREEN')
+  7  INTO BOATS_39 VALUES (106,'Blue Pearl','BLUE')
+  8  INTO BOATS_39 VALUES (107,'Storm','YELLOW')
+  9  INTO BOATS_39 VALUES (108,'Thunder','RED')
+ 10  INTO BOATS_39 VALUES (109,'Voyager','GREEN')
+ 11  INTO BOATS_39 VALUES (110,'Explorer','WHITE')
+ 12  INTO BOATS_39 VALUES (111,'Neptune','BLUE')
+ 13  INTO BOATS_39 VALUES (112,'Poseidon','RED')
+ 14  INTO BOATS_39 VALUES (113,'Mariner','GREEN')
+ 15  INTO BOATS_39 VALUES (114,'Sailor','BLACK')
+ 16  INTO BOATS_39 VALUES (115,'Navigator','BLUE')
+ 17  INTO BOATS_39 VALUES (116,'Falcon','RED')
+ 18  INTO BOATS_39 VALUES (117,'Eagle','GREEN')
+ 19  INTO BOATS_39 VALUES (118,'Dolphin','WHITE')
+ 20  INTO BOATS_39 VALUES (119,'Shark','BLUE')
+ 21  INTO BOATS_39 VALUES (120,'Whale','GREEN')
+ 22  SELECT * FROM dual;
+
+20 rows created.
+
+SQL> INSERT ALL
+  2  INTO RESERVES_39 VALUES (1,101,'MONDAY')
+  3  INTO RESERVES_39 VALUES (1,102,'TUESDAY')
+  4  INTO RESERVES_39 VALUES (2,103,'MONDAY')
+  5  INTO RESERVES_39 VALUES (3,104,'WEDNESDAY')
+  6  INTO RESERVES_39 VALUES (4,105,'MONDAY')
+  7  INTO RESERVES_39 VALUES (5,106,'THURSDAY')
+  8  INTO RESERVES_39 VALUES (6,107,'FRIDAY')
+  9  INTO RESERVES_39 VALUES (7,108,'SATURDAY')
+ 10  INTO RESERVES_39 VALUES (8,109,'SUNDAY')
+ 11  INTO RESERVES_39 VALUES (9,110,'MONDAY')
+ 12  INTO RESERVES_39 VALUES (10,111,'TUESDAY')
+ 13  INTO RESERVES_39 VALUES (11,112,'WEDNESDAY')
+ 14  INTO RESERVES_39 VALUES (12,113,'THURSDAY')
+ 15  INTO RESERVES_39 VALUES (13,114,'FRIDAY')
+ 16  INTO RESERVES_39 VALUES (14,115,'SATURDAY')
+ 17  INTO RESERVES_39 VALUES (15,116,'SUNDAY')
+ 18  INTO RESERVES_39 VALUES (16,117,'MONDAY')
+ 19  INTO RESERVES_39 VALUES (17,118,'TUESDAY')
+ 20  INTO RESERVES_39 VALUES (18,119,'WEDNESDAY')
+ 21  INTO RESERVES_39 VALUES (19,120,'MONDAY')
+ 22  SELECT * FROM dual;
+
+20 rows created.
+
+SQL> SELECT * FROM SAILORS_39;
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+         1
+Tarun
+         5         25
+
+         2
+Amit
+         4         30
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+
+         3
+Rahul
+         3         35
+
+         4
+Neha
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+         5         28
+
+         5
+Pooja
+         4         42
+
+         6
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+Ravi
+         3         65
+
+         7
+Kiran
+         2         70
+
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+         8
+Anita
+         5         22
+
+         9
+Vikas
+         4         55
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+
+        10
+Suresh
+         3         61
+
+        11
+Manoj
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+         2         45
+
+        12
+Deepak
+         4         33
+
+        13
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+Rohit
+         5         29
+
+        14
+Sunita
+         3         40
+
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+        15
+Arjun
+         4         27
+
+        16
+Kavya
+         5         24
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+
+        17
+Nikhil
+         2         67
+
+        18
+Meena
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+         3         58
+
+        19
+Harsha
+         4         62
+
+        20
+
+      S_ID
+----------
+S_NAME
+--------------------------------------------------------------------------------
+    RATING        AGE
+---------- ----------
+Isha
+         5         21
+
+
+20 rows selected.
+
+SQL> SELECT * FROM BOATS_39;
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+       101
+Sea Queen
+RED
+
+       102
+Wave Rider
+GREEN
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+
+       103
+Ocean Star
+BLUE
+
+       104
+River King
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+RED
+
+       105
+Wind Chaser
+GREEN
+
+       106
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+Blue Pearl
+BLUE
+
+       107
+Storm
+YELLOW
+
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+       108
+Thunder
+RED
+
+       109
+Voyager
+GREEN
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+
+       110
+Explorer
+WHITE
+
+       111
+Neptune
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+BLUE
+
+       112
+Poseidon
+RED
+
+       113
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+Mariner
+GREEN
+
+       114
+Sailor
+BLACK
+
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+       115
+Navigator
+BLUE
+
+       116
+Falcon
+RED
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+
+       117
+Eagle
+GREEN
+
+       118
+Dolphin
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+WHITE
+
+       119
+Shark
+BLUE
+
+       120
+
+      B_ID
+----------
+B_NAME
+--------------------------------------------------------------------------------
+COLOR
+--------------------------------------------------------------------------------
+Whale
+GREEN
+
+
+20 rows selected.
+
+SQL> SELECT * FROM RESERVES_39;
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+         1        101
+MONDAY
+
+         1        102
+TUESDAY
+
+         2        103
+MONDAY
+
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+         3        104
+WEDNESDAY
+
+         4        105
+MONDAY
+
+         5        106
+THURSDAY
+
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+         6        107
+FRIDAY
+
+         7        108
+SATURDAY
+
+         8        109
+SUNDAY
+
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+         9        110
+MONDAY
+
+        10        111
+TUESDAY
+
+        11        112
+WEDNESDAY
+
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+        12        113
+THURSDAY
+
+        13        114
+FRIDAY
+
+        14        115
+SATURDAY
+
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+        15        116
+SUNDAY
+
+        16        117
+MONDAY
+
+        17        118
+TUESDAY
+
+
+      S_ID       B_ID
+---------- ----------
+DAY
+--------------------------------------------------------------------------------
+        18        119
+WEDNESDAY
+
+        19        120
+MONDAY
+
+
+20 rows selected.
+
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 50
+SQL> SET WRAP OFF
+SQL> SET FEEDBACK ON
+SQL> SET HEADING ON
+SQL> COLUMN S_ID FORMAT 999
+SQL> COLUMN S_NAME FORMAT A15
+SQL> COLUMN RATING FORMAT 99
+SQL> COLUMN AGE FORMAT 999
+SQL>
+SQL> SELECT * FROM SAILORS_39;
+
+S_ID S_NAME          RATING  AGE
+---- --------------- ------ ----
+   1 Tarun                5   25
+   2 Amit                 4   30
+   3 Rahul                3   35
+   4 Neha                 5   28
+   5 Pooja                4   42
+   6 Ravi                 3   65
+   7 Kiran                2   70
+   8 Anita                5   22
+   9 Vikas                4   55
+  10 Suresh               3   61
+  11 Manoj                2   45
+  12 Deepak               4   33
+  13 Rohit                5   29
+  14 Sunita               3   40
+  15 Arjun                4   27
+  16 Kavya                5   24
+  17 Nikhil               2   67
+  18 Meena                3   58
+  19 Harsha               4   62
+  20 Isha                 5   21
+
+20 rows selected.
+
+SQL> COLUMN B_ID FORMAT 999
+SQL> COLUMN B_NAME FORMAT A15
+SQL> COLUMN COLOR FORMAT A10
+SQL>
+SQL> SELECT * FROM BOATS_39;
+
+B_ID B_NAME          COLOR
+---- --------------- ----------
+ 101 Sea Queen       RED
+ 102 Wave Rider      GREEN
+ 103 Ocean Star      BLUE
+ 104 River King      RED
+ 105 Wind Chaser     GREEN
+ 106 Blue Pearl      BLUE
+ 107 Storm           YELLOW
+ 108 Thunder         RED
+ 109 Voyager         GREEN
+ 110 Explorer        WHITE
+ 111 Neptune         BLUE
+ 112 Poseidon        RED
+ 113 Mariner         GREEN
+ 114 Sailor          BLACK
+ 115 Navigator       BLUE
+ 116 Falcon          RED
+ 117 Eagle           GREEN
+ 118 Dolphin         WHITE
+ 119 Shark           BLUE
+ 120 Whale           GREEN
+
+20 rows selected.
+
+SQL> COLUMN B_ID FORMAT 999
+SQL> COLUMN B_NAME FORMAT A15
+SQL> COLUMN COLOR FORMAT A10
+SQL>
+SQL> SELECT * FROM BOATS_39;
+
+B_ID B_NAME          COLOR
+---- --------------- ----------
+ 101 Sea Queen       RED
+ 102 Wave Rider      GREEN
+ 103 Ocean Star      BLUE
+ 104 River King      RED
+ 105 Wind Chaser     GREEN
+ 106 Blue Pearl      BLUE
+ 107 Storm           YELLOW
+ 108 Thunder         RED
+ 109 Voyager         GREEN
+ 110 Explorer        WHITE
+ 111 Neptune         BLUE
+ 112 Poseidon        RED
+ 113 Mariner         GREEN
+ 114 Sailor          BLACK
+ 115 Navigator       BLUE
+ 116 Falcon          RED
+ 117 Eagle           GREEN
+ 118 Dolphin         WHITE
+ 119 Shark           BLUE
+ 120 Whale           GREEN
+
+20 rows selected.
+
+SQL> COLUMN S_ID FORMAT 999
+SQL> COLUMN B_ID FORMAT 999
+SQL> COLUMN DAY FORMAT A10
+SQL>
+SQL> SELECT * FROM RESERVES_39;
+
+S_ID B_ID DAY
+---- ---- ----------
+   1  101 MONDAY
+   1  102 TUESDAY
+   2  103 MONDAY
+   3  104 WEDNESDAY
+   4  105 MONDAY
+   5  106 THURSDAY
+   6  107 FRIDAY
+   7  108 SATURDAY
+   8  109 SUNDAY
+   9  110 MONDAY
+  10  111 TUESDAY
+  11  112 WEDNESDAY
+  12  113 THURSDAY
+  13  114 FRIDAY
+  14  115 SATURDAY
+  15  116 SUNDAY
+  16  117 MONDAY
+  17  118 TUESDAY
+  18  119 WEDNESDAY
+  19  120 MONDAY
+
+20 rows selected.
+
+SQL> SELECT COLOR
+  2  FROM (SELECT *
+  3  FROM SAILORS_39
+  4  NATURAL JOIN RESERVES_39
+  5  NATURAL JOIN BOATS_39)
+  6  WHERE S_NAME = 'Tarun'
+  7  ;
+
+COLOR
+----------
+RED
+GREEN
+
+2 rows selected.
+
+SQL> SELECT S_ID AS SAILOR_ID, S_NAME AS SAILOR_NAME
+  2  FROM (SELECT *
+  3  FROM SAILORS_39
+  4  NATURAL JOIN RESERVES_39
+  5  NATURAL JOIN BOATS_39)
+  6  WHERE DAY = 'MONDAY';
+
+ SAILOR_ID SAILOR_NAME
+---------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1 Tarun
+         2 Amit
+         4 Neha
+         9 Vikas
+        16 Kavya
+        19 Harsha
+
+6 rows selected.
+
+SQL> SELECT B_ID AS BOAT_ID , B_NAME AS BOAT_NAME
+  2  FROM BOATS_39
+  3  WHERE COLOR IN ('RED', 'GREEN');
+
+   BOAT_ID BOAT_NAME
+---------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       101 Sea Queen
+       102 Wave Rider
+       104 River King
+       105 Wind Chaser
+       108 Thunder
+       109 Voyager
+       112 Poseidon
+       113 Mariner
+       116 Falcon
+       117 Eagle
+       120 Whale
+
+11 rows selected.
+
+SQL> DROP TABLE RESERVES_39;
+
+Table dropped.
+
+SQL> DROP TABLE BOATS_39;
+
+Table dropped.
+
+SQL> DROP TABLE SAILORS_39
+  2  ;
+
+Table dropped.
+
+SQL>

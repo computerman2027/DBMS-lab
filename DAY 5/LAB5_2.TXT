@@ -1,0 +1,362 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\STUDENT> SQLPLUS
+
+SQL*Plus: Release 11.1.0.6.0 - Production on Wed Feb 18 12:03:47 2026
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+Enter user-name: cse1/cse1@172.16.15.210:1521/oracle
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 50
+SQL> SET WRAP OFF
+SQL> SET HEADING ON
+SQL> SET FEEDBACK ON
+SQL> COLUMN TID   FORMAT 999
+SQL> COLUMN NAME  FORMAT A20
+SQL> COLUMN DEPT  FORMAT A15
+SQL> COLUMN SUBNO    FORMAT 999
+SQL> COLUMN SUBTITLE FORMAT A25
+SQL> COLUMN TID   FORMAT 999
+SQL> COLUMN SUBNO FORMAT 999
+SQL> COLUMN ROLLNO FORMAT 999
+SQL> COLUMN SNAME  FORMAT A20
+SQL> COLUMN CITY   FORMAT A15
+SQL> CREATE TABLE TEACHER_39(
+  2      TID NUMBER(5) PRIMARY KEY,
+  3      NAME VARCHAR(255),
+  4      DEPT VARCHAR(255)
+  5  );
+
+Table created.
+
+SQL> CREATE TABLE SUBJECT_39(
+  2      SUBNO NUMBER(5) PRIMARY KEY,
+  3      SUBTITLE VARCHAR(255) UNIQUE
+  4  );
+
+Table created.
+
+SQL> CREATE TABLE TAUGHTBY_39(
+  2      TID NUMBER(5) REFERENCES TEACHER_39(TID),
+  3      SUBNO NUMBER(5) REFERENCES SUBJECT_39(SUBNO),
+  4      PRIMARY KEY(TID,SUBNO)
+  5  );
+
+Table created.
+
+SQL> CREATE TABLE STUDENT_39
+  2  (
+  3      ROLLNO NUMBER(5) PRIMARY KEY,
+  4      SNAME VARCHAR(255) ,
+  5      CITY VARCHAR(255)
+  6  )L
+  7  ;
+)L
+ *
+ERROR at line 6:
+ORA-00922: missing or invalid option
+
+
+SQL> CREATE TABLE STUDENT_39
+  2  (
+  3      ROLLNO NUMBER(5) PRIMARY KEY,
+  4      SNAME VARCHAR(255) ,
+  5      CITY VARCHAR(255)
+  6  );
+
+Table created.
+
+SQL> INSERT ALL
+  2      INTO TEACHER_39 VALUES (101, 'Dr. Sharma', 'Physics')
+  3      INTO TEACHER_39 VALUES (102, 'Dr. Mehta', 'Chemistry')
+  4      INTO TEACHER_39 VALUES (103, 'Dr. Roy', 'Physics')
+  5      INTO TEACHER_39 VALUES (104, 'Dr. Sen', 'Mathematics')
+  6      INTO TEACHER_39 VALUES (105, 'Dr. Banerjee', 'Physics')
+  7      INTO TEACHER_39 VALUES (106, 'Dr. Iyer', 'Biology')
+  8      INTO TEACHER_39 VALUES (107, 'Dr. Kapoor', 'Computer Science')
+  9      INTO TEACHER_39 VALUES (108, 'Dr. Das', 'Physics')
+ 10      INTO TEACHER_39 VALUES (109, 'Dr. Nair', 'Chemistry')
+ 11      INTO TEACHER_39 VALUES (110, 'Dr. Gupta', 'Mathematics')
+ 12  SELECT * FROM DUAL;
+
+10 rows created.
+
+SQL> INSERT ALL
+  2      INTO SUBJECT_39 VALUES (201, 'Thermodynamics')
+  3      INTO SUBJECT_39 VALUES (202, 'DBMS')
+  4      INTO SUBJECT_39 VALUES (203, 'Quantum Mechanics')
+  5      INTO SUBJECT_39 VALUES (204, 'Algebra')
+  6      INTO SUBJECT_39 VALUES (205, 'Data Structures')
+  7      INTO SUBJECT_39 VALUES (206, 'Operating Systems')
+  8      INTO SUBJECT_39 VALUES (207, 'Organic Chemistry')
+  9      INTO SUBJECT_39 VALUES (208, 'Electromagnetism')
+ 10      INTO SUBJECT_39 VALUES (209, 'Linear Algebra')
+ 11      INTO SUBJECT_39 VALUES (210, 'Computer Networks')
+ 12  SELECT * FROM DUAL;
+
+10 rows created.
+
+SQL> INSERT ALL
+  2      INTO TAUGHTBY_39 VALUES (101, 201)
+  3      INTO TAUGHTBY_39 VALUES (103, 201)
+  4      INTO TAUGHTBY_39 VALUES (105, 201)
+  5      INTO TAUGHTBY_39 VALUES (108, 201)
+  6      INTO TAUGHTBY_39 VALUES (101, 208)
+  7      INTO TAUGHTBY_39 VALUES (102, 207)
+  8      INTO TAUGHTBY_39 VALUES (107, 202)
+  9      INTO TAUGHTBY_39 VALUES (107, 205)
+ 10      INTO TAUGHTBY_39 VALUES (104, 204)
+ 11      INTO TAUGHTBY_39 VALUES (110, 209)
+ 12      INTO TAUGHTBY_39 VALUES (107, 210)
+ 13  SELECT * FROM DUAL;
+
+11 rows created.
+
+SQL> INSERT ALL
+  2      INTO STUDENT_39 VALUES (17, 'Amit', 'Delhi')
+  3      INTO STUDENT_39 VALUES (18, 'Risov', 'Kolkata')
+  4      INTO STUDENT_39 VALUES (19, 'Kunal', 'Mumbai')
+  5      INTO STUDENT_39 VALUES (20, 'Rohit', 'Kolkata')
+  6      INTO STUDENT_39 VALUES (21, 'Sneha', 'Kolkata')
+  7      INTO STUDENT_39 VALUES (22, 'Anjali', 'Mumbai')
+  8      INTO STUDENT_39 VALUES (23, 'Rahul', 'Kolkata')
+  9      INTO STUDENT_39 VALUES (24, 'Neha', 'Kolkata')
+ 10      INTO STUDENT_39 VALUES (25, 'Suman', 'Kolkata')
+ 11      INTO STUDENT_39 VALUES (26, 'Pooja', 'Chennai')
+ 12      INTO STUDENT_39 VALUES (27, 'Arjun', 'Kolkata')
+ 13  SELECT * FROM DUAL;
+
+11 rows created.
+
+SQL> SELECT * FROM TEACHER_39;
+
+ TID NAME                 DEPT
+---- -------------------- ---------------
+ 101 Dr. Sharma           Physics
+ 102 Dr. Mehta            Chemistry
+ 103 Dr. Roy              Physics
+ 104 Dr. Sen              Mathematics
+ 105 Dr. Banerjee         Physics
+ 106 Dr. Iyer             Biology
+ 107 Dr. Kapoor           Computer Scienc
+ 108 Dr. Das              Physics
+ 109 Dr. Nair             Chemistry
+ 110 Dr. Gupta            Mathematics
+
+10 rows selected.
+
+SQL> SELECT * FROM SUBJECT_39;
+
+SUBNO SUBTITLE
+----- -------------------------
+  201 Thermodynamics
+  202 DBMS
+  203 Quantum Mechanics
+  204 Algebra
+  205 Data Structures
+  206 Operating Systems
+  207 Organic Chemistry
+  208 Electromagnetism
+  209 Linear Algebra
+  210 Computer Networks
+
+10 rows selected.
+
+SQL> SELECT * FROM TAUGHTBY_39;
+
+ TID SUBNO
+---- -----
+ 101   201
+ 101   208
+ 102   207
+ 103   201
+ 104   204
+ 105   201
+ 107   202
+ 107   205
+ 107   210
+ 108   201
+ 110   209
+
+11 rows selected.
+
+SQL> SELECT * FROM STUDENT_39;
+
+ROLLNO SNAME                CITY
+------ -------------------- ---------------
+    17 Amit                 Delhi
+    18 Risov                Kolkata
+    19 Kunal                Mumbai
+    20 Rohit                Kolkata
+    21 Sneha                Kolkata
+    22 Anjali               Mumbai
+    23 Rahul                Kolkata
+    24 Neha                 Kolkata
+    25 Suman                Kolkata
+    26 Pooja                Chennai
+    27 Arjun                Kolkata
+
+11 rows selected.
+
+SQL> SELECT * FROM TAUGHTBY_39
+  2  NATURAL JOIN TEACHER_39
+  3  NATURAL JOIN SUBJECT_39;
+
+SUBNO  TID NAME                 DEPT            SUBTITLE
+----- ---- -------------------- --------------- -------------------------
+  201  108 Dr. Das              Physics         Thermodynamics
+  201  105 Dr. Banerjee         Physics         Thermodynamics
+  201  103 Dr. Roy              Physics         Thermodynamics
+  201  101 Dr. Sharma           Physics         Thermodynamics
+  202  107 Dr. Kapoor           Computer Scienc DBMS
+  204  104 Dr. Sen              Mathematics     Algebra
+  205  107 Dr. Kapoor           Computer Scienc Data Structures
+  207  102 Dr. Mehta            Chemistry       Organic Chemistry
+  208  101 Dr. Sharma           Physics         Electromagnetism
+  209  110 Dr. Gupta            Mathematics     Linear Algebra
+  210  107 Dr. Kapoor           Computer Scienc Computer Networks
+
+11 rows selected.
+
+SQL> SELECT *
+  2  FROM (SELECT * FROM TAUGHTBY_39
+  3  NATURAL JOIN TEACHER_39
+  4  NATURAL JOIN SUBJECT_39
+  5  )
+  6  WHERE (DEPT = 'Physics' AND SUBTITLE = 'Thermodynamics');
+
+SUBNO  TID NAME                 DEPT            SUBTITLE
+----- ---- -------------------- --------------- -------------------------
+  201  101 Dr. Sharma           Physics         Thermodynamics
+  201  103 Dr. Roy              Physics         Thermodynamics
+  201  105 Dr. Banerjee         Physics         Thermodynamics
+  201  108 Dr. Das              Physics         Thermodynamics
+
+4 rows selected.
+
+SQL> SELECT NAME
+  2  FROM (SELECT * FROM TAUGHTBY_39
+  3  NATURAL JOIN TEACHER_39
+  4  NATURAL JOIN SUBJECT_39
+  5  )
+  6  WHERE (DEPT = 'Physics' AND SUBTITLE = 'Thermodynamics');
+
+NAME
+--------------------
+Dr. Sharma
+Dr. Roy
+Dr. Banerjee
+Dr. Das
+
+4 rows selected.
+
+SQL> UPDATE SUBJECT_39
+  2  SET SUBTITLE = 'RDBMS'
+  3  WHERE SUBTITLE = 'DBMS';
+
+1 row updated.
+
+SQL> SELECT * FROM SUBJECT_39;
+
+SUBNO SUBTITLE
+----- -------------------------
+  201 Thermodynamics
+  202 RDBMS
+  203 Quantum Mechanics
+  204 Algebra
+  205 Data Structures
+  206 Operating Systems
+  207 Organic Chemistry
+  208 Electromagnetism
+  209 Linear Algebra
+  210 Computer Networks
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM STUDENT_39
+  3  WHERE (CITY = 'Kolkata');
+
+ROLLNO SNAME                CITY
+------ -------------------- ---------------
+    18 Risov                Kolkata
+    20 Rohit                Kolkata
+    21 Sneha                Kolkata
+    23 Rahul                Kolkata
+    24 Neha                 Kolkata
+    25 Suman                Kolkata
+    27 Arjun                Kolkata
+
+7 rows selected.
+
+SQL> SELECT *
+  2  FROM STUDENT_39
+  3  WHERE (CITY = 'Kolkata' and ROLLNO >= 20 AND ROLLNO <= 25);
+
+ROLLNO SNAME                CITY
+------ -------------------- ---------------
+    20 Rohit                Kolkata
+    21 Sneha                Kolkata
+    23 Rahul                Kolkata
+    24 Neha                 Kolkata
+    25 Suman                Kolkata
+
+5 rows selected.
+
+SQL> SELECT *
+  2  FROM STUDENT_39
+  3  WHERE (CITY = 'Kolkata' and ROLLNO BETWEEN 20 AND 25);
+
+ROLLNO SNAME                CITY
+------ -------------------- ---------------
+    20 Rohit                Kolkata
+    21 Sneha                Kolkata
+    23 Rahul                Kolkata
+    24 Neha                 Kolkata
+    25 Suman                Kolkata
+
+5 rows selected.
+
+SQL> SELECT *
+  2  FROM STUDENT_39
+  3  WHERE CITY = 'Kolkata'
+  4  ORDER BY ROLLNO DESC;
+
+ROLLNO SNAME                CITY
+------ -------------------- ---------------
+    27 Arjun                Kolkata
+    25 Suman                Kolkata
+    24 Neha                 Kolkata
+    23 Rahul                Kolkata
+    21 Sneha                Kolkata
+    20 Rohit                Kolkata
+    18 Risov                Kolkata
+
+7 rows selected.
+
+SQL> DROP TABLE STUDENT_39;
+
+Table dropped.
+
+SQL> DROP TABLE TAUGHTBY_39;
+
+Table dropped.
+
+SQL> DROP TABLE SUBJECT_39;
+
+Table dropped.
+
+SQL> DROP TABLE TEACHER_39;
+
+Table dropped.
+
+SQL>
