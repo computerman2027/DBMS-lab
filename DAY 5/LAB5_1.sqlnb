@@ -182,16 +182,167 @@ cells:
   - kind: 2
     value: SELECT * FROM BOATS_39;
     languageId: oracle-sql
+  - kind: 1
+    value: ""
+    languageId: markdown
   - kind: 2
     value: SELECT * FROM RESERVES_39;
     languageId: oracle-sql
+  - kind: 1
+    value: Q1a
+    languageId: markdown
   - kind: 2
     value: "SELECT S_ID FROM SAILORS_39\r
 
       WHERE S_NAME = 'Tarun';"
     languageId: oracle-sql
   - kind: 2
-    value: "SELECT "
+    value: "SELECT * from RESERVES_39\r
+
+      WHERE S_ID IN (\r
+
+      \    SELECT S_ID FROM SAILORS_39\r
+
+      \    WHERE S_NAME = 'Tarun'\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT B_ID from RESERVES_39\r
+
+      WHERE S_ID IN (\r
+
+      \    SELECT S_ID FROM SAILORS_39\r
+
+      \    WHERE S_NAME = 'Tarun'\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * FROM BOATS_39\r
+
+      WHERE B_ID IN (\r
+
+      \    SELECT B_ID from RESERVES_39\r
+
+      \    WHERE S_ID IN (\r
+
+      \        SELECT S_ID FROM SAILORS_39\r
+
+      \        WHERE S_NAME = 'Tarun'\r
+
+      \    )\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT COLOR FROM BOATS_39\r
+
+      WHERE B_ID IN (\r
+
+      \    SELECT B_ID from RESERVES_39\r
+
+      \    WHERE S_ID IN (\r
+
+      \        SELECT S_ID FROM SAILORS_39\r
+
+      \        WHERE S_NAME = 'Tarun'\r
+
+      \    )\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * FROM SAILORS_39, RESERVES_39\r
+
+      WHERE SAILORS_39.S_ID = RESERVES_39.S_ID"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM SAILORS_39\r
+
+      NATURAL JOIN RESERVES_39\r
+
+      NATURAL JOIN BOATS_39;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT COLOR\r
+
+      FROM SAILORS_39\r
+
+      NATURAL JOIN RESERVES_39\r
+
+      NATURAL JOIN BOATS_39\r
+
+      WHERE S_NAME = 'Tarun'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT COLOR \r
+
+      FROM (SELECT *\r
+
+      FROM SAILORS_39\r
+
+      NATURAL JOIN RESERVES_39\r
+
+      NATURAL JOIN BOATS_39)\r
+
+      WHERE S_NAME = 'Tarun'\r\n"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q1b
+    languageId: markdown
+  - kind: 2
+    value: "SELECT S_ID AS SAILOR_ID, S_NAME AS SAILOR_NAME \r
+
+      FROM (SELECT *\r
+
+      FROM SAILORS_39\r
+
+      NATURAL JOIN RESERVES_39\r
+
+      NATURAL JOIN BOATS_39)\r
+
+      WHERE DAY = 'MONDAY'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * FROM RESERVES_39\r
+
+      WHERE DAY LIKE 'MONDAY'\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT S_ID FROM RESERVES_39\r
+
+      WHERE DAY LIKE 'MONDAY'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT S_ID, S_NAME FROM SAILORS_39\r
+
+      WHERE S_ID IN (\r
+
+      \    SELECT S_ID FROM RESERVES_39\r
+
+      WHERE DAY LIKE 'MONDAY'\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 1
+    value: q1C
+    languageId: markdown
+  - kind: 2
+    value: "SELECT B_ID AS BOAT_ID , B_NAME AS BOAT_NAME\r
+
+      FROM BOATS_39\r
+
+      WHERE COLOR IN ('RED', 'GREEN')"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM BOATS_39\r
+
+      WHERE COLOR IN ('RED', 'GREEN')"
     languageId: oracle-sql
   - kind: 2
     value: DROP TABLE RESERVES_39;
