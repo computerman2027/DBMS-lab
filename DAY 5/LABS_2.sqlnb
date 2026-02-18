@@ -1,0 +1,254 @@
+cells:
+  - kind: 1
+    value: assignment 4 q2
+    languageId: markdown
+  - kind: 2
+    value: "CREATE TABLE TEACHER_39(\r
+
+      \    TID NUMBER(5) PRIMARY KEY,\r
+
+      \    NAME VARCHAR(255),\r
+
+      \    DEPT VARCHAR(255)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE SUBJECT_39(\r
+
+      \    SUBNO NUMBER(5) PRIMARY KEY,\r
+
+      \    SUBTITLE VARCHAR(255) UNIQUE\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE TAUGHTBY_39(\r
+
+      \    TID NUMBER(5) REFERENCES TEACHER_39(TID),\r
+
+      \    SUBNO NUMBER(5) REFERENCES SUBJECT_39(SUBNO),\r
+
+      \    PRIMARY KEY(TID,SUBNO)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE STUDENT_39\r
+
+      (\r
+
+      \    ROLLNO NUMBER(5) PRIMARY KEY,\r
+
+      \    SNAME VARCHAR(255) ,\r
+
+      \    CITY VARCHAR(255)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO TEACHER_39 VALUES (101, 'Dr. Sharma', 'Physics')\r
+
+      \    INTO TEACHER_39 VALUES (102, 'Dr. Mehta', 'Chemistry')\r
+
+      \    INTO TEACHER_39 VALUES (103, 'Dr. Roy', 'Physics')\r
+
+      \    INTO TEACHER_39 VALUES (104, 'Dr. Sen', 'Mathematics')\r
+
+      \    INTO TEACHER_39 VALUES (105, 'Dr. Banerjee', 'Physics')\r
+
+      \    INTO TEACHER_39 VALUES (106, 'Dr. Iyer', 'Biology')\r
+
+      \    INTO TEACHER_39 VALUES (107, 'Dr. Kapoor', 'Computer Science')\r
+
+      \    INTO TEACHER_39 VALUES (108, 'Dr. Das', 'Physics')\r
+
+      \    INTO TEACHER_39 VALUES (109, 'Dr. Nair', 'Chemistry')\r
+
+      \    INTO TEACHER_39 VALUES (110, 'Dr. Gupta', 'Mathematics')\r
+
+      SELECT * FROM DUAL;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO SUBJECT_39 VALUES (201, 'Thermodynamics')\r
+
+      \    INTO SUBJECT_39 VALUES (202, 'DBMS')\r
+
+      \    INTO SUBJECT_39 VALUES (203, 'Quantum Mechanics')\r
+
+      \    INTO SUBJECT_39 VALUES (204, 'Algebra')\r
+
+      \    INTO SUBJECT_39 VALUES (205, 'Data Structures')\r
+
+      \    INTO SUBJECT_39 VALUES (206, 'Operating Systems')\r
+
+      \    INTO SUBJECT_39 VALUES (207, 'Organic Chemistry')\r
+
+      \    INTO SUBJECT_39 VALUES (208, 'Electromagnetism')\r
+
+      \    INTO SUBJECT_39 VALUES (209, 'Linear Algebra')\r
+
+      \    INTO SUBJECT_39 VALUES (210, 'Computer Networks')\r
+
+      SELECT * FROM DUAL;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO TAUGHTBY_39 VALUES (101, 201)\r
+
+      \    INTO TAUGHTBY_39 VALUES (103, 201)\r
+
+      \    INTO TAUGHTBY_39 VALUES (105, 201)\r
+
+      \    INTO TAUGHTBY_39 VALUES (108, 201)\r
+
+      \    INTO TAUGHTBY_39 VALUES (101, 208)\r
+
+      \    INTO TAUGHTBY_39 VALUES (102, 207)\r
+
+      \    INTO TAUGHTBY_39 VALUES (107, 202)\r
+
+      \    INTO TAUGHTBY_39 VALUES (107, 205)\r
+
+      \    INTO TAUGHTBY_39 VALUES (104, 204)\r
+
+      \    INTO TAUGHTBY_39 VALUES (110, 209)\r
+
+      \    INTO TAUGHTBY_39 VALUES (107, 210)\r
+
+      SELECT * FROM DUAL;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO STUDENT_39 VALUES (17, 'Amit', 'Delhi')\r
+
+      \    INTO STUDENT_39 VALUES (18, 'Risov', 'Kolkata')\r
+
+      \    INTO STUDENT_39 VALUES (19, 'Kunal', 'Mumbai')\r
+
+      \    INTO STUDENT_39 VALUES (20, 'Rohit', 'Kolkata')\r
+
+      \    INTO STUDENT_39 VALUES (21, 'Sneha', 'Kolkata')\r
+
+      \    INTO STUDENT_39 VALUES (22, 'Anjali', 'Mumbai')\r
+
+      \    INTO STUDENT_39 VALUES (23, 'Rahul', 'Kolkata')\r
+
+      \    INTO STUDENT_39 VALUES (24, 'Neha', 'Kolkata')\r
+
+      \    INTO STUDENT_39 VALUES (25, 'Suman', 'Kolkata')\r
+
+      \    INTO STUDENT_39 VALUES (26, 'Pooja', 'Chennai')\r
+
+      \    INTO STUDENT_39 VALUES (27, 'Arjun', 'Kolkata')\r
+
+      SELECT * FROM DUAL;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM TEACHER_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SUBJECT_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM TAUGHTBY_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM STUDENT_39;
+    languageId: oracle-sql
+  - kind: 1
+    value: Q2A
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM TAUGHTBY_39\r
+
+      NATURAL JOIN TEACHER_39\r
+
+      NATURAL JOIN SUBJECT_39"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM (SELECT * FROM TAUGHTBY_39\r
+
+      NATURAL JOIN TEACHER_39\r
+
+      NATURAL JOIN SUBJECT_39\r
+
+      )\r
+
+      WHERE (DEPT = 'Physics' AND SUBTITLE = 'Thermodynamics')"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT NAME \r
+
+      FROM (SELECT * FROM TAUGHTBY_39\r
+
+      NATURAL JOIN TEACHER_39\r
+
+      NATURAL JOIN SUBJECT_39\r
+
+      )\r
+
+      WHERE (DEPT = 'Physics' AND SUBTITLE = 'Thermodynamics')"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q2B
+    languageId: markdown
+  - kind: 2
+    value: "UPDATE SUBJECT_39\r
+
+      SET SUBTITLE = 'RDBMS'\r
+
+      WHERE SUBTITLE = 'DBMS';"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SUBJECT_39
+    languageId: oracle-sql
+  - kind: 1
+    value: Q2C
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM STUDENT_39\r
+
+      WHERE (CITY = 'Kolkata');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM STUDENT_39\r
+
+      WHERE (CITY = 'Kolkata' and ROLLNO >= 20 AND ROLLNO <= 25);"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q2D
+    languageId: markdown
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM STUDENT_39\r
+
+      WHERE CITY = 'Kolkata'\r
+
+      ORDER BY ROLLNO DESC;"
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE STUDENT_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE TAUGHTBY_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE SUBJECT_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE TEACHER_39;
+    languageId: oracle-sql
