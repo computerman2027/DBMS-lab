@@ -1,0 +1,585 @@
+cells:
+  - kind: 2
+    value: "CREATE TABLE ZIPCODES_39(\r
+
+      \    ZIP NUMBER(7) PRIMARY KEY,\r
+
+      \    CITY VARCHAR(255)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE EMPLOYEES_39\r
+
+      (\r
+
+      \    ENO NUMBER(5) PRIMARY KEY,\r
+
+      \    ENAME VARCHAR(255),\r
+
+      \    ZIP NUMBER(7) REFERENCES ZIPCODES_39(ZIP),\r
+
+      \    HDATE DATE\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE PARTS_39(\r
+
+      \    PNO NUMBER(5) PRIMARY KEY,\r
+
+      \    PNAME VARCHAR(255),\r
+
+      \    QOH NUMBER(5),\r
+
+      \    PRICE NUMBER(7,2),\r
+
+      \    REORDERLEVEL NUMBER(5)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE CUSTOMERS_39\r
+
+      (\r
+
+      \    CNO NUMBER(5) PRIMARY KEY,\r
+
+      \    CNAME VARCHAR(255),\r
+
+      \    STREET VARCHAR(255),\r
+
+      \    ZIP NUMBER(7) REFERENCES ZIPCODES_39(ZIP),\r
+
+      \    PHONE VARCHAR(10)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE ORDERS_39\r
+
+      (\r
+
+      \    ONO NUMBER(5) PRIMARY KEY,\r
+
+      \    CNO NUMBER(5) REFERENCES CUSTOMERS_39(CNO),\r
+
+      \    ENO NUMBER(5) REFERENCES EMPLOYEES_39(ENO),\r
+
+      \    RECEIVED NUMBER(1) CHECK (RECEIVED IN (0,1)),\r
+
+      \    SHIPPED NUMBER(1) CHECK (SHIPPED IN (0,1))\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE ODETAILS_39\r
+
+      (\r
+
+      \    ONO NUMBER(5) REFERENCES ORDERS_39(ONO),\r
+
+      \    PNO NUMBER(5) REFERENCES PARTS_39(PNO),\r
+
+      \    QTY NUMBER(5) DEFAULT 0 CHECK (QTY >= 0),\r
+
+      \    PRIMARY KEY(ONO,PNO)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO ZIPCODES_39 VALUES (400001, 'Mumbai')\r
+
+      INTO ZIPCODES_39 VALUES (110001, 'Delhi')\r
+
+      INTO ZIPCODES_39 VALUES (560001, 'Bangalore')\r
+
+      INTO ZIPCODES_39 VALUES (600001, 'Chennai')\r
+
+      INTO ZIPCODES_39 VALUES (700001, 'Kolkata')\r
+
+      INTO ZIPCODES_39 VALUES (500001, 'Hyderabad')\r
+
+      INTO ZIPCODES_39 VALUES (380001, 'Ahmedabad')\r
+
+      INTO ZIPCODES_39 VALUES (411001, 'Pune')\r
+
+      INTO ZIPCODES_39 VALUES (302001, 'Jaipur')\r
+
+      INTO ZIPCODES_39 VALUES (226001, 'Lucknow')\r
+
+      INTO ZIPCODES_39 VALUES (751001, 'Bhubaneswar')\r
+
+      INTO ZIPCODES_39 VALUES (682001, 'Kochi')\r
+
+      INTO ZIPCODES_39 VALUES (641001, 'Coimbatore')\r
+
+      INTO ZIPCODES_39 VALUES (440001, 'Nagpur')\r
+
+      INTO ZIPCODES_39 VALUES (248001, 'Dehradun')\r
+
+      INTO ZIPCODES_39 VALUES (201001, 'Ghaziabad')\r
+
+      INTO ZIPCODES_39 VALUES (122001, 'Gurgaon')\r
+
+      INTO ZIPCODES_39 VALUES (395003, 'Surat')\r
+
+      INTO ZIPCODES_39 VALUES (462001, 'Bhopal')\r
+
+      INTO ZIPCODES_39 VALUES (800001, 'Patna')\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO EMPLOYEES_39 VALUES (1,'Amit Sharma',400001,DATE '2015-01-10')\r
+
+      INTO EMPLOYEES_39 VALUES (2,'Ravi Kumar',110001,DATE '2016-03-15')\r
+
+      INTO EMPLOYEES_39 VALUES (3,'Sneha Patil',560001,DATE '2014-07-21')\r
+
+      INTO EMPLOYEES_39 VALUES (4,'Karan Mehta',600001,DATE '2018-11-30')\r
+
+      INTO EMPLOYEES_39 VALUES (5,'Priya Nair',700001,DATE '2013-09-14')\r
+
+      INTO EMPLOYEES_39 VALUES (6,'Suresh Iyer',500001,DATE '2012-02-20')\r
+
+      INTO EMPLOYEES_39 VALUES (7,'Neha Gupta',380001,DATE '2019-06-25')\r
+
+      INTO EMPLOYEES_39 VALUES (8,'Rohan Das',411001,DATE '2017-08-19')\r
+
+      INTO EMPLOYEES_39 VALUES (9,'Simran Kaur',302001,DATE '2011-12-01')\r
+
+      INTO EMPLOYEES_39 VALUES (10,'Vikas Rao',226001,DATE '2020-01-17')\r
+
+      INTO EMPLOYEES_39 VALUES (11,'Anjali Singh',751001,DATE '2014-04-23')\r
+
+      INTO EMPLOYEES_39 VALUES (12,'Deepak Verma',682001,DATE '2016-05-12')\r
+
+      INTO EMPLOYEES_39 VALUES (13,'Sanjay Shah',641001,DATE '2013-10-05')\r
+
+      INTO EMPLOYEES_39 VALUES (14,'Swati Kulkarni',440001,DATE '2015-09-09')\r
+
+      INTO EMPLOYEES_39 VALUES (15,'Arjun Reddy',248001,DATE '2018-03-03')\r
+
+      INTO EMPLOYEES_39 VALUES (16,'Meena Joshi',201001,DATE '2010-07-07')\r
+
+      INTO EMPLOYEES_39 VALUES (17,'Rahul Malhotra',122001,DATE '2012-11-11')\r
+
+      INTO EMPLOYEES_39 VALUES (18,'Pooja Bansal',395003,DATE '2019-02-02')\r
+
+      INTO EMPLOYEES_39 VALUES (19,'Siddharth Jain',462001,DATE '2017-04-14')\r
+
+      INTO EMPLOYEES_39 VALUES (20,'Tina Roy',800001,DATE '2011-06-18')\r
+
+      INTO EMPLOYEES_39 VALUES (21,'Risov Roy',400001,DATE '2011-06-18')\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO PARTS_39 VALUES (101,'Mouse',150,500,20)\r
+
+      INTO PARTS_39 VALUES (102,'Keyboard',120,700,25)\r
+
+      INTO PARTS_39 VALUES (103,'Monitor',75,15000,10)\r
+
+      INTO PARTS_39 VALUES (104,'Printer',40,12000,5)\r
+
+      INTO PARTS_39 VALUES (105,'Scanner',30,8000,5)\r
+
+      INTO PARTS_39 VALUES (106,'CPU',60,25000,10)\r
+
+      INTO PARTS_39 VALUES (107,'Hard Disk',90,4000,15)\r
+
+      INTO PARTS_39 VALUES (108,'RAM',110,3000,20)\r
+
+      INTO PARTS_39 VALUES (109,'Motherboard',50,10000,10)\r
+
+      INTO PARTS_39 VALUES (110,'Webcam',80,2000,10)\r
+
+      INTO PARTS_39 VALUES (111,'Speaker',95,1500,20)\r
+
+      INTO PARTS_39 VALUES (112,'Laptop',35,55000,5)\r
+
+      INTO PARTS_39 VALUES (113,'Tablet',45,22000,8)\r
+
+      INTO PARTS_39 VALUES (114,'Pen Drive',200,600,30)\r
+
+      INTO PARTS_39 VALUES (115,'Router',70,2500,10)\r
+
+      INTO PARTS_39 VALUES (116,'Switch',65,5000,10)\r
+
+      INTO PARTS_39 VALUES (117,'Projector',20,30000,3)\r
+
+      INTO PARTS_39 VALUES (118,'Camera',25,18000,5)\r
+
+      INTO PARTS_39 VALUES (119,'Headphones',140,1200,20)\r
+
+      INTO PARTS_39 VALUES (120,'Microphone',100,3500,15)\r
+
+      INTO PARTS_39 VALUES (121,'Headphones2',140,12,20)\r
+
+      INTO PARTS_39 VALUES (122,'Microphone2',100,5,15)\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO CUSTOMERS_39 VALUES (1,'Sanjay Verma','Street
+      1',400001,'9876543210')\r
+
+      INTO CUSTOMERS_39 VALUES (2,'Aarti Sharma','Street
+      2',110001,'9876543211')\r
+
+      INTO CUSTOMERS_39 VALUES (3,'Suresh Nair','Street
+      3',560001,'9876543212')\r
+
+      INTO CUSTOMERS_39 VALUES (4,'Ritu Kapoor','Street
+      4',600001,'9876543213')\r
+
+      INTO CUSTOMERS_39 VALUES (5,'Simran Gill','Street
+      5',700001,'9876543214')\r
+
+      INTO CUSTOMERS_39 VALUES (6,'Mohit Jain','Street 6',500001,'9876543215')\r
+
+      INTO CUSTOMERS_39 VALUES (7,'Sahil Khan','Street 7',380001,'9876543216')\r
+
+      INTO CUSTOMERS_39 VALUES (8,'Neeraj Gupta','Street
+      8',411001,'9876543217')\r
+
+      INTO CUSTOMERS_39 VALUES (9,'Sonia Mehta','Street
+      9',302001,'9876543218')\r
+
+      INTO CUSTOMERS_39 VALUES (10,'Kunal Shah','Street
+      10',226001,'9876543219')\r
+
+      INTO CUSTOMERS_39 VALUES (11,'Siddhi Patel','Street
+      11',751001,'9876543220')\r
+
+      INTO CUSTOMERS_39 VALUES (12,'Priyanka Das','Street
+      12',682001,'9876543221')\r
+
+      INTO CUSTOMERS_39 VALUES (13,'Sumit Arora','Street
+      13',641001,'9876543222')\r
+
+      INTO CUSTOMERS_39 VALUES (14,'Divya Reddy','Street
+      14',440001,'9876543223')\r
+
+      INTO CUSTOMERS_39 VALUES (15,'Samar Singh','Street
+      15',248001,'9876543224')\r
+
+      INTO CUSTOMERS_39 VALUES (16,'Alok Tiwari','Street
+      16',201001,'9876543225')\r
+
+      INTO CUSTOMERS_39 VALUES (17,'Sanya Roy','Street
+      17',122001,'9876543226')\r
+
+      INTO CUSTOMERS_39 VALUES (18,'Rakesh Yadav','Street
+      18',395003,'9876543227')\r
+
+      INTO CUSTOMERS_39 VALUES (19,'Snehal Joshi','Street
+      19',462001,'9876543228')\r
+
+      INTO CUSTOMERS_39 VALUES (20,'Vijay Anand','Street
+      20',800001,'9876543229')\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO ORDERS_39 VALUES (1,1,1,1,1)\r
+
+      INTO ORDERS_39 VALUES (2,2,2,1,0)\r
+
+      INTO ORDERS_39 VALUES (3,3,3,1,1)\r
+
+      INTO ORDERS_39 VALUES (4,4,4,1,0)\r
+
+      INTO ORDERS_39 VALUES (5,5,5,1,1)\r
+
+      INTO ORDERS_39 VALUES (6,6,6,1,0)\r
+
+      INTO ORDERS_39 VALUES (7,7,7,1,1)\r
+
+      INTO ORDERS_39 VALUES (8,8,8,1,1)\r
+
+      INTO ORDERS_39 VALUES (9,9,9,1,0)\r
+
+      INTO ORDERS_39 VALUES (10,10,10,1,1)\r
+
+      INTO ORDERS_39 VALUES (11,11,11,1,0)\r
+
+      INTO ORDERS_39 VALUES (12,12,12,1,1)\r
+
+      INTO ORDERS_39 VALUES (13,13,13,1,1)\r
+
+      INTO ORDERS_39 VALUES (14,14,14,1,0)\r
+
+      INTO ORDERS_39 VALUES (15,15,15,1,1)\r
+
+      INTO ORDERS_39 VALUES (16,16,16,1,0)\r
+
+      INTO ORDERS_39 VALUES (17,17,17,1,1)\r
+
+      INTO ORDERS_39 VALUES (18,18,18,1,1)\r
+
+      INTO ORDERS_39 VALUES (19,19,19,1,0)\r
+
+      INTO ORDERS_39 VALUES (20,20,20,1,1)\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO ODETAILS_39 VALUES (1,101,5)\r
+
+      INTO ODETAILS_39 VALUES (2,102,3)\r
+
+      INTO ODETAILS_39 VALUES (3,103,2)\r
+
+      INTO ODETAILS_39 VALUES (4,104,1)\r
+
+      INTO ODETAILS_39 VALUES (5,105,4)\r
+
+      INTO ODETAILS_39 VALUES (6,106,2)\r
+
+      INTO ODETAILS_39 VALUES (7,107,6)\r
+
+      INTO ODETAILS_39 VALUES (8,108,5)\r
+
+      INTO ODETAILS_39 VALUES (9,109,2)\r
+
+      INTO ODETAILS_39 VALUES (10,110,3)\r
+
+      INTO ODETAILS_39 VALUES (11,111,4)\r
+
+      INTO ODETAILS_39 VALUES (12,112,1)\r
+
+      INTO ODETAILS_39 VALUES (13,113,2)\r
+
+      INTO ODETAILS_39 VALUES (14,114,10)\r
+
+      INTO ODETAILS_39 VALUES (15,115,3)\r
+
+      INTO ODETAILS_39 VALUES (16,116,2)\r
+
+      INTO ODETAILS_39 VALUES (17,117,1)\r
+
+      INTO ODETAILS_39 VALUES (18,118,2)\r
+
+      INTO ODETAILS_39 VALUES (19,119,5)\r
+
+      INTO ODETAILS_39 VALUES (20,120,4)\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM ZIPCODES_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM EMPLOYEES_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM PARTS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM CUSTOMERS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM ORDERS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM ODETAILS_39;
+    languageId: oracle-sql
+  - kind: 1
+    value: A) Get PNO & PNAME values of parts that are priced less than 20.
+    languageId: markdown
+  - kind: 2
+    value: "SELECT PNO, PNAME\r
+
+      FROM PARTS_39\r
+
+      WHERE PRICE<20;"
+    languageId: oracle-sql
+  - kind: 1
+    value: B) Get PNO values for parts for which orders have been placed
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DISTINCT PNO FROM ODETAILS_39 ORDER BY PNO ASC;\r\n"
+    languageId: oracle-sql
+  - kind: 1
+    value: "C) Get all the details of customers whose names begin with the letter
+      “S”. "
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM CUSTOMERS_39\r
+
+      WHERE CNAME LIKE 'S%';"
+    languageId: oracle-sql
+  - kind: 1
+    value: D) Get the ONO & CNAME values for customers whose orders have not yet
+      been shipped.
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM ORDERS_39\r
+
+      NATURAL JOIN CUSTOMERS_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * FROM ORDERS_39\r
+
+      NATURAL JOIN CUSTOMERS_39\r
+
+      WHERE SHIPPED = 0;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ONO, CNAME FROM ORDERS_39\r
+
+      NATURAL JOIN CUSTOMERS_39\r
+
+      WHERE SHIPPED = 0;"
+    languageId: oracle-sql
+  - kind: 1
+    value: "E)Get CNAME & ENAME pairs such the customer with name CNAME has placed
+      and ordered \r
+
+      through the employees with name ENAME."
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM ORDERS_39\r
+
+      NATURAL JOIN CUSTOMERS_39\r
+
+      NATURAL JOIN EMPLOYEES_39"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT CNAME,ENAME FROM ORDERS_39\r
+
+      NATURAL JOIN CUSTOMERS_39\r
+
+      NATURAL JOIN EMPLOYEES_39\r
+
+      \r
+
+      -- WRONG"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT C.CNAME, E.ENAME\r
+
+      FROM ORDERS_39 O\r
+
+      JOIN CUSTOMERS_39 C ON O.CNO = C.CNO\r
+
+      JOIN EMPLOYEES_39 E ON O.ENO = E.ENO;"
+    languageId: oracle-sql
+  - kind: 1
+    value: F)Get the name of employees who were hired on the earliest date
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM EMPLOYEES_39\r
+
+      ORDER BY HDATE ASC;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME\r
+
+      FROM EMPLOYEES_39\r
+
+      WHERE HDATE = (SELECT MIN(HDATE) FROM EMPLOYEES_39);"
+    languageId: oracle-sql
+  - kind: 1
+    value: "G)Retrieve  the  part  number,  part  name  and  price  of  parts  with  \
+      price  greater  than  20000  in  an \r
+
+      ascending order of part number."
+    languageId: markdown
+  - kind: 2
+    value: "SELECT PNO, PNAME, PRICE\r
+
+      FROM PARTS_39\r
+
+      WHERE PRICE > 20000\r
+
+      ORDER BY PRICE ASC"
+    languageId: oracle-sql
+  - kind: 1
+    value: "H)For each part, get PNO & PNAME values along with total sales.  \r\n"
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM ODETAILS_39\r
+
+      NATURAL JOIN PARTS_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT PNO, PNAME, (QTY*PRICE) AS TOTAL_SALES\r
+
+      FROM ODETAILS_39\r
+
+      NATURAL JOIN PARTS_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM PARTS_39 P\r
+
+      JOIN ODETAILS_39 O ON P.PNO = O.PNO;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT P.PNO, P.PNAME, SUM(O.QTY * P.PRICE) AS TOTAL_SALES\r
+
+      FROM PARTS_39 P\r
+
+      JOIN ODETAILS_39 O ON P.PNO = O.PNO\r
+
+      GROUP BY P.PNO, P.PNAME;"
+    languageId: oracle-sql
+  - kind: 1
+    value: I)Get the total quantity of parts 10601 that has been ordered
+    languageId: markdown
+  - kind: 2
+    value: "SELECT SUM(QTY) AS TOTAL_QUANTITY\r
+
+      FROM ODETAILS_39\r
+
+      WHERE PNO = 10601;"
+    languageId: oracle-sql
+  - kind: 1
+    value: J)Get the ENO values of employees from city “Mumbai”.
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM EMPLOYEES_39 E\r
+
+      JOIN ZIPCODES_39 Z ON E.ZIP = Z.ZIP\r
+
+      WHERE Z.CITY = 'Mumbai'"
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE ODETAILS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE ORDERS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE CUSTOMERS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE PARTS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE EMPLOYEES_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE ZIPCODES_39;
+    languageId: oracle-sql
