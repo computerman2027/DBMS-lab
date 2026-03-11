@@ -1,0 +1,213 @@
+cells:
+  - kind: 1
+    value: "# ASSIGNMENT 6"
+    languageId: markdown
+  - kind: 2
+    value: "CREATE TABLE CUSTOMERS_39(\r
+
+      \    CUSTOMER_ID NUMBER(2) PRIMARY KEY,\r
+
+      \    CUSTOMER_NAME VARCHAR(255),\r
+
+      \    CONTACT_NAME VARCHAR(255),\r
+
+      \    ADDRESS VARCHAR(255),\r
+
+      \    CITY VARCHAR(255),\r
+
+      \    POSTALCODE NUMBER(5),\r
+
+      \    COUNTRY VARCHAR(255)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE SUPPLIERS_39(\r
+
+      \    SUPPLIER_ID NUMBER(2) PRIMARY KEY,\r
+
+      \    SUPPLIER_NAME VARCHAR(255),\r
+
+      \    CONTACT_NAME VARCHAR(255),\r
+
+      \    ADDRESS VARCHAR(255),\r
+
+      \    CITY VARCHAR(255),\r
+
+      \    POSTALCODE NUMBER(5),\r
+
+      \    COUNTRY VARCHAR(255)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO CUSTOMERS_39 VALUES (1,'Alfreds Futter','Maria Anders','Obere
+      Str.57','Berlin',12209,'Germany')\r
+
+      \    INTO CUSTOMERS_39 VALUES (2,'Ana helados','Ana
+      Trujillo','Avda.Construction 2222','Mexico D.F',05021,'Mexico')\r
+
+      \    INTO CUSTOMERS_39 VALUES (3,'Antonio Moreno','Antonio
+      Moreno','Metaderos 2312','Mexico D.F',05023,'Mexico')\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      \    INTO SUPPLIERS_39 VALUES (1,'Exotic Liquid','Charlotte Cooper','49
+      Gilbert St.','Berlin',12209,'Germany')\r
+
+      \    INTO SUPPLIERS_39 VALUES (2,'New Orleans Cajun Delights','Shelly
+      Burke','P.O. Box 78934','Mexico D.F',05023,'Mexico')\r
+
+      \    INTO SUPPLIERS_39 VALUES (3,'Grandma Kally''s Homestead','Regina
+      Murphy','707 Oxford Rd.','Ann Arbor',48104,'USA')\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM CUSTOMERS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM SUPPLIERS_39;
+    languageId: oracle-sql
+  - kind: 1
+    value: A)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT CITY FROM CUSTOMERS_39\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT CITY FROM SUPPLIERS_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT CITY FROM CUSTOMERS_39\r
+
+      UNION \r
+
+      SELECT CITY FROM SUPPLIERS_39;"
+    languageId: oracle-sql
+  - kind: 1
+    value: B)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT CITY FROM CUSTOMERS_39\r
+
+      UNION ALL\r
+
+      SELECT CITY FROM SUPPLIERS_39;"
+    languageId: oracle-sql
+  - kind: 1
+    value: C)
+    languageId: markdown
+  - kind: 2
+    value: SELECT CITY FROM CUSTOMERS_39 WHERE COUNTRY = 'Germany'
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT CITY FROM SUPPLIERS_39 WHERE COUNTRY = 'Germany';
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT CITY FROM CUSTOMERS_39 WHERE COUNTRY = 'Germany'\r
+
+      UNION \r
+
+      SELECT CITY FROM SUPPLIERS_39 WHERE COUNTRY = 'Germany';"
+    languageId: oracle-sql
+  - kind: 1
+    value: D)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM CUSTOMERS_39\r
+
+      WHERE CITY IN\r
+
+      (SELECT CITY FROM CUSTOMERS_39\r
+
+      INTERSECT\r
+
+      SELECT CITY FROM SUPPLIERS_39)"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * FROM SUPPLIERS_39\r
+
+      WHERE CITY IN\r
+
+      (SELECT CITY FROM CUSTOMERS_39\r
+
+      INTERSECT\r
+
+      SELECT CITY FROM SUPPLIERS_39)"
+    languageId: oracle-sql
+  - kind: 2
+    value: "(SELECT * FROM CUSTOMERS_39\r
+
+      WHERE CITY IN\r
+
+      (SELECT CITY FROM CUSTOMERS_39\r
+
+      INTERSECT\r
+
+      SELECT CITY FROM SUPPLIERS_39))\r
+
+      \r
+
+      UNION\r
+
+      \r
+
+      (SELECT * FROM SUPPLIERS_39\r
+
+      WHERE CITY IN\r
+
+      (SELECT CITY FROM CUSTOMERS_39\r
+
+      INTERSECT\r
+
+      SELECT CITY FROM SUPPLIERS_39))"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT CUSTOMER_NAME as Name FROM ((SELECT * FROM CUSTOMERS_39\r
+
+      WHERE CITY IN\r
+
+      (SELECT CITY FROM CUSTOMERS_39\r
+
+      INTERSECT\r
+
+      SELECT CITY FROM SUPPLIERS_39))\r
+
+      \r
+
+      UNION\r
+
+      \r
+
+      (SELECT * FROM SUPPLIERS_39\r
+
+      WHERE CITY IN\r
+
+      (SELECT CITY FROM CUSTOMERS_39\r
+
+      INTERSECT\r
+
+      SELECT CITY FROM SUPPLIERS_39)))"
+    languageId: oracle-sql
+  - kind: 1
+    value: E)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT COUNTRY FROM CUSTOMERS_39\r
+
+      INTERSECT \r
+
+      SELECT COUNTRY FROM SUPPLIERS_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE SUPPLIERS_39
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE CUSTOMERS_39
+    languageId: oracle-sql
