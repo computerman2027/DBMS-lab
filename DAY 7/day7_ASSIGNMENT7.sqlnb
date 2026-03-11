@@ -1,0 +1,518 @@
+cells:
+  - kind: 2
+    value: "CREATE TABLE EMP_39(\r
+
+      \    EMPNO NUMBER(4) PRIMARY KEY CHECK(EMPNO >=7000 AND EMPNO<=8000),\r
+
+      \    ENAME VARCHAR(10) ,\r
+
+      \    JOB VARCHAR(255),\r
+
+      \    MGR NUMBER(4) REFERENCES EMP_39(EMPNO),\r
+
+      \    HIREDATE DATE,\r
+
+      \    SAL NUMBER(7,2) CHECK (SAL >0),\r
+
+      \    COMM NUMBER(4) DEFAULT 0 CHECK (COMM < 1500) ,\r
+
+      \    DEPT_NAME VARCHAR(255),\r
+
+      \    CITY VARCHAR(255)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE GRADE_39(\r
+
+      \    GRADE NUMBER(3),\r
+
+      \    MINSAL NUMBER(7,2),\r
+
+      \    MAXSAL NUMBER(7,2)\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 2
+    value: "-- INSERT ALL\r
+
+      -- INTO EMP_39 VALUES (7000, 'KING',  'PRESIDENT', NULL,  DATE
+      '2019-01-01', 50000, 0,    'ADMIN')\r
+
+      -- INTO EMP_39 VALUES (7001, 'CLARK', 'MANAGER',   7000,  DATE
+      '2019-03-10', 30000, 1000, 'ACCOUNTING')\r
+
+      -- INTO EMP_39 VALUES (7002, 'JONES', 'MANAGER',   7000,  DATE
+      '2019-04-15', 32000, 1200, 'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7003, 'BLAKE', 'MANAGER',   7000,  DATE
+      '2019-05-20', 31000, 1100, 'SALES')\r
+
+      -- INTO EMP_39 VALUES (7004, 'SCOTT', 'ANALYST',   7002,  DATE
+      '2020-01-10', 25000, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7005, 'FORD',  'ANALYST',   7002,  DATE
+      '2020-02-18', 26000, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7006, 'SMITH', 'CLERK',     7002,  DATE
+      '2020-03-01', 12000, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7007, 'ADAMS', 'CLERK',     7004,  DATE
+      '2020-04-12', 11000, 0,    'RESEARCH')\r
+
+      -- INTO EMP_39 VALUES (7008, 'ALLEN', 'SALESMAN',  7003,  DATE
+      '2020-05-05', 18000, 1400, 'SALES')\r
+
+      -- INTO EMP_39 VALUES (7009, 'WARD',  'SALESMAN',  7003,  DATE
+      '2020-06-10', 17500, 1300, 'SALES')\r
+
+      -- INTO EMP_39 VALUES (7010, 'MARTIN','SALESMAN',  7003,  DATE
+      '2020-07-15', 16000, 1200, 'SALES')\r
+
+      -- INTO EMP_39 VALUES (7011, 'TURNER','SALESMAN',  7003,  DATE
+      '2020-08-20', 17000, 1000, 'SALES')\r
+
+      -- INTO EMP_39 VALUES (7012, 'JAMES', 'CLERK',     7003,  DATE
+      '2020-09-01', 10000, 0,    'SALES')\r
+
+      -- INTO EMP_39 VALUES (7013, 'MILLER','CLERK',     7001,  DATE
+      '2020-10-10', 13000, 0,    'ACCOUNTING')\r
+
+      -- INTO EMP_39 VALUES (7014, 'BROWN', 'CLERK',     7001,  DATE
+      '2020-11-12', 12500, 0,    'ACCOUNTING')\r
+
+      -- INTO EMP_39 VALUES (7015, 'GREEN', 'HR',        7001,  DATE
+      '2021-01-05', 20000, 500,  'HR')\r
+
+      -- INTO EMP_39 VALUES (7016, 'WHITE', 'HR',        7015,  DATE
+      '2021-02-08', 18000, 400,  'HR')\r
+
+      -- INTO EMP_39 VALUES (7017, 'BLACK', 'IT',        7002,  DATE
+      '2021-03-15', 28000, 0,    'IT')\r
+
+      -- INTO EMP_39 VALUES (7018, 'YOUNG', 'IT',        7017,  DATE
+      '2021-04-20', 26000, 0,    'IT')\r
+
+      -- INTO EMP_39 VALUES (7019, 'HALL',  'SUPPORT',   7000,  DATE
+      '2021-05-25', 15000, 0,    'SUPPORT')\r
+
+      -- INTO EMP_39 VALUES (7020, 'RISOV', 'SALESMAN',  7003,  DATE
+      '2020-05-05', 18000, 1400, 'SALES')\r
+
+      -- INTO EMP_39 VALUES (7021, 'ANKIR', 'SALESMAN',  7003,  DATE
+      '2020-09-01', 10000, 0,    'SALES')\r
+
+      -- SELECT * FROM DUAL;\r\n"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO EMP_39 VALUES (7000, 'KING',  'PRESIDENT', NULL, DATE '2019-01-01',
+      50000, 0,    'ADMIN',       'NEW YORK')\r
+
+      INTO EMP_39 VALUES (7001, 'CLARK', 'MANAGER',   7000, DATE '2019-03-10',
+      30000, 1000, 'ACCOUNTING',  'CHICAGO')\r
+
+      INTO EMP_39 VALUES (7002, 'JONES', 'MANAGER',   7000, DATE '2019-04-15',
+      32000, 1200, 'RESEARCH',    'DALLAS')\r
+
+      INTO EMP_39 VALUES (7003, 'BLAKE', 'MANAGER',   7000, DATE '2019-05-20',
+      31000, 1100, 'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7004, 'SCOTT', 'ANALYST',   7002, DATE '2020-01-10',
+      25000, 0,    'RESEARCH',    'DALLAS')\r
+
+      INTO EMP_39 VALUES (7005, 'FORD',  'ANALYST',   7002, DATE '2020-02-18',
+      26000, 0,    'RESEARCH',    'DALLAS')\r
+
+      INTO EMP_39 VALUES (7006, 'SMITH', 'CLERK',     7002, DATE '2020-03-01',
+      12000, 0,    'RESEARCH',    'DALLAS')\r
+
+      INTO EMP_39 VALUES (7007, 'ADAMS', 'CLERK',     7004, DATE '2020-04-12',
+      11000, 0,    'RESEARCH',    'DALLAS')\r
+
+      INTO EMP_39 VALUES (7008, 'ALLEN', 'SALESMAN',  7003, DATE '2020-05-05',
+      18000, 1400, 'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7009, 'WARD',  'SALESMAN',  7003, DATE '2020-06-10',
+      17500, 1300, 'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7010, 'MARTIN','SALESMAN',  7003, DATE '2020-07-15',
+      16000, 1200, 'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7011, 'TURNER','SALESMAN',  7003, DATE '2020-08-20',
+      17000, 1000, 'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7012, 'JAMES', 'CLERK',     7003, DATE '2020-09-01',
+      10000, 0,    'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7013, 'MILLER','CLERK',     7001, DATE '2020-10-10',
+      13000, 0,    'ACCOUNTING',  'CHICAGO')\r
+
+      INTO EMP_39 VALUES (7014, 'BROWN', 'CLERK',     7001, DATE '2020-11-12',
+      12500, 0,    'ACCOUNTING',  'CHICAGO')\r
+
+      INTO EMP_39 VALUES (7015, 'GREEN', 'HR',        7001, DATE '2021-01-05',
+      20000, 500,  'HR',          'LOS ANGELES')\r
+
+      INTO EMP_39 VALUES (7016, 'WHITE', 'HR',        7015, DATE '2021-02-08',
+      18000, 400,  'HR',          'LOS ANGELES')\r
+
+      INTO EMP_39 VALUES (7017, 'BLACK', 'IT',        7002, DATE '2021-03-15',
+      28000, 0,    'IT',          'SEATTLE')\r
+
+      INTO EMP_39 VALUES (7018, 'YOUNG', 'IT',        7017, DATE '2021-04-20',
+      26000, 0,    'IT',          'SEATTLE')\r
+
+      INTO EMP_39 VALUES (7019, 'HALL',  'SUPPORT',   7000, DATE '2021-05-25',
+      15000, 0,    'SUPPORT',     'MIAMI')\r
+
+      INTO EMP_39 VALUES (7020, 'RISOV', 'SALESMAN',  7003, DATE '2020-05-05',
+      18000, 1400, 'SALES',       'BOSTON')\r
+
+      INTO EMP_39 VALUES (7021, 'ANKIR', 'SALESMAN',  7003, DATE '2020-09-01',
+      10000, 0,    'SALES',       'BOSTON')\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO GRADE_39 VALUES (1, 0, 9999)\r
+
+      INTO GRADE_39 VALUES (2, 10000, 19999)\r
+
+      INTO GRADE_39 VALUES (3, 20000, 29999)\r
+
+      INTO GRADE_39 VALUES (4, 30000, 39999)\r
+
+      INTO GRADE_39 VALUES (5, 40000, 59999)\r
+
+      SELECT * FROM DUAL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM EMP_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM GRADE_39
+    languageId: oracle-sql
+  - kind: 1
+    value: A)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT ENAME FROM EMP_39\r
+
+      WHERE SAL = (\r
+
+      \    SELECT MAX(SAL) \r
+
+      \    FROM EMP_39\r
+
+      )"
+    languageId: oracle-sql
+  - kind: 1
+    value: B)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT ENAME FROM EMP_39\r
+
+      WHERE SAL = (\r
+
+      \    SELECT MAX(SAL) \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE JOB = 'SALESMAN'\r
+
+      ) AND JOB = 'SALESMAN'"
+    languageId: oracle-sql
+  - kind: 1
+    value: C)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT ENAME FROM EMP_39\r
+
+      WHERE SAL = (\r
+
+      \    SELECT MIN(SAL) \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE JOB = 'CLERK'\r
+
+      ) AND JOB = 'CLERK'"
+    languageId: oracle-sql
+  - kind: 1
+    value: D)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DEPT_NAME , AVG(SAL)\r
+
+      FROM EMP_39\r
+
+      GROUP BY DEPT_NAME"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM (\r
+
+      \    SELECT DEPT_NAME, AVG(SAL) AS AVG_SAL\r
+
+      \    FROM EMP_39\r
+
+      \    GROUP BY DEPT_NAME\r
+
+      \    ORDER BY AVG_SAL DESC\r
+
+      )\r
+
+      WHERE ROWNUM = 1;"
+    languageId: oracle-sql
+  - kind: 1
+    value: E)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM EMP_39 \r
+
+      WHERE SAL > (\r
+
+      \    SELECT SAL \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE ENAME = 'TURNER'\r
+
+      )\r
+
+      ORDER BY SAL DESC"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE ENAME = 'TURNER'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME \r
+
+      FROM EMP_39 \r
+
+      WHERE SAL > (\r
+
+      \    SELECT SAL \r
+
+      \    FROM EMP_39\r
+
+      \    WHERE ENAME = 'TURNER'\r
+
+      )\r
+
+      ORDER BY SAL DESC"
+    languageId: oracle-sql
+  - kind: 1
+    value: F)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM EMP_39 \r
+
+      WHERE HIREDATE > (\r
+
+      \    SELECT HIREDATE FROM EMP_39\r
+
+      \    WHERE ENAME = 'ALLEN'\r
+
+      )\r
+
+      ORDER BY HIREDATE DESC"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * FROM EMP_39\r
+
+      \    WHERE ENAME = 'ALLEN'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME FROM EMP_39 \r
+
+      WHERE HIREDATE > (\r
+
+      \    SELECT HIREDATE FROM EMP_39\r
+
+      \    WHERE ENAME = 'ALLEN'\r
+
+      )\r
+
+      ORDER BY HIREDATE DESC"
+    languageId: oracle-sql
+  - kind: 1
+    value: G)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DEPT_NAME FROM EMP_39 \r
+
+      WHERE ENAME = 'FORD'"
+    languageId: oracle-sql
+  - kind: 1
+    value: H)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DEPT_NAME , SUM(SAL) AS TOTAL_SALARY\r
+
+      FROM EMP_39\r
+
+      GROUP BY DEPT_NAME \r
+
+      ORDER BY TOTAL_SALARY DESC"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM (\r
+
+      \    SELECT DEPT_NAME, SUM(SAL) AS TOTAL_SALARY\r
+
+      \    FROM EMP_39\r
+
+      \    GROUP BY DEPT_NAME\r
+
+      \    ORDER BY TOTAL_SALARY DESC\r
+
+      )\r
+
+      WHERE ROWNUM = 1;"
+    languageId: oracle-sql
+  - kind: 1
+    value: I)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT CITY FROM EMP_39 \r
+
+      WHERE ENAME = 'SMITH'"
+    languageId: oracle-sql
+  - kind: 1
+    value: J)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DISTINCT CITY FROM EMP_39 \r
+
+      WHERE JOB = 'MANAGER'"
+    languageId: oracle-sql
+  - kind: 1
+    value: K)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT GRADE\r
+
+      FROM GRADE_39\r
+
+      WHERE (SELECT SAL \r
+
+      \       FROM EMP_39 \r
+
+      \       WHERE ENAME = 'MARTIN')\r
+
+      BETWEEN MINSAL AND MAXSAL;"
+    languageId: oracle-sql
+  - kind: 1
+    value: L)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM EMP_39 \r
+
+      WHERE SAL > (\r
+
+      \    SELECT MAX(SAL) \r
+
+      \    FROM EMP_39 \r
+
+      \    WHERE CITY = 'DALLAS'\r
+
+      )\r
+
+      ORDER BY SAL DESC"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      \    FROM EMP_39 \r
+
+      \    WHERE CITY = 'DALLAS'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT MAX(SAL) \r
+
+      \    FROM EMP_39 \r
+
+      \    WHERE CITY = 'DALLAS'"
+    languageId: oracle-sql
+  - kind: 1
+    value: M)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DEPT_NAME, COUNT(*) FROM EMP_39\r
+
+      GROUP BY DEPT_NAME"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT DEPT_NAME, COUNT(*) FROM EMP_39\r
+
+      GROUP BY DEPT_NAME\r
+
+      HAVING COUNT(*) = 0"
+    languageId: oracle-sql
+  - kind: 1
+    value: N)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT * FROM EMP_39 \r
+
+      WHERE ENAME = 'ADAMS'"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME FROM EMP_39 \r
+
+      WHERE HIREDATE = (\r
+
+      \    SELECT HIREDATE FROM EMP_39 \r
+
+      \    WHERE ENAME = 'ADAMS'\r
+
+      ) AND ENAME <> 'ADAMS'"
+    languageId: oracle-sql
+  - kind: 1
+    value: O)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DEPT_NAME, MAX(COMM) FROM EMP_39\r
+
+      GROUP BY DEPT_NAME\r
+
+      HAVING MAX(COMM)=0"
+    languageId: oracle-sql
+  - kind: 1
+    value: P)
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DEPT_NAME, ENAME, SAL\r
+
+      FROM EMP_39 E\r
+
+      WHERE SAL = (\r
+
+      \    SELECT MIN(SAL)\r
+
+      \    FROM EMP_39\r
+
+      \    WHERE DEPT_NAME = E.DEPT_NAME\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE GRADE_39
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE EMP_39;
+    languageId: oracle-sql
