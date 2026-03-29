@@ -179,11 +179,7 @@ cells:
 
       SELECT CITY FROM SUPPLIERS_39))\r
 
-      \r
-
       UNION\r
-
-      \r
 
       (SELECT * FROM SUPPLIERS_39\r
 
@@ -194,6 +190,27 @@ cells:
       INTERSECT\r
 
       SELECT CITY FROM SUPPLIERS_39)))"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT \r
+
+      \    C.CUSTOMER_NAME,\r
+
+      \    S.SUPPLIER_NAME,\r
+
+      \    C.CITY\r
+
+      FROM \r
+
+      \    CUSTOMERS_39 C\r
+
+      JOIN \r
+
+      \    SUPPLIERS_39 S\r
+
+      ON \r
+
+      \    C.CITY = S.CITY;"
     languageId: oracle-sql
   - kind: 1
     value: E)

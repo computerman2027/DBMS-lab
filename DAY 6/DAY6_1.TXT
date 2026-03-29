@@ -1,0 +1,1426 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Sun Mar 29 21:27:47 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Thu Mar 26 2026 23:19:22 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> CREATE TABLE ZIPCODES_39(
+  2      ZIP NUMBER(7) PRIMARY KEY,
+  3      CITY VARCHAR(255)
+  4  );
+
+Table created.
+
+SQL> CREATE TABLE EMPLOYEES_39
+  2  (
+  3      ENO NUMBER(5) PRIMARY KEY,
+  4      ENAME VARCHAR(255),
+  5      ZIP NUMBER(7) REFERENCES ZIPCODES_39(ZIP),
+  6      HDATE DATE
+  7  )
+  8  ;
+
+Table created.
+
+SQL> CREATE TABLE PARTS_39(
+  2      PNO NUMBER(5) PRIMARY KEY,
+  3      PNAME VARCHAR(255),
+  4      QOH NUMBER(5),
+  5      PRICE NUMBER(7,2),
+  6      REORDERLEVEL NUMBER(5)
+  7  );
+
+Table created.
+
+SQL> CREATE TABLE CUSTOMERS_39
+  2  (
+  3      CNO NUMBER(5) PRIMARY KEY,
+  4      CNAME VARCHAR(255),
+  5      STREET VARCHAR(255),
+  6      ZIP NUMBER(7) REFERENCES ZIPCODES_39(ZIP),
+  7      PHONE VARCHAR(10)
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE ORDERS_39
+  2  (
+  3      ONO NUMBER(5) PRIMARY KEY,
+  4      CNO NUMBER(5) REFERENCES CUSTOMERS_39(CNO),
+  5      ENO NUMBER(5) REFERENCES EMPLOYEES_39(ENO),
+  6      RECEIVED NUMBER(1) CHECK (RECEIVED IN (0,1)),
+  7      SHIPPED NUMBER(1) CHECK (SHIPPED IN (0,1))
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE ODETAILS_39
+  2  (
+  3      ONO NUMBER(5) REFERENCES ORDERS_39(ONO),
+  4      PNO NUMBER(5) REFERENCES PARTS_39(PNO),
+  5      QTY NUMBER(5) DEFAULT 0 CHECK (QTY >= 0),
+  6      PRIMARY KEY(ONO,PNO)
+  7  )
+  8  ;
+
+Table created.
+
+SQL> INSERT ALL
+  2  INTO ZIPCODES_39 VALUES (400001, 'Mumbai')
+  3  INTO ZIPCODES_39 VALUES (110001, 'Delhi')
+  4  INTO ZIPCODES_39 VALUES (560001, 'Bangalore')
+  5  INTO ZIPCODES_39 VALUES (600001, 'Chennai')
+  6  INTO ZIPCODES_39 VALUES (700001, 'Kolkata')
+  7  INTO ZIPCODES_39 VALUES (500001, 'Hyderabad')
+  8  INTO ZIPCODES_39 VALUES (380001, 'Ahmedabad')
+  9  INTO ZIPCODES_39 VALUES (411001, 'Pune')
+ 10  INTO ZIPCODES_39 VALUES (302001, 'Jaipur')
+ 11  INTO ZIPCODES_39 VALUES (226001, 'Lucknow')
+ 12  INTO ZIPCODES_39 VALUES (751001, 'Bhubaneswar')
+ 13  INTO ZIPCODES_39 VALUES (682001, 'Kochi')
+ 14  INTO ZIPCODES_39 VALUES (641001, 'Coimbatore')
+ 15  INTO ZIPCODES_39 VALUES (440001, 'Nagpur')
+ 16  INTO ZIPCODES_39 VALUES (248001, 'Dehradun')
+ 17  INTO ZIPCODES_39 VALUES (201001, 'Ghaziabad')
+ 18  INTO ZIPCODES_39 VALUES (122001, 'Gurgaon')
+ 19  INTO ZIPCODES_39 VALUES (395003, 'Surat')
+ 20  INTO ZIPCODES_39 VALUES (462001, 'Bhopal')
+ 21  INTO ZIPCODES_39 VALUES (800001, 'Patna')
+ 22  SELECT * FROM DUAL;
+
+20 rows created.
+
+SQL> INSERT ALL
+  2  INTO EMPLOYEES_39 VALUES (1,'Amit Sharma',400001,DATE '2015-01-10')
+  3  INTO EMPLOYEES_39 VALUES (2,'Ravi Kumar',110001,DATE '2016-03-15')
+  4  INTO EMPLOYEES_39 VALUES (3,'Sneha Patil',560001,DATE '2014-07-21')
+  5  INTO EMPLOYEES_39 VALUES (4,'Karan Mehta',600001,DATE '2018-11-30')
+  6  INTO EMPLOYEES_39 VALUES (5,'Priya Nair',700001,DATE '2013-09-14')
+  7  INTO EMPLOYEES_39 VALUES (6,'Suresh Iyer',500001,DATE '2012-02-20')
+  8  INTO EMPLOYEES_39 VALUES (7,'Neha Gupta',380001,DATE '2019-06-25')
+  9  INTO EMPLOYEES_39 VALUES (8,'Rohan Das',411001,DATE '2017-08-19')
+ 10  INTO EMPLOYEES_39 VALUES (9,'Simran Kaur',302001,DATE '2011-12-01')
+ 11  INTO EMPLOYEES_39 VALUES (10,'Vikas Rao',226001,DATE '2020-01-17')
+ 12  INTO EMPLOYEES_39 VALUES (11,'Anjali Singh',751001,DATE '2014-04-23')
+ 13  INTO EMPLOYEES_39 VALUES (12,'Deepak Verma',682001,DATE '2016-05-12')
+ 14  INTO EMPLOYEES_39 VALUES (13,'Sanjay Shah',641001,DATE '2013-10-05')
+ 15  INTO EMPLOYEES_39 VALUES (14,'Swati Kulkarni',440001,DATE '2015-09-09')
+ 16  INTO EMPLOYEES_39 VALUES (15,'Arjun Reddy',248001,DATE '2018-03-03')
+ 17  INTO EMPLOYEES_39 VALUES (16,'Meena Joshi',201001,DATE '2010-07-07')
+ 18  INTO EMPLOYEES_39 VALUES (17,'Rahul Malhotra',122001,DATE '2012-11-11')
+ 19  INTO EMPLOYEES_39 VALUES (18,'Pooja Bansal',395003,DATE '2019-02-02')
+ 20  INTO EMPLOYEES_39 VALUES (19,'Siddharth Jain',462001,DATE '2017-04-14')
+ 21  INTO EMPLOYEES_39 VALUES (20,'Tina Roy',800001,DATE '2011-06-18')
+ 22  INTO EMPLOYEES_39 VALUES (21,'Risov Roy',400001,DATE '2011-06-18')
+ 23  SELECT * FROM DUAL;
+
+21 rows created.
+
+SQL> INSERT ALL
+  2  INTO PARTS_39 VALUES (101,'Mouse',150,500,20)
+  3  INTO PARTS_39 VALUES (102,'Keyboard',120,700,25)
+  4  INTO PARTS_39 VALUES (103,'Monitor',75,15000,10)
+  5  INTO PARTS_39 VALUES (104,'Printer',40,12000,5)
+  6  INTO PARTS_39 VALUES (105,'Scanner',30,8000,5)
+  7  INTO PARTS_39 VALUES (106,'CPU',60,25000,10)
+  8  INTO PARTS_39 VALUES (107,'Hard Disk',90,4000,15)
+  9  INTO PARTS_39 VALUES (108,'RAM',110,3000,20)
+ 10  INTO PARTS_39 VALUES (109,'Motherboard',50,10000,10)
+ 11  INTO PARTS_39 VALUES (110,'Webcam',80,2000,10)
+ 12  INTO PARTS_39 VALUES (111,'Speaker',95,1500,20)
+ 13  INTO PARTS_39 VALUES (112,'Laptop',35,55000,5)
+ 14  INTO PARTS_39 VALUES (113,'Tablet',45,22000,8)
+ 15  INTO PARTS_39 VALUES (114,'Pen Drive',200,600,30)
+ 16  INTO PARTS_39 VALUES (115,'Router',70,2500,10)
+ 17  INTO PARTS_39 VALUES (116,'Switch',65,5000,10)
+ 18  INTO PARTS_39 VALUES (117,'Projector',20,30000,3)
+ 19  INTO PARTS_39 VALUES (118,'Camera',25,18000,5)
+ 20  INTO PARTS_39 VALUES (119,'Headphones',140,1200,20)
+ 21  INTO PARTS_39 VALUES (120,'Microphone',100,3500,15)
+ 22  INTO PARTS_39 VALUES (121,'Headphones2',140,12,20)
+ 23  INTO PARTS_39 VALUES (122,'Microphone2',100,5,15)
+ 24  SELECT * FROM DUAL;
+
+22 rows created.
+
+SQL> INSERT ALL
+  2  INTO CUSTOMERS_39 VALUES (1,'Sanjay Verma','Street 1',400001,'9876543210')
+  3  INTO CUSTOMERS_39 VALUES (2,'Aarti Sharma','Street 2',110001,'9876543211')
+  4  INTO CUSTOMERS_39 VALUES (3,'Suresh Nair','Street 3',560001,'9876543212')
+  5  INTO CUSTOMERS_39 VALUES (4,'Ritu Kapoor','Street 4',600001,'9876543213')
+  6  INTO CUSTOMERS_39 VALUES (5,'Simran Gill','Street 5',700001,'9876543214')
+  7  INTO CUSTOMERS_39 VALUES (6,'Mohit Jain','Street 6',500001,'9876543215')
+  8  INTO CUSTOMERS_39 VALUES (7,'Sahil Khan','Street 7',380001,'9876543216')
+  9  INTO CUSTOMERS_39 VALUES (8,'Neeraj Gupta','Street 8',411001,'9876543217')
+ 10  INTO CUSTOMERS_39 VALUES (9,'Sonia Mehta','Street 9',302001,'9876543218')
+ 11  INTO CUSTOMERS_39 VALUES (10,'Kunal Shah','Street 10',226001,'9876543219')
+ 12  INTO CUSTOMERS_39 VALUES (11,'Siddhi Patel','Street 11',751001,'9876543220')
+ 13  INTO CUSTOMERS_39 VALUES (12,'Priyanka Das','Street 12',682001,'9876543221')
+ 14  INTO CUSTOMERS_39 VALUES (13,'Sumit Arora','Street 13',641001,'9876543222')
+ 15  INTO CUSTOMERS_39 VALUES (14,'Divya Reddy','Street 14',440001,'9876543223')
+ 16  INTO CUSTOMERS_39 VALUES (15,'Samar Singh','Street 15',248001,'9876543224')
+ 17  INTO CUSTOMERS_39 VALUES (16,'Alok Tiwari','Street 16',201001,'9876543225')
+ 18  INTO CUSTOMERS_39 VALUES (17,'Sanya Roy','Street 17',122001,'9876543226')
+ 19  INTO CUSTOMERS_39 VALUES (18,'Rakesh Yadav','Street 18',395003,'9876543227')
+ 20  INTO CUSTOMERS_39 VALUES (19,'Snehal Joshi','Street 19',462001,'9876543228')
+ 21  INTO CUSTOMERS_39 VALUES (20,'Vijay Anand','Street 20',800001,'9876543229')
+ 22  SELECT * FROM DUAL;
+
+20 rows created.
+
+SQL> INSERT ALL
+  2  INTO ORDERS_39 VALUES (1,1,1,1,1)
+  3  INTO ORDERS_39 VALUES (2,2,2,1,0)
+  4  INTO ORDERS_39 VALUES (3,3,3,1,1)
+  5  INTO ORDERS_39 VALUES (4,4,4,1,0)
+  6  INTO ORDERS_39 VALUES (5,5,5,1,1)
+  7  INTO ORDERS_39 VALUES (6,6,6,1,0)
+  8  INTO ORDERS_39 VALUES (7,7,7,1,1)
+  9  INTO ORDERS_39 VALUES (8,8,8,1,1)
+ 10  INTO ORDERS_39 VALUES (9,9,9,1,0)
+ 11  INTO ORDERS_39 VALUES (10,10,10,1,1)
+ 12  INTO ORDERS_39 VALUES (11,11,11,1,0)
+ 13  INTO ORDERS_39 VALUES (12,12,12,1,1)
+ 14  INTO ORDERS_39 VALUES (13,13,13,1,1)
+ 15  INTO ORDERS_39 VALUES (14,14,14,1,0)
+ 16  INTO ORDERS_39 VALUES (15,15,15,1,1)
+ 17  INTO ORDERS_39 VALUES (16,16,16,1,0)
+ 18  INTO ORDERS_39 VALUES (17,17,17,1,1)
+ 19  INTO ORDERS_39 VALUES (18,18,18,1,1)
+ 20  INTO ORDERS_39 VALUES (19,19,19,1,0)
+ 21  INTO ORDERS_39 VALUES (20,20,20,1,1)
+ 22  SELECT * FROM DUAL;
+
+20 rows created.
+
+SQL> INSERT ALL
+  2  INTO ODETAILS_39 VALUES (1,101,5)
+  3  INTO ODETAILS_39 VALUES (2,102,3)
+  4  INTO ODETAILS_39 VALUES (3,103,2)
+  5  INTO ODETAILS_39 VALUES (4,104,1)
+  6  INTO ODETAILS_39 VALUES (5,105,4)
+  7  INTO ODETAILS_39 VALUES (6,106,2)
+  8  INTO ODETAILS_39 VALUES (7,107,6)
+  9  INTO ODETAILS_39 VALUES (8,108,5)
+ 10  INTO ODETAILS_39 VALUES (9,109,2)
+ 11  INTO ODETAILS_39 VALUES (10,110,3)
+ 12  INTO ODETAILS_39 VALUES (11,111,4)
+ 13  INTO ODETAILS_39 VALUES (12,112,1)
+ 14  INTO ODETAILS_39 VALUES (13,113,2)
+ 15  INTO ODETAILS_39 VALUES (14,114,10)
+ 16  INTO ODETAILS_39 VALUES (15,115,3)
+ 17  INTO ODETAILS_39 VALUES (16,116,2)
+ 18  INTO ODETAILS_39 VALUES (17,117,1)
+ 19  INTO ODETAILS_39 VALUES (18,118,2)
+ 20  INTO ODETAILS_39 VALUES (19,119,5)
+ 21  INTO ODETAILS_39 VALUES (20,120,4)
+ 22  SELECT * FROM DUAL;
+
+20 rows created.
+
+SQL> SELECT * FROM ZIPCODES_39;
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    400001
+Mumbai
+
+    110001
+Delhi
+
+    560001
+Bangalore
+
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    600001
+Chennai
+
+    700001
+Kolkata
+
+    500001
+Hyderabad
+
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    380001
+Ahmedabad
+
+    411001
+Pune
+
+    302001
+Jaipur
+
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    226001
+Lucknow
+
+    751001
+Bhubaneswar
+
+    682001
+Kochi
+
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    641001
+Coimbatore
+
+    440001
+Nagpur
+
+    248001
+Dehradun
+
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    201001
+Ghaziabad
+
+    122001
+Gurgaon
+
+    395003
+Surat
+
+
+       ZIP
+----------
+CITY
+--------------------------------------------------------------------------------
+    462001
+Bhopal
+
+    800001
+Patna
+
+
+20 rows selected.
+
+SQL> SELECT * FROM EMPLOYEES_39;
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+         1
+Amit Sharma
+    400001 10-JAN-15
+
+         2
+Ravi Kumar
+    110001 15-MAR-16
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+
+         3
+Sneha Patil
+    560001 21-JUL-14
+
+         4
+Karan Mehta
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+    600001 30-NOV-18
+
+         5
+Priya Nair
+    700001 14-SEP-13
+
+         6
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+Suresh Iyer
+    500001 20-FEB-12
+
+         7
+Neha Gupta
+    380001 25-JUN-19
+
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+         8
+Rohan Das
+    411001 19-AUG-17
+
+         9
+Simran Kaur
+    302001 01-DEC-11
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+
+        10
+Vikas Rao
+    226001 17-JAN-20
+
+        11
+Anjali Singh
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+    751001 23-APR-14
+
+        12
+Deepak Verma
+    682001 12-MAY-16
+
+        13
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+Sanjay Shah
+    641001 05-OCT-13
+
+        14
+Swati Kulkarni
+    440001 09-SEP-15
+
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+        15
+Arjun Reddy
+    248001 03-MAR-18
+
+        16
+Meena Joshi
+    201001 07-JUL-10
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+
+        17
+Rahul Malhotra
+    122001 11-NOV-12
+
+        18
+Pooja Bansal
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+    395003 02-FEB-19
+
+        19
+Siddharth Jain
+    462001 14-APR-17
+
+        20
+
+       ENO
+----------
+ENAME
+--------------------------------------------------------------------------------
+       ZIP HDATE
+---------- ---------
+Tina Roy
+    800001 18-JUN-11
+
+        21
+Risov Roy
+    400001 18-JUN-11
+
+
+21 rows selected.
+
+SQL> SELECT * FROM PARTS_39;
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+       101
+Mouse
+       150        500           20
+
+       102
+Keyboard
+       120        700           25
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+
+       103
+Monitor
+        75      15000           10
+
+       104
+Printer
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+        40      12000            5
+
+       105
+Scanner
+        30       8000            5
+
+       106
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+CPU
+        60      25000           10
+
+       107
+Hard Disk
+        90       4000           15
+
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+       108
+RAM
+       110       3000           20
+
+       109
+Motherboard
+        50      10000           10
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+
+       110
+Webcam
+        80       2000           10
+
+       111
+Speaker
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+        95       1500           20
+
+       112
+Laptop
+        35      55000            5
+
+       113
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+Tablet
+        45      22000            8
+
+       114
+Pen Drive
+       200        600           30
+
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+       115
+Router
+        70       2500           10
+
+       116
+Switch
+        65       5000           10
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+
+       117
+Projector
+        20      30000            3
+
+       118
+Camera
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+        25      18000            5
+
+       119
+Headphones
+       140       1200           20
+
+       120
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+Microphone
+       100       3500           15
+
+       121
+Headphones2
+       140         12           20
+
+
+       PNO
+----------
+PNAME
+--------------------------------------------------------------------------------
+       QOH      PRICE REORDERLEVEL
+---------- ---------- ------------
+       122
+Microphone2
+       100          5           15
+
+
+22 rows selected.
+
+SQL> SELECT * FROM CUSTOMERS_39;
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         1
+Sanjay Verma
+Street 1
+    400001 9876543210
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         2
+Aarti Sharma
+Street 2
+    110001 9876543211
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         3
+Suresh Nair
+Street 3
+    560001 9876543212
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         4
+Ritu Kapoor
+Street 4
+    600001 9876543213
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         5
+Simran Gill
+Street 5
+    700001 9876543214
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         6
+Mohit Jain
+Street 6
+    500001 9876543215
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         7
+Sahil Khan
+Street 7
+    380001 9876543216
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         8
+Neeraj Gupta
+Street 8
+    411001 9876543217
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+         9
+Sonia Mehta
+Street 9
+    302001 9876543218
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        10
+Kunal Shah
+Street 10
+    226001 9876543219
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        11
+Siddhi Patel
+Street 11
+    751001 9876543220
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        12
+Priyanka Das
+Street 12
+    682001 9876543221
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        13
+Sumit Arora
+Street 13
+    641001 9876543222
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        14
+Divya Reddy
+Street 14
+    440001 9876543223
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        15
+Samar Singh
+Street 15
+    248001 9876543224
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        16
+Alok Tiwari
+Street 16
+    201001 9876543225
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        17
+Sanya Roy
+Street 17
+    122001 9876543226
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        18
+Rakesh Yadav
+Street 18
+    395003 9876543227
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        19
+Snehal Joshi
+Street 19
+    462001 9876543228
+
+
+       CNO
+----------
+CNAME
+--------------------------------------------------------------------------------
+STREET
+--------------------------------------------------------------------------------
+       ZIP PHONE
+---------- ----------
+        20
+Vijay Anand
+Street 20
+    800001 9876543229
+
+
+20 rows selected.
+
+SQL> SELECT * FROM ORDERS_39;
+
+       ONO        CNO        ENO   RECEIVED    SHIPPED
+---------- ---------- ---------- ---------- ----------
+         1          1          1          1          1
+         2          2          2          1          0
+         3          3          3          1          1
+         4          4          4          1          0
+         5          5          5          1          1
+         6          6          6          1          0
+         7          7          7          1          1
+         8          8          8          1          1
+         9          9          9          1          0
+        10         10         10          1          1
+        11         11         11          1          0
+
+       ONO        CNO        ENO   RECEIVED    SHIPPED
+---------- ---------- ---------- ---------- ----------
+        12         12         12          1          1
+        13         13         13          1          1
+        14         14         14          1          0
+        15         15         15          1          1
+        16         16         16          1          0
+        17         17         17          1          1
+        18         18         18          1          1
+        19         19         19          1          0
+        20         20         20          1          1
+
+20 rows selected.
+
+SQL> SELECT * FROM ODETAILS_39;
+
+       ONO        PNO        QTY
+---------- ---------- ----------
+         1        101          5
+         2        102          3
+         3        103          2
+         4        104          1
+         5        105          4
+         6        106          2
+         7        107          6
+         8        108          5
+         9        109          2
+        10        110          3
+        11        111          4
+
+       ONO        PNO        QTY
+---------- ---------- ----------
+        12        112          1
+        13        113          2
+        14        114         10
+        15        115          3
+        16        116          2
+        17        117          1
+        18        118          2
+        19        119          5
+        20        120          4
+
+20 rows selected.
+
+SQL> SET LINESIZE 200
+SQL> SET PAGESIZE 100
+SQL> COLUMN ENAME FORMAT A20
+SQL> COLUMN CITY FORMAT A15
+SQL> COLUMN PNAME FORMAT A15
+SQL> COLUMN CNAME FORMAT A20
+SQL> COLUMN STREET FORMAT A20
+SQL> SELECT * FROM ODETAILS_39;
+
+       ONO        PNO        QTY
+---------- ---------- ----------
+         1        101          5
+         2        102          3
+         3        103          2
+         4        104          1
+         5        105          4
+         6        106          2
+         7        107          6
+         8        108          5
+         9        109          2
+        10        110          3
+        11        111          4
+        12        112          1
+        13        113          2
+        14        114         10
+        15        115          3
+        16        116          2
+        17        117          1
+        18        118          2
+        19        119          5
+        20        120          4
+
+20 rows selected.
+
+SQL> SELECT * FROM ZIPCODES_39;
+
+       ZIP CITY
+---------- ---------------
+    400001 Mumbai
+    110001 Delhi
+    560001 Bangalore
+    600001 Chennai
+    700001 Kolkata
+    500001 Hyderabad
+    380001 Ahmedabad
+    411001 Pune
+    302001 Jaipur
+    226001 Lucknow
+    751001 Bhubaneswar
+    682001 Kochi
+    641001 Coimbatore
+    440001 Nagpur
+    248001 Dehradun
+    201001 Ghaziabad
+    122001 Gurgaon
+    395003 Surat
+    462001 Bhopal
+    800001 Patna
+
+20 rows selected.
+
+SQL> SELECT * FROM EMPLOYEES_39;
+
+       ENO ENAME                       ZIP HDATE
+---------- -------------------- ---------- ---------
+         1 Amit Sharma              400001 10-JAN-15
+         2 Ravi Kumar               110001 15-MAR-16
+         3 Sneha Patil              560001 21-JUL-14
+         4 Karan Mehta              600001 30-NOV-18
+         5 Priya Nair               700001 14-SEP-13
+         6 Suresh Iyer              500001 20-FEB-12
+         7 Neha Gupta               380001 25-JUN-19
+         8 Rohan Das                411001 19-AUG-17
+         9 Simran Kaur              302001 01-DEC-11
+        10 Vikas Rao                226001 17-JAN-20
+        11 Anjali Singh             751001 23-APR-14
+        12 Deepak Verma             682001 12-MAY-16
+        13 Sanjay Shah              641001 05-OCT-13
+        14 Swati Kulkarni           440001 09-SEP-15
+        15 Arjun Reddy              248001 03-MAR-18
+        16 Meena Joshi              201001 07-JUL-10
+        17 Rahul Malhotra           122001 11-NOV-12
+        18 Pooja Bansal             395003 02-FEB-19
+        19 Siddharth Jain           462001 14-APR-17
+        20 Tina Roy                 800001 18-JUN-11
+        21 Risov Roy                400001 18-JUN-11
+
+21 rows selected.
+
+SQL> SELECT * FROM PARTS_39;
+
+       PNO PNAME                  QOH      PRICE REORDERLEVEL
+---------- --------------- ---------- ---------- ------------
+       101 Mouse                  150        500           20
+       102 Keyboard               120        700           25
+       103 Monitor                 75      15000           10
+       104 Printer                 40      12000            5
+       105 Scanner                 30       8000            5
+       106 CPU                     60      25000           10
+       107 Hard Disk               90       4000           15
+       108 RAM                    110       3000           20
+       109 Motherboard             50      10000           10
+       110 Webcam                  80       2000           10
+       111 Speaker                 95       1500           20
+       112 Laptop                  35      55000            5
+       113 Tablet                  45      22000            8
+       114 Pen Drive              200        600           30
+       115 Router                  70       2500           10
+       116 Switch                  65       5000           10
+       117 Projector               20      30000            3
+       118 Camera                  25      18000            5
+       119 Headphones             140       1200           20
+       120 Microphone             100       3500           15
+       121 Headphones2            140         12           20
+       122 Microphone2            100          5           15
+
+22 rows selected.
+
+SQL> SELECT * FROM CUSTOMERS_39;
+
+       CNO CNAME                STREET                      ZIP PHONE
+---------- -------------------- -------------------- ---------- ----------
+         1 Sanjay Verma         Street 1                 400001 9876543210
+         2 Aarti Sharma         Street 2                 110001 9876543211
+         3 Suresh Nair          Street 3                 560001 9876543212
+         4 Ritu Kapoor          Street 4                 600001 9876543213
+         5 Simran Gill          Street 5                 700001 9876543214
+         6 Mohit Jain           Street 6                 500001 9876543215
+         7 Sahil Khan           Street 7                 380001 9876543216
+         8 Neeraj Gupta         Street 8                 411001 9876543217
+         9 Sonia Mehta          Street 9                 302001 9876543218
+        10 Kunal Shah           Street 10                226001 9876543219
+        11 Siddhi Patel         Street 11                751001 9876543220
+        12 Priyanka Das         Street 12                682001 9876543221
+        13 Sumit Arora          Street 13                641001 9876543222
+        14 Divya Reddy          Street 14                440001 9876543223
+        15 Samar Singh          Street 15                248001 9876543224
+        16 Alok Tiwari          Street 16                201001 9876543225
+        17 Sanya Roy            Street 17                122001 9876543226
+        18 Rakesh Yadav         Street 18                395003 9876543227
+        19 Snehal Joshi         Street 19                462001 9876543228
+        20 Vijay Anand          Street 20                800001 9876543229
+
+20 rows selected.
+
+SQL> SELECT * FROM ORDERS_39;
+
+       ONO        CNO        ENO   RECEIVED    SHIPPED
+---------- ---------- ---------- ---------- ----------
+         1          1          1          1          1
+         2          2          2          1          0
+         3          3          3          1          1
+         4          4          4          1          0
+         5          5          5          1          1
+         6          6          6          1          0
+         7          7          7          1          1
+         8          8          8          1          1
+         9          9          9          1          0
+        10         10         10          1          1
+        11         11         11          1          0
+        12         12         12          1          1
+        13         13         13          1          1
+        14         14         14          1          0
+        15         15         15          1          1
+        16         16         16          1          0
+        17         17         17          1          1
+        18         18         18          1          1
+        19         19         19          1          0
+        20         20         20          1          1
+
+20 rows selected.
+
+SQL> SELECT * FROM ODETAILS_39;
+
+       ONO        PNO        QTY
+---------- ---------- ----------
+         1        101          5
+         2        102          3
+         3        103          2
+         4        104          1
+         5        105          4
+         6        106          2
+         7        107          6
+         8        108          5
+         9        109          2
+        10        110          3
+        11        111          4
+        12        112          1
+        13        113          2
+        14        114         10
+        15        115          3
+        16        116          2
+        17        117          1
+        18        118          2
+        19        119          5
+        20        120          4
+
+20 rows selected.
+
+SQL> SELECT PNO, PNAME
+  2  FROM PARTS_39
+  3  WHERE PRICE<20;
+
+       PNO PNAME
+---------- ---------------
+       121 Headphones2
+       122 Microphone2
+
+SQL> SELECT DISTINCT PNO FROM ODETAILS_39 ORDER BY PNO ASC;
+
+       PNO
+----------
+       101
+       102
+       103
+       104
+       105
+       106
+       107
+       108
+       109
+       110
+       111
+       112
+       113
+       114
+       115
+       116
+       117
+       118
+       119
+       120
+
+20 rows selected.
+
+SQL> SELECT * FROM CUSTOMERS_39
+  2  WHERE CNAME LIKE 'S%';
+
+       CNO CNAME                STREET                      ZIP PHONE
+---------- -------------------- -------------------- ---------- ----------
+         1 Sanjay Verma         Street 1                 400001 9876543210
+         3 Suresh Nair          Street 3                 560001 9876543212
+         5 Simran Gill          Street 5                 700001 9876543214
+         7 Sahil Khan           Street 7                 380001 9876543216
+         9 Sonia Mehta          Street 9                 302001 9876543218
+        11 Siddhi Patel         Street 11                751001 9876543220
+        13 Sumit Arora          Street 13                641001 9876543222
+        15 Samar Singh          Street 15                248001 9876543224
+        17 Sanya Roy            Street 17                122001 9876543226
+        19 Snehal Joshi         Street 19                462001 9876543228
+
+10 rows selected.
+
+SQL> SELECT ONO, CNAME FROM ORDERS_39
+  2  NATURAL JOIN CUSTOMERS_39
+  3  WHERE SHIPPED = 0;
+
+       ONO CNAME
+---------- --------------------
+         2 Aarti Sharma
+         4 Ritu Kapoor
+         6 Mohit Jain
+         9 Sonia Mehta
+        11 Siddhi Patel
+        14 Divya Reddy
+        16 Alok Tiwari
+        19 Snehal Joshi
+
+8 rows selected.
+
+SQL> SELECT C.CNAME, E.ENAME
+  2  FROM ORDERS_39 O
+  3  JOIN CUSTOMERS_39 C ON O.CNO = C.CNO
+  4  JOIN EMPLOYEES_39 E ON O.ENO = E.ENO;
+
+CNAME                ENAME
+-------------------- --------------------
+Sanjay Verma         Amit Sharma
+Aarti Sharma         Ravi Kumar
+Suresh Nair          Sneha Patil
+Ritu Kapoor          Karan Mehta
+Simran Gill          Priya Nair
+Mohit Jain           Suresh Iyer
+Sahil Khan           Neha Gupta
+Neeraj Gupta         Rohan Das
+Sonia Mehta          Simran Kaur
+Kunal Shah           Vikas Rao
+Siddhi Patel         Anjali Singh
+Priyanka Das         Deepak Verma
+Sumit Arora          Sanjay Shah
+Divya Reddy          Swati Kulkarni
+Samar Singh          Arjun Reddy
+Alok Tiwari          Meena Joshi
+Sanya Roy            Rahul Malhotra
+Rakesh Yadav         Pooja Bansal
+Snehal Joshi         Siddharth Jain
+Vijay Anand          Tina Roy
+
+20 rows selected.
+
+SQL> SELECT ENAME
+  2  FROM EMPLOYEES_39
+  3  WHERE HDATE = (SELECT MIN(HDATE) FROM EMPLOYEES_39);
+
+ENAME
+--------------------
+Meena Joshi
+
+SQL> SELECT PNO, PNAME, PRICE
+  2  FROM PARTS_39
+  3  WHERE PRICE > 20000
+  4  ORDER BY PRICE ASC
+  5  ;
+
+       PNO PNAME                PRICE
+---------- --------------- ----------
+       113 Tablet               22000
+       106 CPU                  25000
+       117 Projector            30000
+       112 Laptop               55000
+
+SQL> SELECT *
+  2  FROM ODETAILS_39
+  3  NATURAL JOIN PARTS_39;
+
+       PNO        ONO        QTY PNAME                  QOH      PRICE REORDERLEVEL
+---------- ---------- ---------- --------------- ---------- ---------- ------------
+       101          1          5 Mouse                  150        500           20
+       102          2          3 Keyboard               120        700           25
+       103          3          2 Monitor                 75      15000           10
+       104          4          1 Printer                 40      12000            5
+       105          5          4 Scanner                 30       8000            5
+       106          6          2 CPU                     60      25000           10
+       107          7          6 Hard Disk               90       4000           15
+       108          8          5 RAM                    110       3000           20
+       109          9          2 Motherboard             50      10000           10
+       110         10          3 Webcam                  80       2000           10
+       111         11          4 Speaker                 95       1500           20
+       112         12          1 Laptop                  35      55000            5
+       113         13          2 Tablet                  45      22000            8
+       114         14         10 Pen Drive              200        600           30
+       115         15          3 Router                  70       2500           10
+       116         16          2 Switch                  65       5000           10
+       117         17          1 Projector               20      30000            3
+       118         18          2 Camera                  25      18000            5
+       119         19          5 Headphones             140       1200           20
+       120         20          4 Microphone             100       3500           15
+
+20 rows selected.
+
+SQL> SELECT P.PNO, P.PNAME, SUM(O.QTY * P.PRICE) AS TOTAL_SALES
+  2  FROM PARTS_39 P
+  3  JOIN ODETAILS_39 O ON P.PNO = O.PNO
+  4  GROUP BY P.PNO, P.PNAME;
+
+       PNO PNAME           TOTAL_SALES
+---------- --------------- -----------
+       101 Mouse                  2500
+       102 Keyboard               2100
+       103 Monitor               30000
+       104 Printer               12000
+       105 Scanner               32000
+       106 CPU                   50000
+       107 Hard Disk             24000
+       108 RAM                   15000
+       109 Motherboard           20000
+       110 Webcam                 6000
+       111 Speaker                6000
+       112 Laptop                55000
+       113 Tablet                44000
+       114 Pen Drive              6000
+       115 Router                 7500
+       116 Switch                10000
+       117 Projector             30000
+       118 Camera                36000
+       119 Headphones             6000
+       120 Microphone            14000
+
+20 rows selected.
+
+SQL> SELECT SUM(QTY) AS TOTAL_QUANTITY
+  2  FROM ODETAILS_39
+  3  WHERE PNO = 10601;
+
+TOTAL_QUANTITY
+--------------
+
+
+SQL> SELECT *
+  2  FROM EMPLOYEES_39 E
+  3  JOIN ZIPCODES_39 Z ON E.ZIP = Z.ZIP
+  4  WHERE Z.CITY = 'Mumbai'
+  5  ;
+
+       ENO ENAME                       ZIP HDATE            ZIP CITY
+---------- -------------------- ---------- --------- ---------- ---------------
+         1 Amit Sharma              400001 10-JAN-15     400001 Mumbai
+        21 Risov Roy                400001 18-JUN-11     400001 Mumbai
+
+SQL>

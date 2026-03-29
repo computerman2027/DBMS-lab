@@ -490,7 +490,7 @@ cells:
 
       GROUP BY DEPT_NAME\r
 
-      HAVING MAX(COMM)=0"
+      HAVING MAX(COMM)>0"
     languageId: oracle-sql
   - kind: 1
     value: P)
