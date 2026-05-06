@@ -1,0 +1,281 @@
+cells:
+  - kind: 1
+    value: "#Assignment 8"
+    languageId: markdown
+  - kind: 2
+    value: "CREATE TABLE DEPT_39\r
+
+      (\r
+
+      \    DEPTNO NUMBER PRIMARY KEY,\r
+
+      \    DNAME VARCHAR(255),\r
+
+      \    LOC VARCHAR(255)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE EMP_39\r
+
+      (\r
+
+      \    EMPNO NUMBER(5) PRIMARY KEY,\r
+
+      \    ENAME VARCHAR2(255),\r
+
+      \    JOB VARCHAR2(255),\r
+
+      \    HIREDATE DATE,\r
+
+      \    SAL NUMBER(7,2),\r
+
+      \    COMM NUMBER(5),\r
+
+      \    DEPTNO NUMBER REFERENCES DEPT_39(DEPTNO)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT INTO DEPT_39 VALUES (10, 'ACCOUNTING', 'NEW YORK');\r
+
+      INSERT INTO DEPT_39 VALUES (20, 'RESEARCH', 'DALLAS');\r
+
+      INSERT INTO DEPT_39 VALUES (30, 'SALES', 'CHICAGO');\r
+
+      INSERT INTO DEPT_39 VALUES (40, 'OPERATIONS', 'BOSTON');\r
+
+      INSERT INTO DEPT_39 VALUES (50, 'HR', 'LOS ANGELES');\r
+
+      INSERT INTO DEPT_39 VALUES (60, 'IT', 'SAN FRANCISCO');\r
+
+      INSERT INTO DEPT_39 VALUES (70, 'MARKETING', 'MIAMI');\r
+
+      INSERT INTO DEPT_39 VALUES (80, 'SUPPORT', 'SEATTLE');\r
+
+      INSERT INTO DEPT_39 VALUES (90, 'FINANCE', 'ATLANTA');\r
+
+      INSERT INTO DEPT_39 VALUES (100, 'LEGAL', 'HOUSTON');\r
+
+      INSERT INTO DEPT_39 VALUES (110, 'ADMIN', 'DENVER');\r
+
+      INSERT INTO DEPT_39 VALUES (120, 'SECURITY', 'PHOENIX');\r
+
+      INSERT INTO DEPT_39 VALUES (130, 'PROCUREMENT', 'ORLANDO');\r
+
+      INSERT INTO DEPT_39 VALUES (140, 'TRAINING', 'LAS VEGAS');\r
+
+      INSERT INTO DEPT_39 VALUES (150, 'R&D', 'AUSTIN');\r
+
+      INSERT INTO DEPT_39 VALUES (160, 'LOGISTICS', 'DETROIT');\r
+
+      INSERT INTO DEPT_39 VALUES (170, 'QUALITY', 'SAN DIEGO');\r
+
+      INSERT INTO DEPT_39 VALUES (180, 'PLANNING', 'PORTLAND');\r
+
+      INSERT INTO DEPT_39 VALUES (190, 'DESIGN', 'COLUMBUS');\r
+
+      INSERT INTO DEPT_39 VALUES (200, 'MANAGEMENT', 'CHARLOTTE');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT INTO EMP_39 VALUES (1001, 'SMITH', 'CLERK', DATE '2021-01-15',
+      1200, NULL, 20);\r
+
+      INSERT INTO EMP_39 VALUES (1002, 'ALLEN', 'SALESMAN', DATE '2021-02-20',
+      1600, 300, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1003, 'WARD', 'SALESMAN', DATE '2021-03-12',
+      1500, 500, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1004, 'JONES', 'MANAGER', DATE '2021-04-02',
+      2975, NULL, 20);\r
+
+      INSERT INTO EMP_39 VALUES (1005, 'MARTIN', 'SALESMAN', DATE '2021-05-28',
+      1250, 1400, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1006, 'BLAKE', 'MANAGER', DATE '2021-06-15',
+      2850, NULL, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1007, 'CLARK', 'MANAGER', DATE '2021-07-10',
+      2450, NULL, 10);\r
+
+      INSERT INTO EMP_39 VALUES (1008, 'SCOTT', 'ANALYST', DATE '2022-01-05',
+      3000, NULL, 20);\r
+
+      INSERT INTO EMP_39 VALUES (1009, 'KING', 'PRESIDENT', DATE '2022-02-17',
+      5000, NULL, 10);\r
+
+      INSERT INTO EMP_39 VALUES (1010, 'TURNER', 'SALESMAN', DATE '2022-03-22',
+      1500, 0, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1011, 'ADAMS', 'CLERK', DATE '2022-04-10',
+      1100, NULL, 20);\r
+
+      INSERT INTO EMP_39 VALUES (1012, 'JAMES', 'CLERK', DATE '2022-05-19', 950,
+      NULL, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1013, 'FORD', 'ANALYST', DATE '2022-06-25',
+      3000, NULL, 20);\r
+
+      INSERT INTO EMP_39 VALUES (1014, 'MILLER', 'CLERK', DATE '2022-07-30',
+      1300, NULL, 10);\r
+
+      INSERT INTO EMP_39 VALUES (1015, 'SINGH', 'MANAGER', DATE '2023-01-10',
+      2800, NULL, 50);\r
+
+      INSERT INTO EMP_39 VALUES (1016, 'SHAH', 'ANALYST', DATE '2023-02-14',
+      3200, NULL, 60);\r
+
+      INSERT INTO EMP_39 VALUES (1017, 'SURESH', 'CLERK', DATE '2023-03-18',
+      1400, NULL, 70);\r
+
+      INSERT INTO EMP_39 VALUES (1018, 'RAMESH', 'SALESMAN', DATE '2023-04-22',
+      1700, 200, 30);\r
+
+      INSERT INTO EMP_39 VALUES (1019, 'MAHESH', 'CLERK', DATE '2023-05-26',
+      1250, NULL, 80);\r
+
+      INSERT INTO EMP_39 VALUES (1020, 'RAKESH', 'MANAGER', DATE '2023-06-30',
+      2900, NULL, 90);"
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM DEPT_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: SELECT * FROM EMP_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT * \r
+
+      FROM EMP_39\r
+
+      WHERE JOB = 'MANAGER' AND SAL > 2500;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM EMP_39\r
+
+      WHERE ENAME LIKE 'S%H';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME, HIREDATE\r
+
+      FROM EMP_39\r
+
+      WHERE HIREDATE BETWEEN DATE '2021-01-01' AND DATE '2022-12-31'\r
+
+      ORDER BY HIREDATE ASC;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT ENAME, JOB FROM EMP_39\r
+
+      WHERE COMM IS NULL;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT E.ENAME, E.JOB, D.DNAME\r
+
+      FROM EMP_39 E\r
+
+      JOIN DEPT_39 D\r
+
+      ON E.DEPTNO = D.DEPTNO;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT E.ENAME\r
+
+      FROM EMP_39 E\r
+
+      JOIN DEPT_39 D\r
+
+      ON E.DEPTNO = D.DEPTNO\r
+
+      WHERE D.LOC IN ('DALLAS', 'CHICAGO');"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT E.ENAME, E.SAL, D.DNAME\r
+
+      FROM EMP_39 E\r
+
+      JOIN DEPT_39 D\r
+
+      ON E.DEPTNO = D.DEPTNO\r
+
+      WHERE E.SAL BETWEEN 1500 AND 3000;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT \r
+
+      \    SUM(SAL) AS TOTAL_SALARY,\r
+
+      \    AVG(SAL) AS AVERAGE_SALARY,\r
+
+      \    MAX(SAL) AS HIGHEST_SALARY\r
+
+      FROM EMP_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT DEPTNO, COUNT(*) AS TOTAL_EMPLOYEES\r
+
+      FROM EMP_39\r
+
+      GROUP BY DEPTNO;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT JOB, SUM(SAL) AS TOTAL_SALARY\r
+
+      FROM EMP_39\r
+
+      GROUP BY JOB\r
+
+      HAVING SUM(SAL) > 5000;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT \r
+
+      \    LOWER(ENAME) AS Name,\r
+
+      \    UPPER(JOB) AS Designation\r
+
+      FROM EMP_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT \r
+
+      \    ENAME, \r
+
+      \    SAL, \r
+
+      \    SAL * 12 AS ANNUAL_SAL\r
+
+      FROM EMP_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT JOB AS NAME\r
+
+      FROM EMP_39\r
+
+      UNION\r
+
+      SELECT DNAME\r
+
+      FROM DEPT_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "UPDATE EMP_39\r
+
+      SET SAL = SAL + 500\r
+
+      WHERE JOB = 'ANALYST';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "DELETE FROM EMP_39\r
+
+      WHERE DEPTNO = 40;"
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE EMP_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE DEPT_39;
+    languageId: oracle-sql
