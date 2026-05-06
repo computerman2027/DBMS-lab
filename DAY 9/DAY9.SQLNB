@@ -1,0 +1,607 @@
+cells:
+  - kind: 1
+    value: "# Assignment day 9"
+    languageId: markdown
+  - kind: 2
+    value: "CREATE TABLE DEPARTMENT_39 (\r
+
+      \    Dept_ID      NUMBER PRIMARY KEY,\r
+
+      \    Dept_Name    VARCHAR2(100) NOT NULL,\r
+
+      \    Budget       NUMBER(12,2),\r
+
+      \    Building     VARCHAR2(100)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE COURSE_39 (\r
+
+      \    Course_ID    VARCHAR2(10) PRIMARY KEY,\r
+
+      \    Title        VARCHAR2(200) NOT NULL,\r
+
+      \    Dept_ID      NUMBER,\r
+
+      \    Credits      NUMBER(2),\r
+
+      \    CONSTRAINT fk_course_dept\r
+
+      \        FOREIGN KEY (Dept_ID)\r
+
+      \        REFERENCES DEPARTMENT_39(Dept_ID)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE INSTRUCTOR_39 (\r
+
+      \    ID           NUMBER PRIMARY KEY,\r
+
+      \    Name         VARCHAR2(100) NOT NULL,\r
+
+      \    Dept_ID      NUMBER,\r
+
+      \    Salary       NUMBER(10,2),\r
+
+      \    CONSTRAINT fk_instructor_dept\r
+
+      \        FOREIGN KEY (Dept_ID)\r
+
+      \        REFERENCES DEPARTMENT_39(Dept_ID)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE STUDENT_39 (\r
+
+      \    ID           NUMBER PRIMARY KEY,\r
+
+      \    Name         VARCHAR2(100) NOT NULL,\r
+
+      \    Dept_ID      NUMBER,\r
+
+      \    Tot_Cred     NUMBER(3),\r
+
+      \    CONSTRAINT fk_student_dept\r
+
+      \        FOREIGN KEY (Dept_ID)\r
+
+      \        REFERENCES DEPARTMENT_39(Dept_ID)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "CREATE TABLE TAKES_39 (\r
+
+      \    ID           NUMBER,\r
+
+      \    Course_ID    VARCHAR2(10),\r
+
+      \    Sec_ID       NUMBER,\r
+
+      \    Semester     VARCHAR2(10),\r
+
+      \    Year         NUMBER(4),\r
+
+      \    Grade        VARCHAR2(2),\r
+
+      \    -- CONSTRAINT pk_takes PRIMARY KEY (ID, Course_ID, Sec_ID, Semester,
+      Year),\r
+
+      \    CONSTRAINT fk_takes39_student\r
+
+      \        FOREIGN KEY (ID)\r
+
+      \        REFERENCES STUDENT_39(ID),\r
+
+      \    CONSTRAINT fk_takes39_course\r
+
+      \        FOREIGN KEY (Course_ID)\r
+
+      \        REFERENCES COURSE_39(Course_ID)\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO DEPARTMENT_39 VALUES (1, 'Computer Science', 500000, 'Block A')\r
+
+      INTO DEPARTMENT_39 VALUES (2, 'Mathematics', 300000, 'Block B')\r
+
+      INTO DEPARTMENT_39 VALUES (3, 'Physics', 350000, 'Block C')\r
+
+      INTO DEPARTMENT_39 VALUES (4, 'Chemistry', 280000, 'Block D')\r
+
+      INTO DEPARTMENT_39 VALUES (5, 'Biology', 260000, 'Block E')\r
+
+      INTO DEPARTMENT_39 VALUES (6, 'History', 200000, 'Block F')\r
+
+      INTO DEPARTMENT_39 VALUES (7, 'Geography', 220000, 'Block G')\r
+
+      INTO DEPARTMENT_39 VALUES (8, 'Economics', 320000, 'Block H')\r
+
+      INTO DEPARTMENT_39 VALUES (9, 'Philosophy', 150000, 'Block I')\r
+
+      INTO DEPARTMENT_39 VALUES (10, 'English', 180000, 'Block J')\r
+
+      INTO DEPARTMENT_39 VALUES (11, 'Political Science', 210000, 'Block K')\r
+
+      INTO DEPARTMENT_39 VALUES (12, 'Sociology', 190000, 'Block L')\r
+
+      INTO DEPARTMENT_39 VALUES (13, 'Psychology', 230000, 'Block M')\r
+
+      INTO DEPARTMENT_39 VALUES (14, 'Statistics', 270000, 'Block N')\r
+
+      INTO DEPARTMENT_39 VALUES (15, 'AI', 600000, 'Block O')\r
+
+      INTO DEPARTMENT_39 VALUES (16, 'Data Science', 550000, 'Block P')\r
+
+      INTO DEPARTMENT_39 VALUES (17, 'Cyber Security', 520000, 'Block Q')\r
+
+      INTO DEPARTMENT_39 VALUES (18, 'Robotics', 580000, 'Block R')\r
+
+      INTO DEPARTMENT_39 VALUES (19, 'Design', 240000, 'Block S')\r
+
+      INTO DEPARTMENT_39 VALUES (20, 'Music', 170000, 'Block T')\r
+
+      SELECT * FROM dual;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO COURSE_39 VALUES ('CS101', 'DBMS', 1, 4)\r
+
+      INTO COURSE_39 VALUES ('CS102', 'Algorithms', 1, 4)\r
+
+      INTO COURSE_39 VALUES ('CS103', 'OS', 1, 4)\r
+
+      INTO COURSE_39 VALUES ('CS104', 'Networks', 1, 3)\r
+
+      INTO COURSE_39 VALUES ('MA101', 'Calculus', 2, 4)\r
+
+      INTO COURSE_39 VALUES ('PH101', 'Mechanics', 3, 4)\r
+
+      INTO COURSE_39 VALUES ('CH101', 'Organic Chemistry', 4, 3)\r
+
+      INTO COURSE_39 VALUES ('BI101', 'Genetics', 5, 3)\r
+
+      INTO COURSE_39 VALUES ('HS101', 'World History', 6, 2)\r
+
+      INTO COURSE_39 VALUES ('EC101', 'Microeconomics', 8, 3)\r
+
+      INTO COURSE_39 VALUES ('AI101', 'Intro AI', 15, 4)\r
+
+      INTO COURSE_39 VALUES ('DS101', 'Data Mining', 16, 4)\r
+
+      INTO COURSE_39 VALUES ('CY101', 'Ethical Hacking', 17, 4)\r
+
+      INTO COURSE_39 VALUES ('RB101', 'Robotics Basics', 18, 4)\r
+
+      INTO COURSE_39 VALUES ('ST101', 'Probability', 14, 4)\r
+
+      INTO COURSE_39 VALUES ('PS101', 'Cognitive Science', 13, 3)\r
+
+      INTO COURSE_39 VALUES ('EN101', 'Literature', 10, 2)\r
+
+      INTO COURSE_39 VALUES ('PL101', 'Logic', 9, 2)\r
+
+      INTO COURSE_39 VALUES ('SO101', 'Social Theory', 12, 3)\r
+
+      INTO COURSE_39 VALUES ('PO101', 'International Relations', 11, 3)\r
+
+      SELECT * FROM dual;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO INSTRUCTOR_39 VALUES (1, 'Suman', 1, 90000)\r
+
+      INTO INSTRUCTOR_39 VALUES (2, 'Dr. Roy', 1, 80000)\r
+
+      INTO INSTRUCTOR_39 VALUES (3, 'Dr. Khan', 2, 70000)\r
+
+      INTO INSTRUCTOR_39 VALUES (4, 'Dr. Das', 3, 60000)\r
+
+      INTO INSTRUCTOR_39 VALUES (5, 'Dr. Paul', 4, 65000)\r
+
+      INTO INSTRUCTOR_39 VALUES (6, 'Dr. Bose', 5, 72000)\r
+
+      INTO INSTRUCTOR_39 VALUES (7, 'Dr. Dutta', 1, 95000)\r
+
+      INTO INSTRUCTOR_39 VALUES (8, 'Dr. Iyer', 15, 120000)\r
+
+      INTO INSTRUCTOR_39 VALUES (9, 'Dr. Mehta', 16, 110000)\r
+
+      INTO INSTRUCTOR_39 VALUES (10, 'Dr. Ali', 17, 105000)\r
+
+      INTO INSTRUCTOR_39 VALUES (11, 'Dr. Jain', 18, 115000)\r
+
+      INTO INSTRUCTOR_39 VALUES (12, 'Dr. Singh', 14, 75000)\r
+
+      INTO INSTRUCTOR_39 VALUES (13, 'Dr. Nair', 13, 78000)\r
+
+      INTO INSTRUCTOR_39 VALUES (14, 'Dr. Ghosh', 10, 68000)\r
+
+      INTO INSTRUCTOR_39 VALUES (15, 'Dr. Rao', 9, 72000)\r
+
+      INTO INSTRUCTOR_39 VALUES (16, 'Dr. Verma', 8, 82000)\r
+
+      INTO INSTRUCTOR_39 VALUES (17, 'Dr. Kapoor', 11, 83000)\r
+
+      INTO INSTRUCTOR_39 VALUES (18, 'Dr. Shah', 12, 76000)\r
+
+      INTO INSTRUCTOR_39 VALUES (19, 'Dr. Anand', 6, 60000)\r
+
+      INTO INSTRUCTOR_39 VALUES (20, 'Dr. Pillai', 7, 62000)\r
+
+      SELECT * FROM dual;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO STUDENT_39 VALUES (1, 'Suman', 1, 120)\r
+
+      INTO STUDENT_39 VALUES (2, 'Sohan', 1, 110)\r
+
+      INTO STUDENT_39 VALUES (3, 'Simran', 2, 90)\r
+
+      INTO STUDENT_39 VALUES (4, 'Ravi', 3, 50)\r
+
+      INTO STUDENT_39 VALUES (5, 'Amit', 4, 70)\r
+
+      INTO STUDENT_39 VALUES (6, 'Neha', 5, 30)\r
+
+      INTO STUDENT_39 VALUES (7, 'Kiran', 6, 80)\r
+
+      INTO STUDENT_39 VALUES (8, 'Mohan', 7, 40)\r
+
+      INTO STUDENT_39 VALUES (9, 'Sajan', 1, 130)\r
+
+      INTO STUDENT_39 VALUES (10, 'Arjun', 8, 60)\r
+
+      INTO STUDENT_39 VALUES (11, 'Varun', 9, 100)\r
+
+      INTO STUDENT_39 VALUES (12, 'Rohan', 10, 55)\r
+
+      INTO STUDENT_39 VALUES (13, 'Kunal', 11, 75)\r
+
+      INTO STUDENT_39 VALUES (14, 'Suren', 12, 85)\r
+
+      INTO STUDENT_39 VALUES (15, 'Dev', 13, 20)\r
+
+      INTO STUDENT_39 VALUES (16, 'Srin', 14, 95)\r
+
+      INTO STUDENT_39 VALUES (17, 'John', 15, 65)\r
+
+      INTO STUDENT_39 VALUES (18, 'Smith', 16, 45)\r
+
+      INTO STUDENT_39 VALUES (19, 'Salman', 1, 140)\r
+
+      INTO STUDENT_39 VALUES (20, 'Karan', 17, 105)\r
+
+      SELECT * FROM dual;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "INSERT ALL\r
+
+      INTO TAKES_39 VALUES (1, 'CS101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (1, 'CS102', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (1, 'CS103', 1, 'Spring', 2026, 'B')\r
+
+      INTO TAKES_39 VALUES (1, 'CS104', 1, 'Spring', 2026, 'B')\r
+
+      INTO TAKES_39 VALUES (2, 'CS101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (2, 'CS102', 1, 'Spring', 2026, 'A')\r
+
+      INTO TAKES_39 VALUES (3, 'MA101', 1, 'Fall', 2025, 'B')\r
+
+      INTO TAKES_39 VALUES (4, 'PH101', 1, 'Fall', 2025, 'C')\r
+
+      INTO TAKES_39 VALUES (5, 'CH101', 1, 'Spring', 2026, 'B')\r
+
+      INTO TAKES_39 VALUES (6, 'BI101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (7, 'HS101', 1, 'Spring', 2026, 'B')\r
+
+      INTO TAKES_39 VALUES (8, 'EC101', 1, 'Fall', 2025, 'C')\r
+
+      INTO TAKES_39 VALUES (9, 'CS101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (9, 'CS102', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (9, 'CS103', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (10, 'AI101', 1, 'Spring', 2026, 'B')\r
+
+      INTO TAKES_39 VALUES (11, 'DS101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (12, 'CY101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (13, 'RB101', 1, 'Spring', 2026, 'B')\r
+
+      INTO TAKES_39 VALUES (14, 'ST101', 1, 'Fall', 2025, 'A')\r
+
+      INTO TAKES_39 VALUES (19, 'CS101', 1, 'Fall', 2025, 'A')\r
+
+      SELECT * FROM dual;"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q1
+    languageId: markdown
+  - kind: 2
+    value: "SELECT AVG(SALARY)\r
+
+      FROM INSTRUCTOR_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT NAME \r
+
+      FROM INSTRUCTOR_39\r
+
+      WHERE SALARY > (\r
+
+      \    SELECT AVG(SALARY)\r
+
+      FROM INSTRUCTOR_39\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q2
+    languageId: markdown
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM TAKES_39\r
+
+      NATURAL JOIN COURSE_39\r
+
+      NATURAL JOIN DEPARTMENT_39\r
+
+      NATURAL JOIN STUDENT_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM COURSE_39\r
+
+      NATURAL JOIN DEPARTMENT_39;"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT *\r
+
+      FROM COURSE_39\r
+
+      NATURAL JOIN DEPARTMENT_39\r
+
+      WHERE DEPARTMENT_39.DEPT_NAME = 'Computer Science';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT COURSE_39.COURSE_ID\r
+
+      FROM COURSE_39\r
+
+      NATURAL JOIN DEPARTMENT_39\r
+
+      WHERE DEPARTMENT_39.DEPT_NAME = 'Computer Science';"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT S.Name\r
+
+      FROM STUDENT_39 S\r
+
+      WHERE NOT EXISTS (\r
+
+      \    SELECT C.Course_ID\r
+
+      \    FROM COURSE_39 C\r
+
+      \    JOIN DEPARTMENT_39 D ON C.Dept_ID = D.Dept_ID\r
+
+      \    WHERE D.Dept_Name = 'Computer Science'\r
+
+      \    MINUS\r
+
+      \    SELECT T.Course_ID\r
+
+      \    FROM TAKES_39 T\r
+
+      \    WHERE T.ID = S.ID\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 2
+    value: "SELECT S.Name\r
+
+      FROM STUDENT_39 S\r
+
+      JOIN TAKES_39 T ON S.ID = T.ID\r
+
+      JOIN COURSE_39 C ON T.Course_ID = C.Course_ID\r
+
+      JOIN DEPARTMENT_39 D ON C.Dept_ID = D.Dept_ID\r
+
+      WHERE D.Dept_Name = 'Computer Science'\r
+
+      GROUP BY S.ID, S.Name\r
+
+      HAVING COUNT(DISTINCT C.Course_ID) = (\r
+
+      \    SELECT COUNT(*)\r
+
+      \    FROM COURSE_39 C\r
+
+      \    JOIN DEPARTMENT_39 D ON C.Dept_ID = D.Dept_ID\r
+
+      \    WHERE D.Dept_Name = 'Computer Science'\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q3
+    languageId: markdown
+  - kind: 2
+    value: "SELECT Name FROM STUDENT_39\r
+
+      INTERSECT\r
+
+      SELECT Name FROM INSTRUCTOR_39;"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q4
+    languageId: markdown
+  - kind: 2
+    value: "SELECT DISTINCT C.Title\r
+
+      FROM COURSE_39 C\r
+
+      JOIN TAKES_39 T ON C.Course_ID = T.Course_ID\r
+
+      JOIN STUDENT_39 S ON S.ID = T.ID\r
+
+      WHERE S.Name LIKE 'S%n'\r
+
+      \  AND T.Grade = 'A';"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q5
+    languageId: markdown
+  - kind: 2
+    value: "SELECT D.Dept_Name\r
+
+      FROM DEPARTMENT_39 D\r
+
+      JOIN INSTRUCTOR_39 I ON D.Dept_ID = I.Dept_ID\r
+
+      GROUP BY D.Dept_ID, D.Dept_Name\r
+
+      HAVING SUM(I.Salary) > (\r
+
+      \    SELECT AVG(total_salary)\r
+
+      \    FROM (\r
+
+      \        SELECT SUM(Salary) AS total_salary\r
+
+      \        FROM INSTRUCTOR_39\r
+
+      \        GROUP BY Dept_ID\r
+
+      \    )\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 1
+    value: "Q6\r\n"
+    languageId: markdown
+  - kind: 2
+    value: "SELECT D.Dept_Name,\r
+
+      \       NVL(I.Name, 'No Instructor') AS Instructor_Name\r
+
+      FROM DEPARTMENT_39 D\r
+
+      LEFT JOIN INSTRUCTOR_39 I\r
+
+      ON D.Dept_ID = I.Dept_ID\r
+
+      ORDER BY D.Dept_Name;"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q7
+    languageId: markdown
+  - kind: 2
+    value: "SELECT MAX(Salary) AS Third_Highest_Salary\r
+
+      FROM INSTRUCTOR_39\r
+
+      WHERE Salary < (\r
+
+      \    SELECT MAX(Salary)\r
+
+      \    FROM INSTRUCTOR_39\r
+
+      \    WHERE Salary < (\r
+
+      \        SELECT MAX(Salary)\r
+
+      \        FROM INSTRUCTOR_39\r
+
+      \    )\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q8
+    languageId: markdown
+  - kind: 2
+    value: "SELECT Name,\r
+
+      \       CASE\r
+
+      \           WHEN Tot_Cred > 100 THEN 'Senior'\r
+
+      \           WHEN Tot_Cred BETWEEN 60 AND 100 THEN 'Junior'\r
+
+      \           ELSE 'Sophomore'\r
+
+      \       END AS Category\r
+
+      FROM STUDENT_39;"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q9
+    languageId: markdown
+  - kind: 2
+    value: "SELECT I.ID, I.Name\r
+
+      FROM INSTRUCTOR_39 I\r
+
+      WHERE EXISTS (\r
+
+      \    SELECT 1\r
+
+      \    FROM TAKES_39 T\r
+
+      \    WHERE T.Semester = 'Fall'\r
+
+      \      AND T.Year = 2025\r
+
+      )\r
+
+      AND NOT EXISTS (\r
+
+      \    SELECT 1\r
+
+      \    FROM TAKES_39 T\r
+
+      \    WHERE T.Semester = 'Spring'\r
+
+      \      AND T.Year = 2026\r
+
+      );"
+    languageId: oracle-sql
+  - kind: 1
+    value: Q10
+    languageId: markdown
+  - kind: 2
+    value: DROP TABLE TAKES_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE STUDENT_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE INSTRUCTOR_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE COURSE_39;
+    languageId: oracle-sql
+  - kind: 2
+    value: DROP TABLE DEPARTMENT_39;
+    languageId: oracle-sql
