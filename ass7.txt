@@ -1,0 +1,213 @@
+Most of your queries are correct. Only **J, L, M, and O** need correction according to the questions. Here are the **final answers in Question–Answer format**.
+
+### Q1(a). Display the name of employee who earns maximum salary.
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE SAL = (SELECT MAX(SAL) FROM EMP_39);
+```
+
+### Q1(b). Display the name of employee who earns maximum salary whose job is salesman.
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE JOB='SALESMAN'
+AND SAL = (
+    SELECT MAX(SAL)
+    FROM EMP_39
+    WHERE JOB='SALESMAN'
+);
+```
+
+### Q1(c). Display the name of employee who earns minimum salary and whose job is clerk.
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE JOB='CLERK'
+AND SAL = (
+    SELECT MIN(SAL)
+    FROM EMP_39
+    WHERE JOB='CLERK'
+);
+```
+
+### Q1(d). Display the department whose average salary is maximum.
+
+```sql
+SELECT DEPT_NAME
+FROM
+(
+    SELECT DEPT_NAME, AVG(SAL) AVG_SAL
+    FROM EMP_39
+    GROUP BY DEPT_NAME
+    ORDER BY AVG_SAL DESC
+)
+WHERE ROWNUM=1;
+```
+
+### Q1(e). List the name of the employee whose salary is more than 'TURNER'.
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE SAL >
+(
+    SELECT SAL
+    FROM EMP_39
+    WHERE ENAME='TURNER'
+);
+```
+
+### Q1(f). List the name of employee who joined after ALLEN.
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE HIREDATE >
+(
+    SELECT HIREDATE
+    FROM EMP_39
+    WHERE ENAME='ALLEN'
+);
+```
+
+### Q1(g). Display the name of the department in which 'FORD' works.
+
+```sql
+SELECT DEPT_NAME
+FROM EMP_39
+WHERE ENAME='FORD';
+```
+
+### Q1(h). Display the name of the department with the maximum total salary.
+
+```sql
+SELECT DEPT_NAME
+FROM
+(
+    SELECT DEPT_NAME, SUM(SAL) TOTAL_SALARY
+    FROM EMP_39
+    GROUP BY DEPT_NAME
+    ORDER BY TOTAL_SALARY DESC
+)
+WHERE ROWNUM=1;
+```
+
+### Q1(i). Display the name of the city (location) in which 'SMITH' works.
+
+```sql
+SELECT CITY
+FROM EMP_39
+WHERE ENAME='SMITH';
+```
+
+### Q1(j). Display the name of the city in which the manager works.
+
+**(Your query was incorrect because it returns all managers' cities. The question asks for the city where the President/Manager's manager works.)**
+
+```sql
+SELECT CITY
+FROM EMP_39
+WHERE EMPNO =
+(
+    SELECT MGR
+    FROM EMP_39
+    WHERE JOB='MANAGER'
+    AND ROWNUM=1
+);
+```
+
+### Q1(k). Display the grade of the employee named 'MARTIN'.
+
+```sql
+SELECT GRADE
+FROM GRADE_39
+WHERE
+(
+    SELECT SAL
+    FROM EMP_39
+    WHERE ENAME='MARTIN'
+)
+BETWEEN MINSAL AND MAXSAL;
+```
+
+### Q1(l). List the employees who earn more than every employee in 'DALLAS'.
+
+**(Use ALL instead of MAX for a multiple-row subquery.)**
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE SAL > ALL
+(
+    SELECT SAL
+    FROM EMP_39
+    WHERE CITY='DALLAS'
+);
+```
+
+### Q1(m). Display the name of the department which has no employees.
+
+**(Your query can never return a result because departments without employees are not stored separately.)**
+
+```sql
+SELECT DISTINCT DEPT_NAME
+FROM EMP_39
+MINUS
+SELECT DEPT_NAME
+FROM EMP_39;
+```
+
+> **Note:** With your schema, this query returns **no rows** because there is no separate Department table.
+
+### Q1(n). Display the name of the employee who joined on the same date as 'ADAMS'.
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE HIREDATE =
+(
+    SELECT HIREDATE
+    FROM EMP_39
+    WHERE ENAME='ADAMS'
+)
+AND ENAME<>'ADAMS';
+```
+
+### Q1(o). List the names of the departments where employees receive commission.
+
+**(Only department names are required.)**
+
+```sql
+SELECT DISTINCT DEPT_NAME
+FROM EMP_39
+WHERE COMM>0;
+```
+
+### Q1(p). List the employees who earn the lowest salary in their respective department.
+
+```sql
+SELECT DEPT_NAME, ENAME, SAL
+FROM EMP_39 E
+WHERE SAL =
+(
+    SELECT MIN(SAL)
+    FROM EMP_39
+    WHERE DEPT_NAME=E.DEPT_NAME
+);
+```
+
+### Summary of corrections
+
+* ✅ A–I: Correct
+* ❌ J: Incorrect
+* ✅ K: Correct
+* ❌ L: Should use `> ALL` instead of `> MAX(...)`
+* ❌ M: Not possible with only `EMP_39`; needs a Department table
+* ✅ N: Correct
+* ❌ O: Use `SELECT DISTINCT DEPT_NAME WHERE COMM > 0`
+* ✅ P: Correct
+*
