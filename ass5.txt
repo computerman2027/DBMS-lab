@@ -1,0 +1,135 @@
+Below are the **final SQL queries** in **Question–Answer format**, using the **old Oracle join syntax** (`FROM table1, table2 WHERE ...`) as requested. 
+
+---
+
+## **Q1. Get PNO & PNAME values of parts that are priced less than 20.**
+
+**Answer:**
+
+```sql
+SELECT PNO, PNAME
+FROM PARTS
+WHERE PRICE < 20;
+```
+
+---
+
+## **Q2. Get PNO values for parts for which orders have been placed.**
+
+**Answer:**
+
+```sql
+SELECT DISTINCT PNO
+FROM ODETAILS;
+```
+
+---
+
+## **Q3. Get all the details of customers whose names begin with the letter 'S'.**
+
+**Answer:**
+
+```sql
+SELECT *
+FROM CUSTOMERS
+WHERE CNAME LIKE 'S%';
+```
+
+---
+
+## **Q4. Get the ONO & CNAME values for customers whose orders have not yet been shipped.**
+
+**Answer:**
+
+```sql
+SELECT O.ONO, C.CNAME
+FROM ORDERS O, CUSTOMERS C
+WHERE O.CNO = C.CNO
+AND O.SHIPPED IS NULL;
+```
+
+---
+
+## **Q5. Get CNAME & ENAME pairs such that the customer with name CNAME has placed an order through the employee with name ENAME.**
+
+**Answer:**
+
+```sql
+SELECT C.CNAME, E.ENAME
+FROM CUSTOMERS C, EMPLOYEES E, ORDERS O
+WHERE C.CNO = O.CNO
+AND E.ENO = O.ENO;
+```
+
+---
+
+## **Q6. Get the name of employees who were hired on the earliest date.**
+
+**Answer:**
+
+```sql
+SELECT ENAME
+FROM EMPLOYEES
+WHERE HDATE =
+(
+SELECT MIN(HDATE)
+FROM EMPLOYEES
+);
+```
+
+---
+
+## **Q7. Retrieve the part number, part name and price of parts with price greater than 20000 in ascending order of part number.**
+
+**Answer:**
+
+```sql
+SELECT PNO, PNAME, PRICE
+FROM PARTS
+WHERE PRICE > 20000
+ORDER BY PNO;
+```
+
+> **Note:** With the sample data provided, the prices are 19.99, 24.99, etc., so this query will return no rows. It is written exactly as given in the assignment.
+
+---
+
+## **Q8. For each part, get PNO & PNAME values along with total sales.**
+
+**Answer:**
+
+```sql
+SELECT P.PNO, P.PNAME, SUM(O.QTY) AS TOTAL_SALES
+FROM PARTS P, ODETAILS O
+WHERE P.PNO = O.PNO
+GROUP BY P.PNO, P.PNAME;
+```
+
+---
+
+## **Q9. Get the total quantity of part 10601 that has been ordered.**
+
+**Answer:**
+
+```sql
+SELECT SUM(QTY) AS TOTAL_QUANTITY
+FROM ODETAILS
+WHERE PNO = 10601;
+```
+
+---
+
+## **Q10. Get the ENO values of employees from city 'Mumbai'.**
+
+**Answer:**
+
+```sql
+SELECT E.ENO
+FROM EMPLOYEES E, ZIPCODES Z
+WHERE E.ZIP = Z.ZIP
+AND Z.CITY = 'Mumbai';
+```
+
+> **Note:** If you are using the sample data from the image, replace `'Mumbai'` with the appropriate city name (such as `'Wichita'`) because `'Mumbai'` is not present in the sample ZIPCODES table.
+
+These queries are ready to use in an Oracle SQL practical and follow the classic join style you requested.
