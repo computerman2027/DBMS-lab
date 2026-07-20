@@ -1,0 +1,1663 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Sun Jul 19 18:59:23 2026
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Sun Mar 29 2026 22:33:06 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> show tables
+SP2-0158: unknown SHOW option "tables"
+SQL> show table;
+SP2-0158: unknown SHOW option "table"
+SQL> CREATE TABLE DEPARTMENT (
+  2  DEPT_ID NUMBER(3) PRIMARY KEY,
+  3  DEPT_NAME VARCHAR2(30) NOT NULL,
+  4  LOCATION VARCHAR2(20)
+  5  );
+
+Table created.
+
+SQL> CREATE TABLE EMPLOYEE (
+  2  EMP_ID NUMBER(4) PRIMARY KEY,
+  3  EMP_NAME VARCHAR2(30) NOT NULL,
+  4  JOB VARCHAR2(20),
+  5  SALARY NUMBER(8,2),
+  6  HIRE_DATE DATE,
+  7  DEPT_ID NUMBER(3) REFERENCES DEPARTMENT(DEPT_ID),
+  8  CITY VARCHAR2(20),
+  9  COMMISSION NUMBER(8,2) DEFAULT 0
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE PROJECT (
+  2  PROJECT_ID NUMBER(3) PRIMARY KEY,
+  3  PROJECT_NAME VARCHAR2(30),
+  4  BUDGET NUMBER(10),
+  5  START_DATE DATE
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE WORKS_ON (
+  2  EMP_ID NUMBER(4) REFERENCES EMPLOYEE(EMP_ID),
+  3  PROJECT_ID NUMBER(3) REFERENCES PROJECT(PROJECT_ID),
+  4  HOURS_WORKED NUMBER(5)
+  5  );
+
+Table created.
+
+SQL> INSERT INTO DEPARTMENT VALUES (101,'HR', 'Mumbai');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES (102,'IT', 'Pune');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES (103,'Finance', 'Delhi');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES (104,'Sales', 'Bangalore');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES (105,'Marketing','Hyderabad');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1001, 'Aarav', 'Manager', 85000, TO_DATE('10-JAN-2021','DD-MON-YYYY'), 102, 'Pune', 5000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1002, 'Bhavna', 'Analyst', 62000, TO_DATE('22-MAR-2022','DD-MON-YYYY'), 102, 'Pune', 0);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1003, 'Chirag', 'Clerk', 32000, TO_DATE('18-JUL-2023','DD-MON-YYYY'), 101, 'Mumbai', 0);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1004, 'Diya', 'Salesman', 45000, TO_DATE('05-MAY-2020','DD-MON-YYYY'), 104, 'Bangalore', 6000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1005, 'Eshan', 'Manager', 90000, TO_DATE('12-SEP-2019','DD-MON-YYYY'), 103, 'Delhi', 7000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1006, 'Farah', 'Clerk', 28000, TO_DATE('08-FEB-2024','DD-MON-YYYY'), 105, 'Hyderabad', 0);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1007, 'Gauri', 'Analyst', 68000, TO_DATE('14-JUN-2021','DD-MON-YYYY'), 103, 'Delhi', 0);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1008, 'Harsh', 'Salesman', 47000, TO_DATE('30-NOV-2022','DD-MON-YYYY'), 104, 'Bangalore', 4500);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1009, 'Isha', 'HR', 40000, TO_DATE('17-APR-2023','DD-MON-YYYY'), 101, 'Mumbai', 0);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES (1010, 'Jay', 'Developer', 75000, TO_DATE('02-AUG-2020','DD-MON-YYYY'), 102, 'Pune', 0);
+
+1 row created.
+
+SQL> INSERT INTO PROJECT VALUES (201, 'ERP System', 1500000, TO_DATE('01-JAN-2024','DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO PROJECT VALUES (202, 'Banking App', 2500000, TO_DATE('15-FEB-2024','DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO PROJECT VALUES (203, 'HR Portal', 600000, TO_DATE('10-MAR-2024','DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO PROJECT VALUES (204, 'CRM Upgrade', 1800000, TO_DATE('20-APR-2024','DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO PROJECT VALUES (205, 'AI Assistant', 3000000, TO_DATE('01-MAY-2024','DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1001, 201, 120);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1002, 201, 150);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1002, 202, 80);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1004, 204, 200);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1005, 202, 220);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1007, 205, 160);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1008, 204, 170);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1010, 205, 210);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1003, 203, 100);
+
+1 row created.
+
+SQL> INSERT INTO WORKS_ON VALUES (1009, 203, 90);
+
+1 row created.
+
+SQL>
+SQL> SELECT * FROM DEPARTMENT;
+
+   DEPT_ID DEPT_NAME                      LOCATION
+---------- ------------------------------ --------------------
+       101 HR                             Mumbai
+       102 IT                             Pune
+       103 Finance                        Delhi
+       104 Sales                          Bangalore
+       105 Marketing                      Hyderabad
+
+SQL>
+SQL> SELECT * FROM EMPLOYEE;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+      1001 Aarav                          Manager                   85000
+10-JAN-21        102 Pune                       5000
+
+      1002 Bhavna                         Analyst                   62000
+22-MAR-22        102 Pune                          0
+
+      1003 Chirag                         Clerk                     32000
+18-JUL-23        101 Mumbai                        0
+
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+      1004 Diya                           Salesman                  45000
+05-MAY-20        104 Bangalore                  6000
+
+      1005 Eshan                          Manager                   90000
+12-SEP-19        103 Delhi                      7000
+
+      1006 Farah                          Clerk                     28000
+08-FEB-24        105 Hyderabad                     0
+
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+      1007 Gauri                          Analyst                   68000
+14-JUN-21        103 Delhi                         0
+
+      1008 Harsh                          Salesman                  47000
+30-NOV-22        104 Bangalore                  4500
+
+      1009 Isha                           HR                        40000
+17-APR-23        101 Mumbai                        0
+
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+      1010 Jay                            Developer                 75000
+02-AUG-20        102 Pune                          0
+
+
+10 rows selected.
+
+SQL>
+SQL> SELECT * FROM PROJECT;
+
+PROJECT_ID PROJECT_NAME                       BUDGET START_DAT
+---------- ------------------------------ ---------- ---------
+       201 ERP System                        1500000 01-JAN-24
+       202 Banking App                       2500000 15-FEB-24
+       203 HR Portal                          600000 10-MAR-24
+       204 CRM Upgrade                       1800000 20-APR-24
+       205 AI Assistant                      3000000 01-MAY-24
+
+SQL>
+SQL> SELECT * FROM WORKS_ON;
+
+    EMP_ID PROJECT_ID HOURS_WORKED
+---------- ---------- ------------
+      1001        201          120
+      1002        201          150
+      1002        202           80
+      1004        204          200
+      1005        202          220
+      1007        205          160
+      1008        204          170
+      1010        205          210
+      1003        203          100
+      1009        203           90
+
+10 rows selected.
+
+SQL> ALTER TABLE EMPLOYEE ADD EMAIL VARCHAR(50);
+
+Table altered.
+
+SQL> SELECT * FROM EMPLOYEE;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+      1001 Aarav                          Manager                   85000
+10-JAN-21        102 Pune                       5000
+
+
+      1002 Bhavna                         Analyst                   62000
+22-MAR-22        102 Pune                          0
+
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+
+      1003 Chirag                         Clerk                     32000
+18-JUL-23        101 Mumbai                        0
+
+
+      1004 Diya                           Salesman                  45000
+05-MAY-20        104 Bangalore                  6000
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+
+
+      1005 Eshan                          Manager                   90000
+12-SEP-19        103 Delhi                      7000
+
+
+      1006 Farah                          Clerk                     28000
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+08-FEB-24        105 Hyderabad                     0
+
+
+      1007 Gauri                          Analyst                   68000
+14-JUN-21        103 Delhi                         0
+
+
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+      1008 Harsh                          Salesman                  47000
+30-NOV-22        104 Bangalore                  4500
+
+
+      1009 Isha                           HR                        40000
+17-APR-23        101 Mumbai                        0
+
+
+    EMP_ID EMP_NAME                       JOB                      SALARY
+---------- ------------------------------ -------------------- ----------
+HIRE_DATE    DEPT_ID CITY                 COMMISSION
+--------- ---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+
+      1010 Jay                            Developer                 75000
+02-AUG-20        102 Pune                          0
+
+
+
+10 rows selected.
+
+SQL> DESC EMPLOYEE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(4)
+ EMP_NAME                                  NOT NULL VARCHAR2(30)
+ JOB                                                VARCHAR2(20)
+ SALARY                                             NUMBER(8,2)
+ HIRE_DATE                                          DATE
+ DEPT_ID                                            NUMBER(3)
+ CITY                                               VARCHAR2(20)
+ COMMISSION                                         NUMBER(8,2)
+ EMAIL                                              VARCHAR2(50)
+
+SQL> SETLINE 200
+SP2-0734: unknown command beginning "SETLINE 20..." - rest of line ignored.
+SQL> SETLINE 200
+SP2-0734: unknown command beginning "SETLINE 20..." - rest of line ignored.
+SQL> SETLIN 200
+SP2-0042: unknown command "SETLIN 200" - rest of line ignored.
+SQL> SET LIN 200
+SQL> SELECT * FROM EMPLOYEE;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION EMAIL
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ---------- --------------------------------------------------
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0
+      1003 Chirag                         Clerk                     32000 18-JUL-23        101 Mumbai                        0
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000
+      1006 Farah                          Clerk                     28000 08-FEB-24        105 Hyderabad                     0
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0
+
+10 rows selected.
+
+SQL> ALTER TABLE EMPLOYEE MODIFY EMAIL VARCHAR2(50);
+
+Table altered.
+
+SQL> DESC EMPLOYEE;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+ EMAIL                                                                                                                      VARCHAR2(50)
+
+SQL> ALTER TABLE EMPLOYEE RENAME COLUMN EMAIL TO OFFICIAL_EMAIL;
+
+Table altered.
+
+SQL> DESC EMPLOYEE;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+ OFFICIAL_EMAIL                                                                                                             VARCHAR2(50)
+
+SQL> ALTER TABLE EMPLOYEE DROP COLUMN OFFICIAL_EMAIL;
+
+Table altered.
+
+SQL> DESC EMPLOYEE;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, SALARY
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                      SALARY
+------------------------------ ----------
+Aarav                               85000
+Bhavna                              62000
+Chirag                              32000
+Diya                                45000
+Eshan                               90000
+Farah                               28000
+Gauri                               68000
+Harsh                               47000
+Isha                                40000
+Jay                                 75000
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, SALARY
+  2  FROM EMPLOYEE
+  3  WHERE SALARY > 60000;
+
+EMPLOYEE_NAME                      SALARY
+------------------------------ ----------
+Aarav                               85000
+Bhavna                              62000
+Eshan                               90000
+Gauri                               68000
+Jay                                 75000
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, CITY
+  2  FROM EMPLOYEE
+  3  WHERE CITY LIKE 'Pune';
+
+EMPLOYEE_NAME                  CITY
+------------------------------ --------------------
+Aarav                          Pune
+Bhavna                         Pune
+Jay                            Pune
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, HIRE_DATE
+  2  FROM EMPLOYEE
+  3  WHERE HIRE_DATE > TO_DATE('01-JAN-2022','DD-MMM-YYYY');
+WHERE HIRE_DATE > TO_DATE('01-JAN-2022','DD-MMM-YYYY')
+                                        *
+ERROR at line 3:
+ORA-01821: date format not recognized
+
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, HIRE_DATE
+  2  FROM EMPLOYEE
+  3  WHERE HIRE_DATE > TO_DATE('01-JAN-2022','DD-MON-YYYY');
+
+EMPLOYEE_NAME                  HIRE_DATE
+------------------------------ ---------
+Bhavna                         22-MAR-22
+Chirag                         18-JUL-23
+Farah                          08-FEB-24
+Harsh                          30-NOV-22
+Isha                           17-APR-23
+
+SQL>
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, SALARY
+  2  FROM EMPLOYEE
+  3  WHERE SALARY BETWEEN 40000 AND 80000;
+
+EMPLOYEE_NAME                      SALARY
+------------------------------ ----------
+Bhavna                              62000
+Diya                                45000
+Gauri                               68000
+Harsh                               47000
+Isha                                40000
+Jay                                 75000
+
+6 rows selected.
+
+SQL>
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, SALARY
+  2  FROM EMPLOYEE
+  3  WHERE SALARY BETWEEN 40000 AND 80000
+  4  ORDER BY SALARY DESC
+  5  ;
+
+EMPLOYEE_NAME                      SALARY
+------------------------------ ----------
+Jay                                 75000
+Gauri                               68000
+Bhavna                              62000
+Harsh                               47000
+Diya                                45000
+Isha                                40000
+
+6 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, E.DEPT_ID, D.DEPT_NAME
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID;
+
+EMPLOYEE_NAME                     DEPT_ID DEPT_NAME
+------------------------------ ---------- ------------------------------
+Aarav                                 102 IT
+Bhavna                                102 IT
+Chirag                                101 HR
+Diya                                  104 Sales
+Eshan                                 103 Finance
+Farah                                 105 Marketing
+Gauri                                 103 Finance
+Harsh                                 104 Sales
+Isha                                  101 HR
+Jay                                   102 IT
+
+10 rows selected.
+
+SQL> SELECT DISTINCT CITY
+  2  FROM EMPLOYEE;
+
+CITY
+--------------------
+Pune
+Mumbai
+Bangalore
+Delhi
+Hyderabad
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME
+  2  FROM EMPLOYEE
+  3  WHERE EMP_NAME LIKE 'A%';
+
+EMPLOYEE_NAME
+------------------------------
+Aarav
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME
+  2  FROM EMPLOYEE
+  3  WHERE EMP_NAME LIKE '%a';
+
+EMPLOYEE_NAME
+------------------------------
+Bhavna
+Diya
+Isha
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME
+  2  FROM EMPLOYEE
+  3  WHERE EMP_NAME LIKE '%ra%';
+
+EMPLOYEE_NAME
+------------------------------
+Aarav
+Chirag
+Farah
+
+SQL> SELECT CITY
+  2  FROM EMPLOYEE
+  3  WHERE CITY LIKE '_U%';
+
+no rows selected
+
+SQL> SELECT CITY
+  2  FROM EMPLOYEE
+  3  ;
+
+CITY
+--------------------
+Pune
+Pune
+Mumbai
+Bangalore
+Delhi
+Hyderabad
+Delhi
+Bangalore
+Mumbai
+Pune
+
+10 rows selected.
+
+SQL> SELECT CITY
+  2  FROM EMPLOYEE
+  3  WHERE CITY LIKE '_U%';
+
+no rows selected
+
+SQL> SELECT CITY
+  2  FROM EMPLOYEE
+  3  WHERE CITY LIKE '_u%';
+
+CITY
+--------------------
+Pune
+Pune
+Mumbai
+Mumbai
+Pune
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, SALARY
+  2  FROM EMPLOYEE
+  3  ORDER BY SALARY DESC;
+
+EMPLOYEE_NAME                      SALARY
+------------------------------ ----------
+Eshan                               90000
+Aarav                               85000
+Jay                                 75000
+Gauri                               68000
+Bhavna                              62000
+Harsh                               47000
+Diya                                45000
+Isha                                40000
+Chirag                              32000
+Farah                               28000
+
+10 rows selected.
+
+SQL> SELECT COUNT(*)
+  2  FROM EMPLOYEE;
+
+  COUNT(*)
+----------
+        10
+
+SQL> SELECT COUNT(*)
+  2  FROM EMPLOYEE;
+
+  COUNT(*)
+----------
+        10
+
+SQL> SELECT MAX(SAlary)
+  2  FROM EMPLOYEE;
+
+MAX(SALARY)
+-----------
+      90000
+
+SQL> SELECT MIN(SAlary)
+  2  FROM EMPLOYEE;
+
+MIN(SALARY)
+-----------
+      28000
+
+SQL> SELECT AVG(SAlary)
+  2  FROM EMPLOYEE;
+
+AVG(SALARY)
+-----------
+      57200
+
+SQL> SELECT SUM(SAlary)
+  2  FROM EMPLOYEE;
+
+SUM(SALARY)
+-----------
+     572000
+
+SQL> DESC DEPARTMENT;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPT_ID                                                                                                           NOT NULL NUMBER(3)
+ DEPT_NAME                                                                                                         NOT NULL VARCHAR2(30)
+ LOCATION                                                                                                                   VARCHAR2(20)
+
+SQL> SELECT D.DEPT_NAME, COUNT(*)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME;
+
+DEPT_NAME                        COUNT(*)
+------------------------------ ----------
+IT                                      3
+HR                                      2
+Sales                                   2
+Finance                                 2
+Marketing                               1
+
+SQL> SELECT D.DEPT_NAME, COUNT(*)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME
+  6  HAVING COUNT(*)>1;
+
+DEPT_NAME                        COUNT(*)
+------------------------------ ----------
+IT                                      3
+HR                                      2
+Sales                                   2
+Finance                                 2
+
+SQL> SELECT D.DEPT_NAME, AVG(E.SALARY)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME;
+
+DEPT_NAME                      AVG(E.SALARY)
+------------------------------ -------------
+IT                                     74000
+HR                                     36000
+Sales                                  46000
+Finance                                79000
+Marketing                              28000
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, UPPER(EMP_NAME)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  UPPER(EMP_NAME)
+------------------------------ ------------------------------
+Aarav                          AARAV
+Bhavna                         BHAVNA
+Chirag                         CHIRAG
+Diya                           DIYA
+Eshan                          ESHAN
+Farah                          FARAH
+Gauri                          GAURI
+Harsh                          HARSH
+Isha                           ISHA
+Jay                            JAY
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, LOWER(EMP_NAME)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  LOWER(EMP_NAME)
+------------------------------ ------------------------------
+Aarav                          aarav
+Bhavna                         bhavna
+Chirag                         chirag
+Diya                           diya
+Eshan                          eshan
+Farah                          farah
+Gauri                          gauri
+Harsh                          harsh
+Isha                           isha
+Jay                            jay
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, SUBSTR(EMP_NAME,1,3)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  SUBSTR(EMP_N
+------------------------------ ------------
+Aarav                          Aar
+Bhavna                         Bha
+Chirag                         Chi
+Diya                           Diy
+Eshan                          Esh
+Farah                          Far
+Gauri                          Gau
+Harsh                          Har
+Isha                           Ish
+Jay                            Jay
+
+10 rows selected.
+
+SQL> SELECT INITCAP(JOB)
+  2  FROM EMPLOYEE;
+
+INITCAP(JOB)
+--------------------
+Manager
+Analyst
+Clerk
+Salesman
+Manager
+Clerk
+Analyst
+Salesman
+Hr
+Developer
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, LENGTH(EMP_NAME)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  LENGTH(EMP_NAME)
+------------------------------ ----------------
+Aarav                                         5
+Bhavna                                        6
+Chirag                                        6
+Diya                                          4
+Eshan                                         5
+Farah                                         5
+Gauri                                         5
+Harsh                                         5
+Isha                                          4
+Jay                                           3
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME,
+  2         JOB,
+  3         REPLACE(JOB, 'Manager', 'Lead') AS NEW_JOB
+  4  FROM EMPLOYEE;
+
+EMP_NAME                       JOB                  NEW_JOB
+------------------------------ -------------------- --------------------------------------------------------------------------------
+Aarav                          Manager              Lead
+Bhavna                         Analyst              Analyst
+Chirag                         Clerk                Clerk
+Diya                           Salesman             Salesman
+Eshan                          Manager              Lead
+Farah                          Clerk                Clerk
+Gauri                          Analyst              Analyst
+Harsh                          Salesman             Salesman
+Isha                           HR                   HR
+Jay                            Developer            Developer
+
+10 rows selected.
+
+SQL> SELECT EMP_ID ,EMP_NAME AS EMPLOYEE_NAME, LPAD(EMP_ID,6,'0')
+  2  FROM EMPLOYEE;
+
+    EMP_ID EMPLOYEE_NAME                  LPAD(EMP_ID,6,'0')
+---------- ------------------------------ ------------------------
+      1001 Aarav                          001001
+      1002 Bhavna                         001002
+      1003 Chirag                         001003
+      1004 Diya                           001004
+      1005 Eshan                          001005
+      1006 Farah                          001006
+      1007 Gauri                          001007
+      1008 Harsh                          001008
+      1009 Isha                           001009
+      1010 Jay                            001010
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, INSTR(EMP_NAME,'a')
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  INSTR(EMP_NAME,'A')
+------------------------------ -------------------
+Aarav                                            2
+Bhavna                                           3
+Chirag                                           5
+Diya                                             4
+Eshan                                            4
+Farah                                            2
+Gauri                                            2
+Harsh                                            2
+Isha                                             4
+Jay                                              2
+
+10 rows selected.
+
+SQL> SELECT TRIM(' ORACLE ')
+  2  FROM DUAL;
+
+TRIM('
+------
+ORACLE
+
+SQL> SELECT SYSDATE FROM DUAL;
+
+SYSDATE
+---------
+19-JUL-26
+
+SQL> SELECT CURRENT_DATE FROM DUAL;
+
+CURRENT_D
+---------
+19-JUL-26
+
+SQL> SELECT SESSIONTIMEZONE FROM DUAL;
+
+SESSIONTIMEZONE
+---------------------------------------------------------------------------
++05:30
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, HIRE_DATE, ADD_MONTHS(HIRE_DATE,6)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  HIRE_DATE ADD_MONTH
+------------------------------ --------- ---------
+Aarav                          10-JAN-21 10-JUL-21
+Bhavna                         22-MAR-22 22-SEP-22
+Chirag                         18-JUL-23 18-JAN-24
+Diya                           05-MAY-20 05-NOV-20
+Eshan                          12-SEP-19 12-MAR-20
+Farah                          08-FEB-24 08-AUG-24
+Gauri                          14-JUN-21 14-DEC-21
+Harsh                          30-NOV-22 31-MAY-23
+Isha                           17-APR-23 17-OCT-23
+Jay                            02-AUG-20 02-FEB-21
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, HIRE_DATE, MONTHS_BETWEEN(SYSDATE,HIRE_DATE)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  HIRE_DATE MONTHS_BETWEEN(SYSDATE,HIRE_DATE)
+------------------------------ --------- ---------------------------------
+Aarav                          10-JAN-21                        66.3228786
+Bhavna                         22-MAR-22                        51.9357818
+Chirag                         18-JUL-23                        36.0648141
+Diya                           05-MAY-20                        74.4841689
+Eshan                          12-SEP-19                        82.2583625
+Farah                          08-FEB-24                        29.3873947
+Gauri                          14-JUN-21                        61.1938463
+Harsh                          30-NOV-22                        43.6777173
+Isha                           17-APR-23                        39.0970721
+Jay                            02-AUG-20                        71.5809431
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, HIRE_DATE, LAST_DAY(HIRE_DATE)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  HIRE_DATE LAST_DAY(
+------------------------------ --------- ---------
+Aarav                          10-JAN-21 31-JAN-21
+Bhavna                         22-MAR-22 31-MAR-22
+Chirag                         18-JUL-23 31-JUL-23
+Diya                           05-MAY-20 31-MAY-20
+Eshan                          12-SEP-19 30-SEP-19
+Farah                          08-FEB-24 29-FEB-24
+Gauri                          14-JUN-21 30-JUN-21
+Harsh                          30-NOV-22 30-NOV-22
+Isha                           17-APR-23 30-APR-23
+Jay                            02-AUG-20 31-AUG-20
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME AS EMPLOYEE_NAME, HIRE_DATE, EXTRACT(YEAR FROM hire_date)
+  2  FROM EMPLOYEE;
+
+EMPLOYEE_NAME                  HIRE_DATE EXTRACT(YEARFROMHIRE_DATE)
+------------------------------ --------- --------------------------
+Aarav                          10-JAN-21                       2021
+Bhavna                         22-MAR-22                       2022
+Chirag                         18-JUL-23                       2023
+Diya                           05-MAY-20                       2020
+Eshan                          12-SEP-19                       2019
+Farah                          08-FEB-24                       2024
+Gauri                          14-JUN-21                       2021
+Harsh                          30-NOV-22                       2022
+Isha                           17-APR-23                       2023
+Jay                            02-AUG-20                       2020
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME, HIRE_DATE,
+  2         TO_CHAR(HIRE_DATE, 'DD-MON-YYYY') AS HIRE_DATE
+  3  FROM EMPLOYEE;
+
+EMP_NAME                       HIRE_DATE HIRE_DATE
+------------------------------ --------- --------------------
+Aarav                          10-JAN-21 10-JAN-2021
+Bhavna                         22-MAR-22 22-MAR-2022
+Chirag                         18-JUL-23 18-JUL-2023
+Diya                           05-MAY-20 05-MAY-2020
+Eshan                          12-SEP-19 12-SEP-2019
+Farah                          08-FEB-24 08-FEB-2024
+Gauri                          14-JUN-21 14-JUN-2021
+Harsh                          30-NOV-22 30-NOV-2022
+Isha                           17-APR-23 17-APR-2023
+Jay                            02-AUG-20 02-AUG-2020
+
+10 rows selected.
+
+SQL> DESC EMPLOYEE
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+
+SQL> DESC PROJECT
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PROJECT_ID                                                                                                        NOT NULL NUMBER(3)
+ PROJECT_NAME                                                                                                               VARCHAR2(30)
+ BUDGET                                                                                                                     NUMBER(10)
+ START_DATE                                                                                                                 DATE
+
+SQL> DESC WORKS_ON
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                                     NUMBER(4)
+ PROJECT_ID                                                                                                                 NUMBER(3)
+ HOURS_WORKED                                                                                                               NUMBER(5)
+
+SQL> SELECT E.EMP_NAME AS EMPLOYEE_NAME, P.PROJECT_NAME AS PROJECT_NAME
+  2  FROM EMPLOYEE E
+  3  JOIN WORKS_ON W
+  4  ON E.EMP_ID = W.EMP_ID
+  5  JOIN PROJECT P
+  6  ON W.PROJECT_ID = P.PROJECT_ID;
+
+EMPLOYEE_NAME                  PROJECT_NAME
+------------------------------ ------------------------------
+Aarav                          ERP System
+Bhavna                         ERP System
+Bhavna                         Banking App
+Chirag                         HR Portal
+Diya                           CRM Upgrade
+Eshan                          Banking App
+Gauri                          AI Assistant
+Harsh                          CRM Upgrade
+Isha                           HR Portal
+Jay                            AI Assistant
+
+10 rows selected.
+
+SQL> DESC DEPARTMENT
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPT_ID                                                                                                           NOT NULL NUMBER(3)
+ DEPT_NAME                                                                                                         NOT NULL VARCHAR2(30)
+ LOCATION                                                                                                                   VARCHAR2(20)
+
+SQL> SELECT D.DEPT_NAME , COUNT(*)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_ID;
+SELECT D.DEPT_NAME , COUNT(*)
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> SELECT D.DEPT_NAME , COUNT(*)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME;
+
+DEPT_NAME                        COUNT(*)
+------------------------------ ----------
+IT                                      3
+HR                                      2
+Sales                                   2
+Finance                                 2
+Marketing                               1
+
+SQL> SELECT E.EMP_ID,
+  2         E.EMP_NAME
+  3  FROM EMPLOYEE E
+  4  LEFT OUTER JOIN WORKS_ON W
+  5  ON E.EMP_ID = W.EMP_ID
+  6  WHERE W.PROJECT_ID IS NULL;
+
+    EMP_ID EMP_NAME
+---------- ------------------------------
+      1006 Farah
+
+SQL> SELECT E.EMP_NAME AS EMPLOYEE,
+  2         M.EMP_NAME AS MANAGER
+  3  FROM EMPLOYEE E
+  4  JOIN EMPLOYEE M
+  5  ON E.MANAGER_ID = M.EMP_ID;
+ON E.MANAGER_ID = M.EMP_ID
+   *
+ERROR at line 5:
+ORA-00904: "E"."MANAGER_ID": invalid identifier
+
+
+SQL> SELECT *
+  2  FROM EMPLOYEE
+  3  CROSS JOIN DEPARTMENT;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION    DEPT_ID DEPT_NAME                        LOCATION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ---------- ---------- ------------------------------ --------------------
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000        101 HR
+                         Mumbai
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0        101 HR
+                         Mumbai
+      1003 Chirag                         Clerk                     32000 18-JUL-23        101 Mumbai                        0        101 HR
+                         Mumbai
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000        101 HR
+                         Mumbai
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000        101 HR
+                         Mumbai
+      1006 Farah                          Clerk                     28000 08-FEB-24        105 Hyderabad                     0        101 HR
+                         Mumbai
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0        101 HR
+                         Mumbai
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500        101 HR
+                         Mumbai
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0        101 HR
+                         Mumbai
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0        101 HR
+                         Mumbai
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000        102 IT
+                         Pune
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION    DEPT_ID DEPT_NAME                        LOCATION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ---------- ---------- ------------------------------ --------------------
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0        102 IT
+                         Pune
+      1003 Chirag                         Clerk                     32000 18-JUL-23        101 Mumbai                        0        102 IT
+                         Pune
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000        102 IT
+                         Pune
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000        102 IT
+                         Pune
+      1006 Farah                          Clerk                     28000 08-FEB-24        105 Hyderabad                     0        102 IT
+                         Pune
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0        102 IT
+                         Pune
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500        102 IT
+                         Pune
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0        102 IT
+                         Pune
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0        102 IT
+                         Pune
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000        103 Finance
+                         Delhi
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0        103 Finance
+                         Delhi
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION    DEPT_ID DEPT_NAME                        LOCATION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ---------- ---------- ------------------------------ --------------------
+      1003 Chirag                         Clerk                     32000 18-JUL-23        101 Mumbai                        0        103 Finance
+                         Delhi
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000        103 Finance
+                         Delhi
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000        103 Finance
+                         Delhi
+      1006 Farah                          Clerk                     28000 08-FEB-24        105 Hyderabad                     0        103 Finance
+                         Delhi
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0        103 Finance
+                         Delhi
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500        103 Finance
+                         Delhi
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0        103 Finance
+                         Delhi
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0        103 Finance
+                         Delhi
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000        104 Sales
+                         Bangalore
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0        104 Sales
+                         Bangalore
+      1003 Chirag                         Clerk                     32000 18-JUL-23        101 Mumbai                        0        104 Sales
+                         Bangalore
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION    DEPT_ID DEPT_NAME                        LOCATION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ---------- ---------- ------------------------------ --------------------
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000        104 Sales
+                         Bangalore
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000        104 Sales
+                         Bangalore
+      1006 Farah                          Clerk                     28000 08-FEB-24        105 Hyderabad                     0        104 Sales
+                         Bangalore
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0        104 Sales
+                         Bangalore
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500        104 Sales
+                         Bangalore
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0        104 Sales
+                         Bangalore
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0        104 Sales
+                         Bangalore
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000        105 Marketing                        Hyderabad
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0        105 Marketing                        Hyderabad
+      1003 Chirag                         Clerk                     32000 18-JUL-23        101 Mumbai                        0        105 Marketing                        Hyderabad
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000        105 Marketing                        Hyderabad
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION    DEPT_ID DEPT_NAME                        LOCATION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ---------- ---------- ------------------------------ --------------------
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000        105 Marketing                        Hyderabad
+      1006 Farah                          Clerk                     28000 08-FEB-24        105 Hyderabad                     0        105 Marketing                        Hyderabad
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0        105 Marketing                        Hyderabad
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500        105 Marketing                        Hyderabad
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0        105 Marketing                        Hyderabad
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0        105 Marketing                        Hyderabad
+
+50 rows selected.
+
+SQL> DESC EMPLOYEE;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+
+SQL> SELECT E.EMP_NAME, E.SALARY
+  2  FROM EMPLOYEE E
+  3  WHERE E.SALARY = (
+  4  SELECT MAX(EE.SALARY)
+  5  FROM EMPLOYEE EE
+  6  );
+
+EMP_NAME                           SALARY
+------------------------------ ----------
+Eshan                               90000
+
+SQL> SELECT E.EMP_NAME, E.SALARY
+  2  FROM EMPLOYEE E
+  3  WHERE E.SALARY > (
+  4  SELECT AVG(EE.SALARY)
+  5  FROM EMPLOYEE EE
+  6  );
+
+EMP_NAME                           SALARY
+------------------------------ ----------
+Aarav                               85000
+Bhavna                              62000
+Eshan                               90000
+Gauri                               68000
+Jay                                 75000
+
+SQL> DESC EMPLOYEE
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+
+SQL> DESC DEPARTMENT
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPT_ID                                                                                                           NOT NULL NUMBER(3)
+ DEPT_NAME                                                                                                         NOT NULL VARCHAR2(30)
+ LOCATION                                                                                                                   VARCHAR2(20)
+
+SQL> SELECT D.DEPT_NAME, AVG(E.SALARY)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME ;
+
+DEPT_NAME                      AVG(E.SALARY)
+------------------------------ -------------
+IT                                     74000
+HR                                     36000
+Sales                                  46000
+Finance                                79000
+Marketing                              28000
+
+SQL> SELECT D.DEPT_NAME, AVG(E.SALARY)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME
+  6  ORDER BY AVG(E.SALARY) DESC ;
+
+DEPT_NAME                      AVG(E.SALARY)
+------------------------------ -------------
+Finance                                79000
+IT                                     74000
+Sales                                  46000
+HR                                     36000
+Marketing                              28000
+
+SQL> SELECT D.DEPT_NAME, AVG(E.SALARY)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME
+  6  ORDER BY AVG(E.SALARY) DESC
+  7  LIMIT 1 ;
+LIMIT 1
+*
+ERROR at line 7:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT D.DEPT_NAME, AVG(E.SALARY)
+  2  FROM EMPLOYEE E
+  3  JOIN DEPARTMENT D
+  4  ON E.DEPT_ID = D.DEPT_ID
+  5  GROUP BY D.DEPT_NAME
+  6  ORDER BY AVG(E.SALARY) DESC
+  7  WHERE ROWNUM = 1 ;
+WHERE ROWNUM = 1
+*
+ERROR at line 7:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT *
+  2  FROM (
+  3      SELECT D.DEPT_NAME,
+  4             AVG(E.SALARY) AS AVG_SALARY
+  5      FROM EMPLOYEE E
+  6      JOIN DEPARTMENT D
+  7      ON E.DEPT_ID = D.DEPT_ID
+  8      GROUP BY D.DEPT_NAME
+  9      ORDER BY AVG(E.SALARY) DESC
+ 10  )
+ 11  WHERE ROWNUM = 1;
+
+DEPT_NAME                      AVG_SALARY
+------------------------------ ----------
+Finance                             79000
+
+SQL> SELECT D.DEPT_NAME,
+  2         AVG(E.SALARY) AS AVG_SALARY
+  3  FROM EMPLOYEE E
+  4  JOIN DEPARTMENT D
+  5  ON E.DEPT_ID = D.DEPT_ID
+  6  GROUP BY D.DEPT_NAME
+  7  ORDER BY AVG(E.SALARY) DESC
+  8  FETCH FIRST 1 ROW ONLY;
+
+DEPT_NAME                      AVG_SALARY
+------------------------------ ----------
+Finance                             79000
+
+SQL> SELECT E.EMP_NAME
+  2  FROM EMPLOYEE E
+  3  WHERE E.DEPT_ID = (
+  4  SELECT EE.DEPT_ID
+  5  FROM EMPLOYEE EE
+  6  WHERE EE.EMP_NAME = 'Aarav'
+  7  );
+
+EMP_NAME
+------------------------------
+Aarav
+Bhavna
+Jay
+
+SQL> SELECT E.EMP_NAME
+  2  FROM EMPLOYEE E
+  3  WHERE E.SALARY > (
+  4  SELECT EE.SALARY
+  5  FROM EMPLOYEE EE
+  6  WHERE EE.EMP_NAME = 'Jay'
+  7  );
+
+EMP_NAME
+------------------------------
+Aarav
+Eshan
+
+SQL> SELECT E.EMP_NAME, E.SALARY
+  2  FROM EMPLOYEE E
+  3  WHERE E.SALARY > (
+  4  SELECT EE.SALARY
+  5  FROM EMPLOYEE EE
+  6  WHERE EE.EMP_NAME = 'Jay'
+  7  );
+
+EMP_NAME                           SALARY
+------------------------------ ----------
+Aarav                               85000
+Eshan                               90000
+
+SQL> DESC PROJECT
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ PROJECT_ID                                                                                                        NOT NULL NUMBER(3)
+ PROJECT_NAME                                                                                                               VARCHAR2(30)
+ BUDGET                                                                                                                     NUMBER(10)
+ START_DATE                                                                                                                 DATE
+
+SQL> SELECT *
+  2  FROM PROJECT P
+  3  WHERE P.BUDGET > (
+  4  SELECT AVG(PP.BUDGET)
+  5  FROM PROJECT PP
+  6  );
+
+PROJECT_ID PROJECT_NAME                       BUDGET START_DAT
+---------- ------------------------------ ---------- ---------
+       202 Banking App                       2500000 15-FEB-24
+       205 AI Assistant                      3000000 01-MAY-24
+
+SQL> CREATE VIEW AS VIEW1
+  2  SELECT E.EMP_NAME, E.JOB, E.SALARY
+  3  FROM EMPLOYEE E;
+CREATE VIEW AS VIEW1
+            *
+ERROR at line 1:
+ORA-00999: invalid view name
+
+
+SQL> CREATE VIEW VIEW1 AS
+  2  SELECT E.EMP_NAME, E.JOB, E.SALARY
+  3  FROM EMPLOYEE E;
+
+View created.
+
+SQL> SELECT * FROM VIEW1;
+
+EMP_NAME                       JOB                      SALARY
+------------------------------ -------------------- ----------
+Aarav                          Manager                   85000
+Bhavna                         Analyst                   62000
+Chirag                         Clerk                     32000
+Diya                           Salesman                  45000
+Eshan                          Manager                   90000
+Farah                          Clerk                     28000
+Gauri                          Analyst                   68000
+Harsh                          Salesman                  47000
+Isha                           HR                        40000
+Jay                            Developer                 75000
+
+10 rows selected.
+
+SQL> CREATE OR REPLACE VIEW VIEW1 AS
+  2  SELECT E.EMP_ID,
+  3         E.EMP_NAME,
+  4         E.JOB,
+  5         E.SALARY,
+  6         D.DEPT_NAME
+  7  FROM EMPLOYEE E
+  8  JOIN DEPARTMENT D
+  9  ON E.DEPT_ID = D.DEPT_ID;
+
+View created.
+
+SQL> SELECT * FROM VIEW1;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY DEPT_NAME
+---------- ------------------------------ -------------------- ---------- ------------------------------
+      1001 Aarav                          Manager                   85000 IT
+      1002 Bhavna                         Analyst                   62000 IT
+      1003 Chirag                         Clerk                     32000 HR
+      1004 Diya                           Salesman                  45000 Sales
+      1005 Eshan                          Manager                   90000 Finance
+      1006 Farah                          Clerk                     28000 Marketing
+      1007 Gauri                          Analyst                   68000 Finance
+      1008 Harsh                          Salesman                  47000 Sales
+      1009 Isha                           HR                        40000 HR
+      1010 Jay                            Developer                 75000 IT
+
+10 rows selected.
+
+SQL> DROP VIEW VIEW1;
+
+View dropped.
+
+SQL> SELECT * FROM VIEW1;
+SELECT * FROM VIEW1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> DESC EMPLOYEE
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMP_ID                                                                                                            NOT NULL NUMBER(4)
+ EMP_NAME                                                                                                          NOT NULL VARCHAR2(30)
+ JOB                                                                                                                        VARCHAR2(20)
+ SALARY                                                                                                                     NUMBER(8,2)
+ HIRE_DATE                                                                                                                  DATE
+ DEPT_ID                                                                                                                    NUMBER(3)
+ CITY                                                                                                                       VARCHAR2(20)
+ COMMISSION                                                                                                                 NUMBER(8,2)
+
+SQL> SELECT E.EMP_NAME , E.SALARY*1.1
+  2  FROM EMPLOYEE;
+SELECT E.EMP_NAME , E.SALARY*1.1
+                    *
+ERROR at line 1:
+ORA-00904: "E"."SALARY": invalid identifier
+
+
+SQL> SELECT E.EMP_NAME , E.SALARY * 1.1
+  2  FROM EMPLOYEE E;
+
+EMP_NAME                       E.SALARY*1.1
+------------------------------ ------------
+Aarav                                 93500
+Bhavna                                68200
+Chirag                                35200
+Diya                                  49500
+Eshan                                 99000
+Farah                                 30800
+Gauri                                 74800
+Harsh                                 51700
+Isha                                  44000
+Jay                                   82500
+
+10 rows selected.
+
+SQL> SELECT EMP_NAME,
+  2         SALARY AS OLD_SALARY,
+  3         SALARY * 1.10 AS NEW_SALARY
+  4  FROM EMPLOYEE
+  5  WHERE JOB = 'Clerk';
+
+EMP_NAME                       OLD_SALARY NEW_SALARY
+------------------------------ ---------- ----------
+Chirag                              32000      35200
+Farah                               28000      30800
+
+SQL> UPDATE EMPLOYEE
+  2  SET SALARY = SALARY * 1.10
+  3  WHERE JOB = 'Clerk';
+
+2 rows updated.
+
+SQL> SELECT * FROM EMPLOYEE;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ----------
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       5000
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                          0
+      1003 Chirag                         Clerk                     35200 18-JUL-23        101 Mumbai                        0
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  6000
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      7000
+      1006 Farah                          Clerk                     30800 08-FEB-24        105 Hyderabad                     0
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                         0
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  4500
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                        0
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                          0
+
+10 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> autocommit off
+SP2-0734: unknown command beginning "autocommit..." - rest of line ignored.
+SQL> AUTO COMMIT OPFF
+SP2-0734: unknown command beginning "AUTO COMMI..." - rest of line ignored.
+SQL> AUTO COMMIT OFF
+SP2-0734: unknown command beginning "AUTO COMMI..." - rest of line ignored.
+SQL> SET AUTOCOMIT OFF
+SP2-0158: unknown SET option "AUTOCOMIT"
+SQL> SET AUTOCOMMIT OFF
+SQL> SHOW AUTOCOMMIT
+autocommit OFF
+SQL> UPDATE EMPLOYEE
+  2  SET COMMISSION = 2000;
+
+10 rows updated.
+
+SQL> SELECT * FROM EMPLOYEE
+  2  ;
+
+    EMP_ID EMP_NAME                       JOB                      SALARY HIRE_DATE    DEPT_ID CITY                 COMMISSION
+---------- ------------------------------ -------------------- ---------- --------- ---------- -------------------- ----------
+      1001 Aarav                          Manager                   85000 10-JAN-21        102 Pune                       2000
+      1002 Bhavna                         Analyst                   62000 22-MAR-22        102 Pune                       2000
+      1003 Chirag                         Clerk                     35200 18-JUL-23        101 Mumbai                     2000
+      1004 Diya                           Salesman                  45000 05-MAY-20        104 Bangalore                  2000
+      1005 Eshan                          Manager                   90000 12-SEP-19        103 Delhi                      2000
+      1006 Farah                          Clerk                     30800 08-FEB-24        105 Hyderabad                  2000
+      1007 Gauri                          Analyst                   68000 14-JUN-21        103 Delhi                      2000
+      1008 Harsh                          Salesman                  47000 30-NOV-22        104 Bangalore                  2000
+      1009 Isha                           HR                        40000 17-APR-23        101 Mumbai                     2000
+      1010 Jay                            Developer                 75000 02-AUG-20        102 Pune                       2000
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM EMPLOYEE
+  3  WHERE SALARY < 30000;
+
+no rows selected
+
+SQL> DELETE FROM EMPLOYEE
+  2  WHERE SALARY < 30000;
+
+0 rows deleted.
+
+SQL> SELECT 25*8 FROM DUAL;
+
+      25*8
+----------
+       200
+
+SQL> ABS(-150)
+SP2-0042: unknown command "ABS(-150)" - rest of line ignored.
+SQL> SELECT ABS(-150) FROM DUAL;
+
+ ABS(-150)
+----------
+       150
+
+SQL> SELECT ROUND(15.678,2) FROM DUAL;
+
+ROUND(15.678,2)
+---------------
+          15.68
+
+SQL> SELECT UPPER(‘oracle sql’) FROM DUAL;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> SELECT UPPER('oracle sql') FROM DUAL;
+
+UPPER('ORA
+----------
+ORACLE SQL
+
+SQL> SELECT TO_CHAR(SYSDATE,'DD/MM/YYYY') FROM DUAL;
+
+TO_CHAR(SY
+----------
+20/07/2026
+
+SQL>
