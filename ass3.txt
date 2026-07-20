@@ -1,0 +1,344 @@
+# **1. Perform the following queries using DUAL**
+
+### **Q1(a). Display the current DATE and TIME.**
+
+**Answer:**
+
+```sql
+SELECT SYSTIMESTAMP FROM DUAL;
+```
+
+---
+
+### **Q1(b). Multiply 2 by 2.**
+
+**Answer:**
+
+```sql
+SELECT 2*2 FROM DUAL;
+```
+
+---
+
+### **Q1(c). Find the absolute value of -15.**
+
+**Answer:**
+
+```sql
+SELECT ABS(-15) FROM DUAL;
+```
+
+---
+
+### **Q1(d). Calculate the square root of 5.**
+
+**Answer:**
+
+```sql
+SELECT SQRT(5) FROM DUAL;
+```
+
+---
+
+### **Q1(e). Round off 15.19 to one decimal point.**
+
+**Answer:**
+
+```sql
+SELECT ROUND(15.19,1) FROM DUAL;
+```
+
+---
+
+### **Q1(f). Display the name 'IVAN BAYROSS' in lowercase.**
+
+**Answer:**
+
+```sql
+SELECT LOWER('IVAN BAYROSS') FROM DUAL;
+```
+
+---
+
+### **Q1(g). Display the name 'IVAN BAYROSS' in uppercase.**
+
+**Answer:**
+
+```sql
+SELECT UPPER('IVAN BAYROSS') FROM DUAL;
+```
+
+---
+
+### **Q1(h). Add 5 months to the present date.**
+
+**Answer:**
+
+```sql
+SELECT ADD_MONTHS(CURRENT_DATE,5) FROM DUAL;
+```
+
+*OR*
+
+```sql
+SELECT CURRENT_DATE + INTERVAL '5' MONTH FROM DUAL;
+```
+
+---
+
+### **Q1(i). Display the number of months between '02-JAN-01' and '02-JUL-01'.**
+
+**Answer:**
+
+```sql
+SELECT MONTHS_BETWEEN(
+TO_DATE('02-JUL-01','DD-MON-RR'),
+TO_DATE('02-JAN-01','DD-MON-RR'))
+FROM DUAL;
+```
+
+---
+
+### **Q1(j). Print the system date in the format 'DD/MM/YYYY'.**
+
+**Answer:**
+
+```sql
+SELECT TO_CHAR(SYSDATE,'DD/MM/YYYY') FROM DUAL;
+```
+
+---
+
+# **2. Create the EMP table and insert records**
+
+### **Q2(a). Create EMP table with the given constraints.**
+
+**Answer:**
+
+```sql
+CREATE TABLE EMP_39(
+    EMPNO NUMBER(4) PRIMARY KEY CHECK(EMPNO>=7000 AND EMPNO<=8000),
+    ENAME VARCHAR(10),
+    JOB VARCHAR(255),
+    MGR NUMBER(4) REFERENCES EMP_39(EMPNO),
+    HIREDATE DATE,
+    SAL NUMBER(7,2) CHECK(SAL>0),
+    COMM NUMBER(4) DEFAULT 0 CHECK(COMM<1500),
+    DEPT_NAME VARCHAR(255)
+);
+```
+
+---
+
+### **Q2(b). Insert records into EMP table.**
+
+**Answer:**
+
+```sql
+INSERT ALL
+INTO EMP_39 VALUES (7000,'KING','PRESIDENT',NULL,DATE '2019-01-01',50000,0,'ADMIN')
+INTO EMP_39 VALUES (7001,'CLARK','MANAGER',7000,DATE '2019-03-10',30000,1000,'ACCOUNTING')
+INTO EMP_39 VALUES (7002,'JONES','MANAGER',7000,DATE '2019-04-15',32000,1200,'RESEARCH')
+INTO EMP_39 VALUES (7003,'BLAKE','MANAGER',7000,DATE '2019-05-20',31000,1100,'SALES')
+INTO EMP_39 VALUES (7004,'SCOTT','ANALYST',7002,DATE '2020-01-10',25000,0,'RESEARCH')
+INTO EMP_39 VALUES (7005,'FORD','ANALYST',7002,DATE '2020-02-18',26000,0,'RESEARCH')
+INTO EMP_39 VALUES (7006,'SMITH','CLERK',7002,DATE '2020-03-01',12000,0,'RESEARCH')
+INTO EMP_39 VALUES (7007,'ADAMS','CLERK',7004,DATE '2020-04-12',11000,0,'RESEARCH')
+INTO EMP_39 VALUES (7008,'ALLEN','SALESMAN',7003,DATE '2020-05-05',18000,1400,'SALES')
+INTO EMP_39 VALUES (7009,'WARD','SALESMAN',7003,DATE '2020-06-10',17500,1300,'SALES')
+INTO EMP_39 VALUES (7010,'MARTIN','SALESMAN',7003,DATE '2020-07-15',16000,1200,'SALES')
+INTO EMP_39 VALUES (7011,'TURNER','SALESMAN',7003,DATE '2020-08-20',17000,1000,'SALES')
+INTO EMP_39 VALUES (7012,'JAMES','CLERK',7003,DATE '2020-09-01',10000,0,'SALES')
+INTO EMP_39 VALUES (7013,'MILLER','CLERK',7001,DATE '2020-10-10',13000,0,'ACCOUNTING')
+INTO EMP_39 VALUES (7014,'BROWN','CLERK',7001,DATE '2020-11-12',12500,0,'ACCOUNTING')
+INTO EMP_39 VALUES (7015,'GREEN','HR',7001,DATE '2021-01-05',20000,500,'HR')
+INTO EMP_39 VALUES (7016,'WHITE','HR',7015,DATE '2021-02-08',18000,400,'HR')
+INTO EMP_39 VALUES (7017,'BLACK','IT',7002,DATE '2021-03-15',28000,0,'IT')
+INTO EMP_39 VALUES (7018,'YOUNG','IT',7017,DATE '2021-04-20',26000,0,'IT')
+INTO EMP_39 VALUES (7019,'HALL','SUPPORT',7000,DATE '2021-05-25',15000,0,'SUPPORT')
+INTO EMP_39 VALUES (7020,'RISOV','SALESMAN',7003,DATE '2020-05-05',18000,1400,'SALES')
+INTO EMP_39 VALUES (7021,'ANKIR','SALESMAN',7003,DATE '2020-09-01',10000,0,'SALES')
+SELECT 1 FROM DUAL;
+```
+
+---
+
+# **3. Write necessary SQL queries**
+
+### **Q3(a). List the names of employees whose names have 'i' as the second character.**
+
+**Answer:**
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE SUBSTR(LOWER(ENAME),2,1)='i';
+```
+
+---
+
+### **Q3(b). List names of employees who are not managers.**
+
+**Answer:**
+
+```sql
+SELECT *
+FROM EMP_39
+WHERE EMPNO NOT IN
+(
+SELECT DISTINCT MGR
+FROM EMP_39
+WHERE MGR IS NOT NULL
+);
+```
+
+---
+
+### **Q3(c). Display the highest, lowest, sum and average salary of all employees.**
+
+**Answer:**
+
+```sql
+SELECT MAX(SAL) AS "MAXIMUM",
+       MIN(SAL) AS "MINIMUM",
+       SUM(SAL) AS "TOTAL",
+       AVG(SAL) AS "AVERAGE"
+FROM EMP_39;
+```
+
+---
+
+### **Q3(d). Display the highest, lowest, sum and average salary for each job type.**
+
+**Answer:**
+
+```sql
+SELECT MAX(SAL) AS "MAXIMUM",
+       MIN(SAL) AS "MINIMUM",
+       SUM(SAL) AS "TOTAL",
+       AVG(SAL) AS "AVERAGE",
+       JOB
+FROM EMP_39
+GROUP BY JOB;
+```
+
+---
+
+### **Q3(e). Determine the number of managers.**
+
+**Answer:**
+
+```sql
+SELECT COUNT(*) AS "Number of managers"
+FROM EMP_39
+WHERE JOB='MANAGER';
+```
+
+---
+
+### **Q3(f). Find the employees hired after '01-JAN-1980'.**
+
+**Answer:**
+
+```sql
+SELECT *
+FROM EMP_39
+WHERE HIREDATE >
+TO_DATE('01-JAN-1980','DD-MON-YYYY');
+```
+
+---
+
+### **Q3(g). Display the name of employee who earns maximum salary whose job is salesman.**
+
+**Answer:**
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE JOB='SALESMAN'
+AND SAL=
+(
+SELECT MAX(SAL)
+FROM EMP_39
+WHERE JOB='SALESMAN'
+);
+```
+
+---
+
+### **Q3(h). Display the name of employee who earns minimum salary and whose job is clerk.**
+
+**Answer:**
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE JOB='CLERK'
+AND SAL=
+(
+SELECT MIN(SAL)
+FROM EMP_39
+WHERE JOB='CLERK'
+);
+```
+
+---
+
+### **Q3(i). Display the name of the department in which 'FORD' works.**
+
+**Answer:**
+
+```sql
+SELECT DEPT_NAME
+FROM EMP_39
+WHERE ENAME='FORD';
+```
+
+---
+
+### **Q3(j). Display the name of the department whose salary is maximum.**
+
+**Answer:**
+
+```sql
+SELECT DEPT_NAME
+FROM EMP_39
+WHERE SAL=
+(
+SELECT MAX(SAL)
+FROM EMP_39
+);
+```
+
+---
+
+### **Q3(k). List the name of the employee whose salary is more than 'TURNER'.**
+
+**Answer:**
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE SAL>
+(
+SELECT SAL
+FROM EMP_39
+WHERE ENAME='TURNER'
+);
+```
+
+This is arranged exactly in **Question → Answer** format according to your assignment sheet. One small correction: for **Q3(b)**, the question asks for the **names** of employees who are not managers, so ideally the query should be:
+
+```sql
+SELECT ENAME
+FROM EMP_39
+WHERE EMPNO NOT IN
+(
+SELECT DISTINCT MGR
+FROM EMP_39
+WHERE MGR IS NOT NULL
+);
+```
+
+instead of `SELECT *`. Likewise, for Q3(f), the question says "Find the employees", so `SELECT *` is acceptable.
