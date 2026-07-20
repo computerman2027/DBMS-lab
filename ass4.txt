@@ -1,0 +1,64 @@
+Based on your SQL file, these are the **final answers** in **Question → Query** format (using your table names `SAILORS_39`, `BOATS_39`, `RESERVES_39`).
+
+---
+
+# Q1(a). Find the color of boats reserved by 'Tarun'.
+
+```sql
+SELECT COLOR
+FROM SAILORS_39
+NATURAL JOIN RESERVES_39
+NATURAL JOIN BOATS_39
+WHERE S_NAME = 'Tarun';
+```
+
+---
+
+# Q1(b). Find the sailor IDs and sailor names who have reserved boats on 'Monday'.
+
+```sql
+SELECT S_ID AS SAILOR_ID,
+       S_NAME AS SAILOR_NAME
+FROM SAILORS_39
+NATURAL JOIN RESERVES_39
+WHERE DAY = 'MONDAY';
+```
+
+---
+
+# Q1(c). List boat IDs and boat names for 'RED' and 'GREEN' colors only.
+
+```sql
+SELECT B_ID AS BOAT_ID,
+       B_NAME AS BOAT_NAME
+FROM BOATS_39
+WHERE COLOR IN ('RED','GREEN');
+```
+
+---
+
+# Q1(d). Delete all the sailors' information whose age is greater than 60.
+
+> **Delete from child table first (because of foreign key constraint):**
+
+```sql
+DELETE FROM RESERVES_39
+WHERE S_ID IN (
+    SELECT S_ID
+    FROM SAILORS_39
+    WHERE AGE > 60
+);
+```
+
+Then delete from the parent table:
+
+```sql
+DELETE FROM SAILORS_39
+WHERE AGE > 60;
+```
+
+---
+
+These are the final queries you should write in your assignment.
+
+**Note:** Your SQL file is missing **Q1(d)**. Also, **don't write the `DROP TABLE` commands** as the answer to Q1(d); they are separate cleanup commands. Use the two `DELETE` statements above instead.
