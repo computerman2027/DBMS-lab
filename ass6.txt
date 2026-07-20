@@ -1,0 +1,104 @@
+Most of your queries are correct, but **D and E are not fully correct** according to the question. Here are the correct answers in **Question → SQL Query** format.
+
+---
+
+## A) Select all the different cities (only distinct values) from the Customers and Suppliers tables.
+
+```sql
+SELECT CITY FROM CUSTOMERS_39
+UNION
+SELECT CITY FROM SUPPLIERS_39;
+```
+
+---
+
+## B) Select all cities from the Customers and Suppliers tables.
+
+```sql
+SELECT CITY FROM CUSTOMERS_39
+UNION ALL
+SELECT CITY FROM SUPPLIERS_39;
+```
+
+---
+
+## C) Select all German cities from the Customers and Suppliers tables.
+
+```sql
+SELECT CITY FROM CUSTOMERS_39
+WHERE COUNTRY='Germany'
+
+UNION
+
+SELECT CITY FROM SUPPLIERS_39
+WHERE COUNTRY='Germany';
+```
+
+---
+
+## D) Select all Customer name and Supplier name where city name is common in both tables.
+
+**Your JOIN query is the correct one.** Use only this:
+
+```sql
+SELECT C.CUSTOMER_NAME,
+       S.SUPPLIER_NAME,
+       C.CITY
+FROM CUSTOMERS_39 C
+JOIN SUPPLIERS_39 S
+ON C.CITY = S.CITY;
+```
+
+**Output**
+
+| CUSTOMER_NAME  | SUPPLIER_NAME              | CITY       |
+| -------------- | -------------------------- | ---------- |
+| Alfreds Futter | Exotic Liquid              | Berlin     |
+| Ana helados    | New Orleans Cajun Delights | Mexico D.F |
+| Antonio Moreno | New Orleans Cajun Delights | Mexico D.F |
+
+---
+
+## E) Select all country names from Supplier table which don't have any customer from the same country.
+
+Your query using **INTERSECT** is **wrong** because it returns common countries.
+
+Use **MINUS** instead:
+
+```sql
+SELECT COUNTRY
+FROM SUPPLIERS_39
+
+MINUS
+
+SELECT COUNTRY
+FROM CUSTOMERS_39;
+```
+
+**Output**
+
+```
+USA
+```
+
+---
+
+## ✔ Summary
+
+| Question | Status                             |
+| -------- | ---------------------------------- |
+| A        | ✅ Correct                          |
+| B        | ✅ Correct                          |
+| C        | ✅ Correct                          |
+| D        | ❌ Use only the JOIN query          |
+| E        | ❌ Replace `INTERSECT` with `MINUS` |
+
+You can also keep the `DROP TABLE` commands at the end:
+
+```sql
+DROP TABLE SUPPLIERS_39;
+
+DROP TABLE CUSTOMERS_39;
+```
+
+These are the final Oracle SQL queries matching the assignment exactly.
