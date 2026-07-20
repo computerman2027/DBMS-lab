@@ -1,0 +1,149 @@
+Here are the SQL queries for all the questions.
+
+---
+
+## 1. Create the Tables
+
+### a) SALESPEOPLE
+
+```sql
+CREATE TABLE SALESPEOPLE (
+    SNUM INT PRIMARY KEY,
+    SNAME VARCHAR(30),
+    CITY VARCHAR(30),
+    COMM DECIMAL(10,2)
+);
+```
+
+### b) CUSTOMER
+
+```sql
+CREATE TABLE CUSTOMER (
+    CNUM INT PRIMARY KEY,
+    CNAME VARCHAR(30),
+    CITY VARCHAR(30),
+    RATING INT,
+    SNUM INT,
+    FOREIGN KEY (SNUM) REFERENCES SALESPEOPLE(SNUM)
+);
+```
+
+### c) ORDERS
+
+```sql
+CREATE TABLE ORDERS (
+    ONUM INT PRIMARY KEY,
+    AMT DECIMAL(10,2),
+    ODATE DATE,
+    CNUM INT,
+    SNUM INT,
+    FOREIGN KEY (CNUM) REFERENCES CUSTOMER(CNUM),
+    FOREIGN KEY (SNUM) REFERENCES SALESPEOPLE(SNUM)
+);
+```
+
+---
+
+# 2(a) View of Customers having Highest Rating
+
+```sql
+CREATE VIEW Highest_Rating_Customers AS
+SELECT *
+FROM CUSTOMER
+WHERE RATING = (
+    SELECT MAX(RATING)
+    FROM CUSTOMER
+);
+```
+
+---
+
+# 2(b) View showing Number of Salespersons in each City
+
+```sql
+CREATE VIEW Salespersons_Per_City AS
+SELECT CITY, COUNT(*) AS TOTAL_SALESPERSONS
+FROM SALESPEOPLE
+GROUP BY CITY;
+```
+
+---
+
+# 2(c) View showing Average and Total Orders for each Salesperson
+
+```sql
+CREATE VIEW Salesperson_Order_Summary AS
+SELECT
+    SNUM,
+    AVG(AMT) AS AVG_ORDER,
+    SUM(AMT) AS TOTAL_ORDER
+FROM ORDERS
+GROUP BY SNUM;
+```
+
+---
+
+# 2(d) View showing Salespersons with Multiple Customers
+
+```sql
+CREATE VIEW Salesperson_Multiple_Customers AS
+SELECT
+    SNUM,
+    COUNT(*) AS TOTAL_CUSTOMERS
+FROM CUSTOMER
+GROUP BY SNUM
+HAVING COUNT(*) > 1;
+```
+
+---
+
+# 3. Create View Salespeople_Customer_Orders
+
+```sql
+CREATE VIEW Salespeople_Customer_Orders AS
+SELECT
+    S.SNAME AS SalespeopleName,
+    C.CNAME AS CustomerName,
+    O.ONUM AS OrderNumber
+FROM SALESPEOPLE S
+JOIN CUSTOMER C
+ON S.SNUM = C.SNUM
+JOIN ORDERS O
+ON C.CNUM = O.CNUM;
+```
+
+---
+
+# 4. Create View on SALESPEOPLE (SNUM and COMM only)
+
+```sql
+CREATE VIEW Salespeople_Comm AS
+SELECT
+    SNUM,
+    COMM
+FROM SALESPEOPLE
+WHERE COMM BETWEEN 1000 AND 2000
+WITH CHECK OPTION;
+```
+
+`WITH CHECK OPTION` ensures that any INSERT or UPDATE through this view can only have `COMM` values between **1000** and **2000**.
+
+---
+
+## To Display the Views
+
+```sql
+SELECT * FROM Highest_Rating_Customers;
+
+SELECT * FROM Salespersons_Per_City;
+
+SELECT * FROM Salesperson_Order_Summary;
+
+SELECT * FROM Salesperson_Multiple_Customers;
+
+SELECT * FROM Salespeople_Customer_Orders;
+
+SELECT * FROM Salespeople_Comm;
+```
+
+These queries are suitable for MySQL/Oracle lab exams.
