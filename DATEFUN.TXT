@@ -1,0 +1,126 @@
+/*=========================================================
+  Oracle SQL Date Functions
+  Author: Student
+  Description: Examples of Oracle Date Functions
+=========================================================*/
+
+-- =======================================================
+-- 1. SYSDATE
+-- Purpose: Returns the current system date and time.
+-- =======================================================
+SELECT SYSDATE AS CURRENT_DATE
+FROM DUAL;
+
+-- =======================================================
+-- 2. CURRENT_DATE
+-- Purpose: Returns the current date in the session time zone.
+-- =======================================================
+SELECT CURRENT_DATE AS SESSION_DATE
+FROM DUAL;
+
+-- =======================================================
+-- 3. SYSTIMESTAMP
+-- Purpose: Returns the current timestamp with time zone.
+-- =======================================================
+SELECT SYSTIMESTAMP AS CURRENT_TIMESTAMP
+FROM DUAL;
+
+-- =======================================================
+-- 4. ADD_MONTHS
+-- Purpose: Adds a specified number of months to a date.
+-- Example: Add 3 months to 15-JAN-2024
+-- =======================================================
+SELECT ADD_MONTHS(TO_DATE('15-JAN-2024','DD-MON-YYYY'), 3) AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 5. MONTHS_BETWEEN
+-- Purpose: Returns the number of months between two dates.
+-- =======================================================
+SELECT MONTHS_BETWEEN(
+       TO_DATE('15-JUL-2024','DD-MON-YYYY'),
+       TO_DATE('15-JAN-2024','DD-MON-YYYY')
+       ) AS MONTHS
+FROM DUAL;
+
+-- =======================================================
+-- 6. NEXT_DAY
+-- Purpose: Returns the next specified weekday after a date.
+-- =======================================================
+SELECT NEXT_DAY(
+       TO_DATE('15-JUL-2024','DD-MON-YYYY'),
+       'MONDAY'
+       ) AS NEXT_MONDAY
+FROM DUAL;
+
+-- =======================================================
+-- 7. LAST_DAY
+-- Purpose: Returns the last day of the month.
+-- =======================================================
+SELECT LAST_DAY(
+       TO_DATE('15-JUL-2024','DD-MON-YYYY')
+       ) AS LAST_DAY
+FROM DUAL;
+
+-- =======================================================
+-- 8. EXTRACT (YEAR)
+-- Purpose: Extracts the year from a date.
+-- =======================================================
+SELECT EXTRACT(YEAR FROM
+       TO_DATE('15-JUL-2024','DD-MON-YYYY')) AS YEAR
+FROM DUAL;
+
+-- =======================================================
+-- 9. EXTRACT (MONTH)
+-- Purpose: Extracts the month from a date.
+-- =======================================================
+SELECT EXTRACT(MONTH FROM
+       TO_DATE('15-JUL-2024','DD-MON-YYYY')) AS MONTH
+FROM DUAL;
+
+-- =======================================================
+-- 10. EXTRACT (DAY)
+-- Purpose: Extracts the day from a date.
+-- =======================================================
+SELECT EXTRACT(DAY FROM
+       TO_DATE('15-JUL-2024','DD-MON-YYYY')) AS DAY
+FROM DUAL;
+
+-- =======================================================
+-- 11. TO_DATE
+-- Purpose: Converts a string into a DATE.
+-- =======================================================
+SELECT TO_DATE('20-JUL-2024','DD-MON-YYYY') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 12. TO_CHAR
+-- Purpose: Converts a DATE into a formatted string.
+-- =======================================================
+SELECT TO_CHAR(
+       TO_DATE('20-JUL-2024','DD-MON-YYYY'),
+       'DD-MON-YYYY'
+       ) AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- Additional TO_CHAR Format Examples
+-- =======================================================
+
+-- Display date as YYYY-MM-DD
+SELECT TO_CHAR(SYSDATE,'YYYY-MM-DD') AS DATE_FORMAT
+FROM DUAL;
+
+-- Display day name
+SELECT TO_CHAR(SYSDATE,'DAY') AS DAY_NAME
+FROM DUAL;
+
+-- Display month name
+SELECT TO_CHAR(SYSDATE,'MONTH') AS MONTH_NAME
+FROM DUAL;
+
+-- Display current time
+SELECT TO_CHAR(SYSDATE,'HH24:MI:SS') AS CURRENT_TIME
+FROM DUAL;
+
+/*======================== END OF FILE ========================*/

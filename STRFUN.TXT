@@ -1,0 +1,169 @@
+/*=========================================================
+  Oracle SQL String Functions
+  Author: Student
+  Description: Examples of commonly used Oracle String Functions
+=========================================================*/
+
+-- =======================================================
+-- 1. ASCII
+-- Purpose: Returns the ASCII value of a character.
+-- Expected Output: 65
+-- =======================================================
+SELECT ASCII('A') AS ASCII_VALUE
+FROM DUAL;
+
+-- =======================================================
+-- 2. CHR
+-- Purpose: Returns the character corresponding to an ASCII code.
+-- Expected Output: A
+-- =======================================================
+SELECT CHR(65) AS CHARACTER
+FROM DUAL;
+
+-- =======================================================
+-- 3. CONCAT
+-- Purpose: Concatenates (joins) two strings.
+-- Expected Output: ABC
+-- =======================================================
+SELECT CONCAT('A', 'BC') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 4. CONVERT
+-- Purpose: Converts a string from one character set to another.
+-- Note: Output depends on the database character sets.
+-- =======================================================
+SELECT CONVERT('A', 'WE8ISO8859P1', 'US7ASCII') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 5. DUMP
+-- Purpose: Displays the internal representation of a string.
+-- Expected Output: Typ=96 Len=1: 65
+-- =======================================================
+SELECT DUMP('A') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 6. INITCAP
+-- Purpose: Converts the first letter of each word to uppercase.
+-- Expected Output: Hi There
+-- =======================================================
+SELECT INITCAP('hi there') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 7. INSTR
+-- Purpose: Returns the starting position of a substring.
+-- Expected Output: 3
+-- =======================================================
+SELECT INSTR('This is a playlist', 'is') AS POSITION
+FROM DUAL;
+
+-- =======================================================
+-- 8. LENGTH
+-- Purpose: Returns the number of characters in a string.
+-- Expected Output: 3
+-- =======================================================
+SELECT LENGTH('ABC') AS LENGTH
+FROM DUAL;
+
+-- =======================================================
+-- 9. LOWER
+-- Purpose: Converts all letters in a string to lowercase.
+-- Expected Output: abc
+-- =======================================================
+SELECT LOWER('AbC') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 10. LPAD
+-- Purpose: Pads the left side of a string with a specified character.
+-- Expected Output: **ABC
+-- =======================================================
+SELECT LPAD('ABC', 5, '*') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 11. LTRIM
+-- Purpose: Removes leading spaces from a string.
+-- Expected Output: ABC
+-- =======================================================
+SELECT LTRIM('   ABC') AS RESULT
+FROM DUAL;
+
+/*======================== END OF FILE ========================*/
+
+
+
+/*=========================================================
+  Oracle SQL String Functions (Part 2)
+  Author: Student
+  Description: Examples of Oracle String Functions
+=========================================================*/
+
+-- =======================================================
+-- 1. REPLACE
+-- Purpose: Replaces all occurrences of a substring.
+-- Expected Output: BLACK AND BLOND
+-- =======================================================
+SELECT REPLACE('JACK AND JOND', 'J', 'BL') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 2. RPAD
+-- Purpose: Pads the right side of a string.
+-- Expected Output: ABC**
+-- =======================================================
+SELECT RPAD('ABC', 5, '*') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 3. RTRIM
+-- Purpose: Removes trailing spaces from a string.
+-- Expected Output: ABC
+-- =======================================================
+SELECT RTRIM('ABC   ') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 4. SOUNDEX
+-- Purpose: Returns the phonetic representation of a string.
+-- Expected Output: S000
+-- =======================================================
+SELECT SOUNDEX('sea') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 5. SUBSTR
+-- Purpose: Extracts part of a string.
+-- Expected Output: Oracle
+-- =======================================================
+SELECT SUBSTR('Oracle Substring', 1, 6) AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 6. TRANSLATE
+-- Purpose: Replaces characters in a string.
+-- Expected Output: b2x5
+-- =======================================================
+SELECT TRANSLATE('12345', '143', 'bx') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 7. TRIM
+-- Purpose: Removes leading and trailing spaces.
+-- Expected Output: ABC
+-- =======================================================
+SELECT TRIM('   ABC   ') AS RESULT
+FROM DUAL;
+
+-- =======================================================
+-- 8. UPPER
+-- Purpose: Converts all letters to uppercase.
+-- Expected Output: ABC
+-- =======================================================
+SELECT UPPER('Abc') AS RESULT
+FROM DUAL;
+
+/*======================== END OF FILE ========================*/
