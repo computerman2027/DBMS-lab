@@ -1,0 +1,279 @@
+Yes. For an assignment or record book, it looks much better if every query is written below its corresponding question. Also, I've corrected a few mistakes in your queries (like January should be month 1, MAX/MIN aliases, average price, etc.).
+
+
+SQL> CREATE TABLE client_master_39 (
+  2  Client_no VARCHAR2(6) PRIMARY KEY CHECK (Client_no LIKE 'C%'),
+  3  Name VARCHAR2(20) NOT NULL,
+  4  City VARCHAR2(15),
+  5  Pincode NUMBER(8),
+  6  State VARCHAR2(15),
+  7  Bal_due NUMBER(10,2)
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE product_master_39 (
+  2  Product_no VARCHAR2(6) PRIMARY KEY CHECK (Product_no LIKE 'P%'),
+  3  Description VARCHAR2(15) NOT NULL,
+  4  Profit_percent NUMBER(4,2) NOT NULL,
+  5  Unit_measure VARCHAR2(10) NOT NULL,
+  6  Qty_on_hand NUMBER(8) NOT NULL,
+  7  Reorder_lvl NUMBER(8) NOT NULL,
+  8  Sell_price NUMBER(8,2) NOT NULL CHECK (Sell_price > 0),
+  9  Cost_price NUMBER(8,2) NOT NULL CHECK (Cost_price > 0)
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE salesman_master_39 (
+  2      Salesman_no VARCHAR2(6) PRIMARY KEY CHECK (Salesman_no LIKE 'S%'),
+  3      Salesman_name VARCHAR2(20) NOT NULL,
+  4      Address1 VARCHAR2(10) NOT NULL,
+  5      Address2 VARCHAR2(10),
+  6      City VARCHAR2(20),
+  7      Pincode NUMBER(7),
+  8      State VARCHAR2(20),
+  9      Sal_amt NUMBER(8,2) NOT NULL CHECK (Sal_amt>0),
+ 10      Tgt_to_get NUMBER(6,2) NOT NULL CHECK (Tgt_to_get>0),
+ 11      Ytd_sales NUMBER(6,2) NOT NULL,
+ 12      Remarks VARCHAR2(20)
+ 13  );
+
+Table created.
+
+SQL> CREATE TABLE sales_order_39 (
+  2      Order_no VARCHAR2(6) PRIMARY KEY,
+  3      Order_date DATE,
+  4      Client_no VARCHAR2(6) References client_master_39(Client_no),
+  5      Dely_address VARCHAR2(25),
+  6      Salesman_no VARCHAR2(6) References salesman_master_39(Salesman_no),
+  7      Dely_type Char(1) DEFAULT 'F' CHECK ( Dely_type in ('P', 'F') ) ,
+  8      Billed_yn Char(1) ,
+  9      Dely_date Date ,
+ 10      Order_status VARCHAR2(10) CHECK (Order_status in ('In Process', 'Fulfilled','Backorder','Cancelled')),
+ 11      CHECK(Dely_date >= Order_date)
+ 12  );
+
+Table created.
+
+SQL> CREATE TABLE sales_order_details_39 (
+  2      Order_no VARCHAR2(6) References sales_order_39(Order_no),
+  3      Product_no VARCHAR2(6) References product_master_39(Product_no),
+  4      Qty_ordered NUMBER(8),
+  5      Qty_Disp NUMBER(8),
+  6      Product_rate NUMBER(10,2),
+  7      PRIMARY KEY (Order_no, Product_no)
+  8  );
+
+
+---
+
+# 3(a). Find the names of all clients having 'a' as the second letter in their names.
+
+**SQL Query:**
+
+```sql
+SELECT Name
+FROM CLIENT_MASTER_39
+WHERE SUBSTR(Name,2,1) = 'a';
+```
+
+---
+
+# 3(b). Find out the clients who stay in a city whose second letter is 'a'.
+
+**SQL Query:**
+
+```sql
+SELECT Name, City
+FROM CLIENT_MASTER_39
+WHERE SUBSTR(City,2,1) = 'a';
+```
+
+---
+
+# 3(c). Find the list of all clients who stay in 'Bombay' or 'Delhi'.
+
+**SQL Query:**
+
+```sql
+SELECT Name, City
+FROM CLIENT_MASTER_39
+WHERE City='Bombay'
+   OR City='Delhi';
+```
+
+---
+
+# 3(d). Print the list of clients whose Bal_due is greater than 10000.
+
+**SQL Query:**
+
+```sql
+SELECT Name, Bal_due
+FROM CLIENT_MASTER_39
+WHERE Bal_due > 10000;
+```
+
+---
+
+# 3(e). Print the information from Sales_Order table for orders placed in the month of January.
+
+**SQL Query:**
+
+```sql
+SELECT *
+FROM SALES_ORDER_39
+WHERE EXTRACT(MONTH FROM Order_date) = 1;
+```
+
+> **Note:** You had written `2` (February). Since the question asks for **January**, it should be **1**.
+
+---
+
+# 3(f). Display the order information for Client_No 'C00001' and 'C00002'.
+
+**SQL Query:**
+
+```sql
+SELECT *
+FROM SALES_ORDER_39
+WHERE Client_No='C00001'
+   OR Client_No='C00002';
+```
+
+---
+
+# 3(g). Find products whose selling price is greater than 2000 and less than or equal to 5000.
+
+**SQL Query:**
+
+```sql
+SELECT *
+FROM PRODUCT_MASTER_39
+WHERE Sell_Price > 2000
+AND Sell_Price <= 5000;
+```
+
+> **Note:** Your sample data has prices below 1000, so this query will return **no rows**, but it is still the correct answer.
+
+---
+
+# 3(h). Find products whose selling price is more than 1500. Calculate a new selling price as original selling price × 0.15. Rename the new column as New_Price.
+
+**SQL Query:**
+
+```sql
+SELECT Product_No,
+       Description,
+       Sell_Price,
+       Sell_Price * 0.15 AS New_Price
+FROM PRODUCT_MASTER_39
+WHERE Sell_Price > 1500;
+```
+
+> Again, this returns no rows because of the given data, but it matches the question.
+
+---
+
+# 3(i). List the names, city and state of clients who are not in the state of 'Maharashtra'.
+
+**SQL Query:**
+
+```sql
+SELECT Name, City, State
+FROM CLIENT_MASTER_39
+WHERE State <> 'Maharashtra';
+```
+
+---
+
+# 3(j). Count the total number of orders.
+
+**SQL Query:**
+
+```sql
+SELECT COUNT(*) AS Total_Orders
+FROM SALES_ORDER_39;
+```
+
+---
+
+# 3(k). Calculate the average price of all the products.
+
+**SQL Query:**
+
+```sql
+SELECT AVG(Sell_Price) AS Average_Price
+FROM PRODUCT_MASTER_39;
+```
+
+> **Correction:** Since the question asks for **average product price**, only `Sell_Price` is needed.
+
+---
+
+# 3(l). Determine the maximum and minimum product prices. Rename the output as Max_Price and Min_Price respectively.
+
+**SQL Query:**
+
+```sql
+SELECT MAX(Sell_Price) AS Max_Price,
+       MIN(Sell_Price) AS Min_Price
+FROM PRODUCT_MASTER_39;
+```
+
+> **Correction:** Your query had `MIN` and `MAX` interchanged and used `Cost_Price` instead of product price.
+
+---
+
+# 3(m). Count the number of products having price greater than or equal to 1500.
+
+**SQL Query:**
+
+```sql
+SELECT COUNT(*) AS Total_Products
+FROM PRODUCT_MASTER_39
+WHERE Sell_Price >= 1500;
+```
+
+---
+
+# 3(n). Find all the products whose Qty_On_Hand is less than Reorder_Level.
+
+**SQL Query:**
+
+```sql
+SELECT *
+FROM PRODUCT_MASTER_39
+WHERE Qty_On_Hand < Reorder_Lvl;
+```
+
+---
+
+# 3(o). Display the order number and day on which clients placed their order.
+
+**SQL Query:**
+
+```sql
+SELECT Order_No,
+       TO_CHAR(Order_Date,'DAY') AS Order_Day
+FROM SALES_ORDER_39;
+```
+
+---
+
+## Drop Tables
+
+```sql
+DROP TABLE SALES_ORDER_DETAILS_39;
+
+DROP TABLE SALES_ORDER_39;
+
+DROP TABLE SALESMAN_MASTER_39;
+
+DROP TABLE PRODUCT_MASTER_39;
+
+DROP TABLE CLIENT_MASTER_39;
+```
+
+This format is clean, assignment-ready, and follows the same **Question → SQL Query** style expected in DBMS practical record books.
